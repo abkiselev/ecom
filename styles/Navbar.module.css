@@ -1,0 +1,142 @@
+.navbar {
+    font-weight: 100;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(210, 210, 210, .8);
+    max-width: 1280px;
+    margin: 0 auto;
+    gap: 30px;
+}
+  
+.links {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 4vw;
+}
+
+.icons {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.icon {
+    height: 25px;
+    position: relative;
+}
+
+.counter {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 300;
+    color: white;
+    background-color: blueviolet;
+    padding: 2px 5px;
+    border-radius: 50%;
+    top: -7px;
+    right: -7px;
+}
+
+.hamburger_menu {
+    display: none;
+}
+
+@media (max-width: 770px) {
+    .logo_navbar {
+        flex-grow: 1;
+    }
+
+    .hamburger_menu {
+        display: block;
+    }
+
+    #menu__toggle {
+        opacity: 0;
+    }
+    
+    #menu__toggle:checked ~ .menu__btn > span {
+        transform: rotate(45deg);                
+    }
+    
+    #menu__toggle:checked ~ .menu__btn > span::before {
+        top: 0;
+        opacity: 0;
+    }
+    #menu__toggle:checked ~ .menu__btn > span::after {
+        top: 0;
+        transform: rotate(90deg);
+        width: 100%;
+    }
+
+    .menu__btn {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 25px;
+        right: 20px;
+    
+        width: 26px;
+        height: 26px;
+    
+        cursor: pointer;
+        z-index: 1;
+    }
+    
+    .menu__btn > span,
+    .menu__btn > span::before,
+    .menu__btn > span::after {
+        display: block;
+        position: absolute;
+    
+        width: 80%;
+        height: 2px;
+        right: 0;
+    
+        background-color: #616161;
+    
+        transition-duration: .25s;
+
+        border-radius: 50px;
+    }
+
+    .menu__btn > span::before {
+        content: '';
+        top: -8px;
+    }
+    .menu__btn > span::after {
+        content: '';
+        top: 8px;
+    }
+
+    .links {
+        transform: translateY(-125%);
+        width: 80%;
+        position: absolute;
+        right: 20px;
+        top: 60px;
+        padding-right: 60px;
+        padding-top: 70px;
+        padding-bottom: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 40px;
+        background-color: rgb(241, 241, 241);
+        z-index: 3;
+        box-shadow: 4px 4px 17px 0px rgba(34, 60, 80, 0.2);
+        transition: all 0.2s ease;
+    }
+
+    .nav_place_header_active {
+        transform: translateY(0);
+    }
+}
+  
