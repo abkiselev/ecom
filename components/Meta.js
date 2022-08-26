@@ -9,7 +9,7 @@ const Meta = ({ title, description, keywords }) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
             <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-            <title>{`${title} | Leton.ru`}</title>
+            <title>{`${title} | Leton-shop.ru`}</title>
             <meta name="description" content={description} />
             <meta name="keywords" content={keywords} />
 

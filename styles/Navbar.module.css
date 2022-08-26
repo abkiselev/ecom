@@ -1,11 +1,11 @@
 .navbar {
     font-weight: 100;
-    padding: 20px 0;
+    padding: 20px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(210, 210, 210, .8);
-    max-width: 1280px;
+    max-width: 1260px;
     margin: 0 auto;
     gap: 30px;
 }
@@ -31,6 +31,12 @@
 .icon {
     height: 25px;
     position: relative;
+    opacity: 0.8;
+    transition: all 0.1s ease;
+}
+
+.icon:hover {
+    opacity: 1;
 }
 
 .counter {

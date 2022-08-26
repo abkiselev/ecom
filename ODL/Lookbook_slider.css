@@ -1,0 +1,162 @@
+.goods_slider {
+    margin-top: 120px;
+    
+}
+
+/* .swiper-wrapper {
+    width: 100vw;
+} */
+
+.goods_slider__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    
+}
+
+.goods_slider__name {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0;
+
+}
+
+
+.goods_slider__slide {
+    
+}
+.lookbook_slider__img {
+    width: 100%;
+    height: 450px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.goods_slider__info {
+    
+}
+
+.lookbook_slider__url {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lookbook_slider__title {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    background-color: white;
+    /* border-top-left-radius: 10px; */
+    padding: 30px 70px;
+    margin: 0;
+}
+
+.goods_slider__subtitle {
+    font-size: 12px;
+}
+.goods_slider__button {
+    font-size: 12px;
+    position: relative;
+    margin: 0;
+    padding: 0 65px 0 0;
+}
+
+ 
+.goods_slider__button:before {
+    content: "";
+    width: 50px;
+    height: 2px;
+    background: slategray;
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    right: 3px;
+    transition: all 0.25s ease-in-out;
+}
+  
+.goods_slider__button:hover:before {
+    right: 0;
+    width: 38px;
+}
+  
+.goods_slider__button:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-color: transparent transparent transparent #000000;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    right: 3px;
+    transition: all 0.25s ease-out;
+}
+  
+.goods_slider__button:hover:after {
+    right: 0;
+}
+
+
+.goods_slider__prices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-right: 5px; */
+}
+
+.goods_slider__price {
+    margin: 0;
+    flex-basis: 65%;
+}
+
+.swiper_overflow {
+    overflow: visible !important;
+}
+
+.goods_slider__like-button {
+    border: none;
+    background-image: url(../../images/heart.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    opacity: .8;
+    transition: all 0.25s ease-out;
+}
+
+
+.goods_slider__like-button:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: rotate(-9deg);
+}
+
+.goods_slider__price-button {
+    border: none;
+    background-image: url(../../images/plus.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 25px;
+    width: 25px;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    opacity: .8;
+    transition: all 0.25s ease-out;
+}
+
+
+.goods_slider__price-button:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: rotate(90deg);
+}

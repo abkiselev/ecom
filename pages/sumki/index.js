@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import Meta from '../components/Meta'
-import MainSlider from '../components/MainSlider'
-import GoodsSlider from '../components/GoodsSlider'
+import Meta from '../../components/Meta'
+import MainSlider from '../../components/MainSlider'
+import GoodsSlider from '../../components/GoodsSlider'
 
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <MainSlider slidesPerView='1'/>
+      {/* <MainSlider slidesPerView='1'/> */}
       <GoodsSlider slidesPerView='4.7' className="swiper_overflow"/>
 
     </>

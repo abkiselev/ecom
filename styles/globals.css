@@ -34,12 +34,12 @@
        url("./fonts/Montserrat-Medium.woff") format("woff");
 }
 
-
 body {
-  padding: 0 20px;
+  padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
 }
+
 
 a {
   color: inherit;
@@ -48,13 +48,17 @@ a {
 
 * {
   box-sizing: border-box;
+  letter-spacing: 0.5px;
 }
 
 .link {
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 15px;
+  font-weight: 400;
+  
+  opacity: 0.8;
   transition: all 0.1s ease;
+  
 }
 .link:hover {
-  border-bottom: 1px solid;
+  opacity: 1;
 }
