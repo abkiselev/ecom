@@ -10,7 +10,7 @@ function MiniCard() {
           <div className={styles.info}>
             <Link href='#'>
               <a className={styles.url}>
-                <Image className={styles.img} src="/images/test.jpg" width="250" height="250" alt="Товар" />
+                <Image className={styles.img} src="/images/test.jpg" width="550" height="650" alt="Товар" />
                 <h3 className={styles.title}>New collection 2022</h3>
               </a>
             </Link>

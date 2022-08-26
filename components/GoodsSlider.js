@@ -4,12 +4,12 @@ import ButtonArrow from './UI/Buttons/ButtonArrow';
 import MiniCard from './MiniCard';
 
 
-function GoodsSlider({slidesPerView, className}) {
+function GoodsSlider({title, slidesPerView, className}) {
   return (
       <section className={styles.goods_slider}>
 
         <div className={styles.head}>
-          <h3 className={styles.name}>НОВИНКИ</h3>
+          <h3 className={styles.name}>{title}</h3>
           <ButtonArrow text="СМОТРЕТЬ ВСЕ" url="/sumki" font="fz12" />          
         </div>
 

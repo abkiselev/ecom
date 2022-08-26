@@ -1,4 +1,4 @@
-.button_filled {
+.button {
     background-color: rgb(139, 123, 255);
     color: white;
     text-transform: uppercase;
@@ -13,7 +13,7 @@
     text-align: center;
 }
 
-.button_filled:hover {
+.button:hover {
     background-color: rgb(114, 99, 212);
     color: #fff;
 }
@@ -30,6 +30,6 @@
     font-size: 16px;
 }
 
-.p1255 {
-    padding: 12px 55px;
+.p1475 {
+    padding: 14px 75px;
 }

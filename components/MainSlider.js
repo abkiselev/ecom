@@ -9,7 +9,7 @@ function MainSlider({slidesPerView}) {
       <section className={styles.slider}>
         <Slider slidesPerView={slidesPerView}>
           <div className={styles.slider__slide}>
-            <Image className={styles.slider__img} src="/images/test.jpg" width="1240px" height="600px" alt="Логотип" />
+            <Image className={styles.slider__img} src="/images/test.jpg" width="1240" height="600" alt="Логотип" />
             <div className={styles.slider__headers}>
               <div>
                 <h2 className={styles.slider__title}>New collection 2022</h2>

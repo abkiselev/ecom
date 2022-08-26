@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1260px;
+    margin: 30px auto;
+    padding: 0 20px;
+    gap: 5px;
+}
+
+.link {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.current {
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 500;
+}

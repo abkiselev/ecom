@@ -1,13 +1,13 @@
 import Image from 'next/image'
-import Meta from '../../components/Meta'
-import MainSlider from '../../components/MainSlider'
-import GoodsSlider from '../../components/GoodsSlider'
-import Zakaz from '../../components/Zakaz'
-import ProductsList from '../../components/ProductsList'
-import Hleb from '../../components/Hleb'
+import Meta from '../../../components/Meta'
+import MainSlider from '../../../components/MainSlider'
+import GoodsSlider from '../../../components/GoodsSlider'
+import Zakaz from '../../../components/Zakaz'
+import Product from '../../../components/Product'
+import Hleb from '../../../components/Hleb'
 
 
-export default function Category() {
+export default function ProductPage() {
   return (
     <>
       <Meta
@@ -18,7 +18,9 @@ export default function Category() {
 
       <Hleb />
 
-      <ProductsList />
+      <Product />
+
+      <GoodsSlider title="ВАМ ПОНРАВЯТСЯ" slidesPerView='4.7' className="swiper_overflow"/>
 
       <Zakaz />
 

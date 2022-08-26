@@ -8,6 +8,7 @@ const Navbar = () => {
 
     return (
         <header className={styles.navbar}>
+            <div className={styles.wrapper}>
           <Link href='/'>
             <a className={styles.logo_navbar}><Image src="/images/logo_black.svg" width="85" height="30" alt="Логотип"/></a>
           </Link>
@@ -56,7 +57,7 @@ const Navbar = () => {
             </div>
 
   
-  
+            </div>
         </header>
      
     );

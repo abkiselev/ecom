@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Meta from '../components/Meta'
 import MainSlider from '../components/MainSlider'
 import GoodsSlider from '../components/GoodsSlider'
+import LookbookSlider from '../components/LookbookSlider'
+import Zakaz from '../components/Zakaz'
 
 
 export default function Home() {
@@ -14,7 +16,9 @@ export default function Home() {
       />
 
       <MainSlider slidesPerView='1'/>
-      <GoodsSlider slidesPerView='4.7' className="swiper_overflow"/>
+      <GoodsSlider title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
+      <LookbookSlider slidesPerView='3.2' className="swiper_overflow" />
+      <Zakaz />
 
     </>
   )
