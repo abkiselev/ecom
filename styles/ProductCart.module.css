@@ -1,0 +1,117 @@
+.cart {
+    margin: 80px auto 0;
+    max-width: 1260px;
+    padding: 0 20px;
+}
+
+.cartWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    gap: 30px;
+}
+
+.goods {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-width: 50%;
+    display: flex;
+    gap: 20px;
+}
+
+.good {
+    display: flex;
+    gap: 20px;
+    border-radius: 5px;
+    border: 1px dotted rgba(138, 138, 138, 0.3);
+    padding: 15px;
+}
+
+.img {
+    object-fit: cover;
+    object-position: top;
+    border-radius: 5px;
+}
+
+.spec {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.specItem {
+    margin: 0;
+    
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.price {
+    margin: 0;
+    font-weight: 500;
+}
+
+.deleteButton {    
+    border: none;
+    background-image: url(/images/delete.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 22px;
+    width: 22px;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    opacity: .6;
+    transition: all 0.25s ease-out;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    opacity: 1;
+}
+
+.checkout {
+    border-radius: 5px;
+    padding: 30px;
+    background-color: rgba(173, 144, 144, 0.1);
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+
+.addings {
+    display: flex;
+    gap: 30px;
+}
+
+
+
+.data {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 10px 0 0 0;
+}
+
+.total {
+    font-weight: 500;
+}
+
+
+

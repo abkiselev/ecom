@@ -8,7 +8,7 @@ function MiniCard() {
         <div className={styles.slide}>
           
           <div className={styles.info}>
-            <Link href='#'>
+            <Link href='/sumki/1'>
               <a className={styles.url}>
                 <Image className={styles.img} src="/images/test.jpg" width="550" height="650" alt="Товар" />
                 <h3 className={styles.title}>New collection 2022</h3>

@@ -4,7 +4,7 @@ const Meta = ({ title, description, keywords }) => {
     return (
         <Head>
             <meta name="yandex-verification" content="7ba3b76dadad34d3" />
-            <meta charset="UTF-8" />
+            <meta charSet="UTF-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
             <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

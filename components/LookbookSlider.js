@@ -9,7 +9,7 @@ function LookbookSlider({slidesPerView, className}) {
       <section className={styles.slider}>
         <div className={styles.head}>
           <h3 className={styles.name}>LOOKBOOK</h3>
-          <ButtonArrow text="СМОТРЕТЬ ВСЕ" url="/sumki" font="fz12" />
+          <ButtonArrow text="СМОТРЕТЬ ВСЕ" url="/lookbook" font="fz12" />
         </div>
 
         <Slider slidesPerView={slidesPerView} className={className}>

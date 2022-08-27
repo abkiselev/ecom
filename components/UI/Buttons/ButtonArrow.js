@@ -1,10 +1,10 @@
 import Link from "next/link";
 import styles from './ButtonArrow.module.css'
 
-const ButtonArrow = ({ text, url }) => {
+const ButtonArrow = ({ text, url, onClick }) => {
     return (
         <Link href={ url }>
-        <a className={`${styles.button_arrow}`}>{ text }</a>
+        <a onClick={onClick} className={`${styles.button_arrow}`}>{ text }</a>
         </Link>
     );
 }

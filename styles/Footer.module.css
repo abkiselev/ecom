@@ -1,5 +1,6 @@
 .footer {
     background-color: rgba(173, 144, 144, 0.1);
+    
 }
 
 .container {
@@ -25,7 +26,6 @@
 .column {
     display: flex;
     flex-direction: column;
-    text-align: flex-end;
     gap: 10px;
     min-width: 160px;
 }
@@ -42,7 +42,6 @@
 
 .icons__links {
     display: flex;
-    justify-content: flex-end;
     list-style-type: none;
     gap: 15px;
     padding: 0;

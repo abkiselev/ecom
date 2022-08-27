@@ -7,6 +7,7 @@ import Button from './UI/Buttons/Button';
 import styles from '../styles/Product.module.css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Fancybox from './Fancybox';
 
 
 function Product() {
@@ -16,50 +17,38 @@ function Product() {
       <section className={styles.good}>
 
         <div className={styles.imgs}>
-
-        <Swiper modules={[Thumbs]} thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }} >
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-        </Swiper>
+        {/* <Fancybox> */}
 
         <Swiper
-          slidesPerView='5'
+          spaceBetween={10}
+          modules={[Thumbs, Navigation]}
+          navigation
+          // loop
+          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+          style={{
+            "--swiper-navigation-color": "#fff",
+            "--swiper-navigation-size": "20px",
+            "--swiper-pagination-color": "#fff",
+          }}
+        >
+              <SwiperSlide><Image data-fancybox="gallery" className={styles.img} src="/images/test.jpg" width="1000" height="800" alt="Логотип"/></SwiperSlide>
+              <SwiperSlide><Image data-fancybox="gallery" className={styles.img} src="/images/test.jpg" width="1000" height="800" alt="Логотип"/></SwiperSlide>
+        </Swiper>
+
+        {/* </Fancybox> */}
+
+        <Swiper
+          slidesPerView={2}
           spaceBetween={20}
           modules={[Thumbs]}
           watchSlidesProgress
           onSwiper={setThumbsSwiper}
         >
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="50" height="50" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="50" height="50" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="50" height="50" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="50" height="50" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="50" height="50" alt="Логотип"/></SwiperSlide>
+              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="80" height="70" alt="Логотип"/></SwiperSlide>
+              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="80" height="70" alt="Логотип"/></SwiperSlide>
         </Swiper>
         
-          {/* <Swiper
-              modules={[Navigation, Pagination]}
-                spaceBetween={30}
-                slidesPerView='1'
-                loop
-                navigation
-                pagination
-                style={{
-                  "--swiper-navigation-color": "#fff",
-                  "--swiper-navigation-size": "20px",
-                  "--swiper-pagination-color": "#fff",
-                }}
-              >
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              <SwiperSlide><Image className={styles.img} src="/images/test.jpg" width="500" height="500" alt="Логотип"/></SwiperSlide>
-              
-          </Swiper> */}
-        
+       
         </div>
 
         <div className={styles.info}>

@@ -14,9 +14,7 @@
 .img {
     object-fit: cover;
     border-radius: 5px;
-}
-.img {
-    margin-left: 20px;
+    cursor: pointer;
 }
 
 .info {

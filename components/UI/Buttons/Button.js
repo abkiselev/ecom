@@ -1,10 +1,10 @@
 import Link from "next/link";
 import styles from './Button.module.css'
 
-const ButtonFilled = ({ text, font, padd }) => {
+const Button = ({ text, font, padd, type }) => {
     return (
-        <button className={`${styles.button} ${styles[font]} ${styles[padd]}`}>{ text }</button>
+        <button type={type} className={`${styles.button} ${styles[font]} ${styles[padd]}`}>{ text }</button>
     );
 }
 
-export default ButtonFilled;
+export default Button;

@@ -1,8 +1,16 @@
 import styles from '../styles/Zakaz.module.css'
 import Image from 'next/image'
 import ButtonArrow from './UI/Buttons/ButtonArrow';
+import { useState } from 'react';
 
-function Zakaz() {
+function Zakaz({setIsOpen}) {
+  
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setIsOpen(true)
+  }
+
   return (
     <section className={styles.zakaz}>
 
@@ -13,7 +21,7 @@ function Zakaz() {
             <h3 className={styles.zakaz_title}>ИНДИВИДУАЛЬНЫЙ ПОШИВ</h3>
             <p className={styles.zakaz_text}>Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью ШьюШью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью ШьюШью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью</p>
             <p className={styles.zakaz_text}>Шью Шью Шью Шью Шью ШьюШью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью ШьюШью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью</p>
-            <ButtonArrow text="ОБСУДИТЬ ИДЕИ" url="/sumki" font="fz12" />  
+            <ButtonArrow text="ОБСУДИТЬ ИДЕИ" url="#" font="fz12" onClick={handleClick}/>  
           </div>
         
       </div>

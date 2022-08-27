@@ -2,6 +2,8 @@ import styles from '../styles/ProductsList.module.css'
 import Slider from './Slider';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import MiniCard from './MiniCard';
+import Select from './UI/Inputs/Select';
+import Search from './UI/Inputs/Search';
 
 
 function ProductsList() {
@@ -13,35 +15,35 @@ function ProductsList() {
 
           <div className={styles.filters_wrapper}>
             <div className={styles.filter}>
-                <select className={styles.select} name="" id="">
+                <Select name="" id="">
                   <option value="reset">Цвет</option>
                   <option value="reset">Белый</option>
                   <option value="reset">Синий</option>
                   <option value="reset">Красный</option>
-                </select>
+                </Select>
 
-                <select className={styles.select} name="" id="">
+                <Select name="" id="">
                   <option value="reset">Размер</option>
                   <option value="reset">Белый</option>
                   <option value="reset">Синий</option>
                   <option value="reset">Красный</option>
-                </select>
+                </Select>
 
-                <select className={styles.select} name="" id="">
+                <Select name="" id="">
                   <option value="reset">Цвет</option>
                   <option value="reset">Белый</option>
                   <option value="reset">Синий</option>
                   <option value="reset">Красный</option>
-                </select>          
+                </Select>          
             </div>   
 
             <div className={styles.sort}>
-              <input className={styles.search} type="text" />
+                <Search />
 
-                <select className={styles.select} name="" id="">
+                <Select name="" id="">
                   <option value="reset">По популярности</option>
                   <option value="reset">По цене</option>
-                </select>     
+                </Select>     
             </div>
 
           </div>   

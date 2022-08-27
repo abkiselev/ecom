@@ -25,6 +25,7 @@ function Footer() {
               <h3 className={styles.column_head}>СЕРВИС</h3>
               <Link href='/dostavka'><a className="link">Доставка и оплата</a></Link>
               <Link href='/about'><a className="link">О бренде</a></Link>
+              <Link href='/lookbook'><a className="link">LookBook</a></Link>
             </div>
   
             <div className={styles.column}>

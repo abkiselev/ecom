@@ -4,9 +4,13 @@ import MainSlider from '../components/MainSlider'
 import GoodsSlider from '../components/GoodsSlider'
 import LookbookSlider from '../components/LookbookSlider'
 import Zakaz from '../components/Zakaz'
+import Popup from '../components/Popup'
+import { useState } from 'react';
 
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <Meta
@@ -18,7 +22,9 @@ export default function Home() {
       <MainSlider slidesPerView='1'/>
       <GoodsSlider title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
       <LookbookSlider slidesPerView='3.2' className="swiper_overflow" />
-      <Zakaz />
+      <Zakaz setIsOpen={setIsOpen}/>
+
+      <Popup isOpen={isOpen} setIsOpen={setIsOpen}/>
 
     </>
   )

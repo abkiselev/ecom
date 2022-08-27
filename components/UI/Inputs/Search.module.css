@@ -1,0 +1,15 @@
+.search {
+    outline: none;
+    border: 0 solid rgba(0, 0, 0, 0.15);
+    border-bottom-width: 1px;
+    background-color: transparent;
+    background-image: url(/images/search.svg);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 11px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.1s ease;
+    padding-left: 20px;
+    width: 170px;
+    margin: 15px 0;
+}
