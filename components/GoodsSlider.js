@@ -15,6 +15,7 @@ function GoodsSlider({title, slidesPerView, className}) {
 
         <Slider slidesPerView={slidesPerView} className={className}>
           <MiniCard />
+          <MiniCard />
         </Slider>
         
       </section>

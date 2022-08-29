@@ -13,7 +13,10 @@ function LookbookSlider({slidesPerView, className}) {
         </div>
 
         <Slider slidesPerView={slidesPerView} className={className}>
-          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />              
+          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
+          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
+          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
+          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
         </Slider>
 
       </section>

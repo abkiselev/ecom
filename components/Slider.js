@@ -7,18 +7,12 @@ function Slider({slidesPerView, className, children}) {
       className={className}
       spaceBetween={30}
       slidesPerView={slidesPerView}
-      
-      // onSlideChange={() => console.log('slide change')}
-      // onSwiper={(swiper) => console.log(swiper)}
     >
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
-      <SwiperSlide>{children}</SwiperSlide>
+
+      {children.map(child => (
+        <SwiperSlide>{child}</SwiperSlide>
+
+      ))}
       
     </Swiper>
   );

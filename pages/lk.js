@@ -3,6 +3,7 @@ import Meta from '../components/Meta'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import Cabinet from '../components/Cabinet';
+import Zakaz from '../components/Zakaz';
 
 
 export default function Lk() {
@@ -22,7 +23,6 @@ export default function Lk() {
       />
 
       <Cabinet />
-
     </>
   )
 }
