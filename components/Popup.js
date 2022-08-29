@@ -4,33 +4,34 @@ import Input from './UI/Inputs/Input';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { closePopup } from '../redux/popupsSlice'
+import Textarea from './UI/Inputs/Textarea';
 
-function Popup({isOpen, setIsOpen}) {
+function Popup({ id, title, buttonText }) {
+  const isOpen = useSelector((state) => state.popups[id])
+  const dispatch = useDispatch()
   
   const close = (e) => {
     if(e.target === e.currentTarget){
-      setIsOpen(false)
+      dispatch(closePopup())
     }
   }
 
   return (
-    <section className={`${styles.popup} ${isOpen && styles._active}`} onClick={close}>
+    <section id={id} className={`${styles.popup} ${isOpen && styles._active}`} onClick={close}>
 
       <div className={styles.popup_container}>
 
-        <h1 className={styles.name}>ВОЙТИ</h1>
+        <h1 className={styles.name}>{title}</h1>
 
-        <Form buttonText="Войти">
-          <Input type="email" name='login' placeholder='E-mail*' required='true' />
-          <Input type="password" name='pass' placeholder='Пароль*' required='true' />
+        <Form buttonText={buttonText}>
+          <Input type="tel" name='login' placeholder='Телефон*' required='true' />
+          <Input type="email" name='pass' placeholder='E-mail*' required='true' />
+          <Textarea />
         </Form>
-
-        <div className={styles.info}>
-        <p>Нет аккаунта?</p>
-        <ButtonArrow text="ЗАРЕГИСТРИРОВАТЬСЯ" url="/auth/register" />
-        </div>
-
-        <button className={styles.closeButton} onClick={()=>setIsOpen(false)}/>
+        
+        <button className={styles.closeButton} onClick={close}/>
       </div>
 
 

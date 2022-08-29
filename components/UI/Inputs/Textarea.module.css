@@ -1,0 +1,20 @@
+.textarea {
+    outline: none;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom-width: 1px;
+    margin-top: 10px;
+}
+
+.textarea::placeholder {
+    transition: all 0.15s ease-in-out;
+}
+
+.textarea:focus::placeholder {
+    opacity: 0;
+}

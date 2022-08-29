@@ -24,7 +24,7 @@ export default function Home() {
       <LookbookSlider slidesPerView='3.2' className="swiper_overflow" />
       <Zakaz setIsOpen={setIsOpen}/>
 
-      <Popup isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <Popup />
 
     </>
   )

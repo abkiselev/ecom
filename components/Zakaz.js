@@ -2,13 +2,17 @@ import styles from '../styles/Zakaz.module.css'
 import Image from 'next/image'
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { openPopup } from '../redux/popupsSlice'
 
-function Zakaz({setIsOpen}) {
+function Zakaz() {
+  const isOpen = useSelector((state) => state.popups.zakazPopup)
+  const dispatch = useDispatch()
+
   
-
   const handleClick = (e) => {
     e.preventDefault();
-    setIsOpen(true)
+    dispatch(openPopup("zakazPopup"))
   }
 
   return (

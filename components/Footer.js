@@ -1,8 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Footer.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { openPopup } from '../redux/popupsSlice'
 
 function Footer() {
+  const isOpen = useSelector((state) => state.popups.zakazPopup)
+  const dispatch = useDispatch()
+
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(openPopup("writeUsPopup"))
+  }
+
     return (
         <section className={styles.footer}>
           <div className={styles.container}>
@@ -32,7 +43,7 @@ function Footer() {
               <h3 className={styles.column_head}>КОНТАКТЫ</h3>
               <Link href='/opt'><a className="link">8 800 000 0000</a></Link>
               <Link href='/opt'><a className="link">Адрес</a></Link>
-              <Link href='/opt'><a className="link">Написать мне</a></Link>
+              <Link href='/opt'><a className="link" onClick={handleClick}>Написать мне</a></Link>
               
             
             <nav className={styles.icons}>
