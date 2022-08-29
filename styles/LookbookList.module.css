@@ -21,3 +21,25 @@
 .image {
     cursor: pointer;
 }
+
+.filters_wrapper {
+    border-radius: 5px;
+    padding: 10px 30px;
+    margin-bottom: 40px;
+    background-color: rgba(173, 144, 144, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.filter {
+    display: flex;
+    gap: 50px;
+}
+
+.sort {
+    display: flex;
+    gap: 50px;
+}

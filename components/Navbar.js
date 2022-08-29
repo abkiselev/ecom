@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Navbar.module.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const Navbar = () => {
-    const [isMenuChecked, setIsMenuChecked] = useState(false);
+    const [isMenuChecked, setIsMenuChecked] = useState(false);   
 
     return (
         <header className={styles.navbar}>

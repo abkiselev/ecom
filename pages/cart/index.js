@@ -4,7 +4,7 @@ import MainSlider from '../../components/MainSlider'
 import GoodsSlider from '../../components/GoodsSlider'
 import Zakaz from '../../components/Zakaz'
 import Hleb from '../../components/Hleb'
-import ProductCart from '../../components/ProductCart'
+import Cart from '../../components/Cart'
 
 
 export default function Category() {
@@ -18,7 +18,7 @@ export default function Category() {
 
       <Hleb />
 
-      <ProductCart />
+      <Cart />
 
 
     </>

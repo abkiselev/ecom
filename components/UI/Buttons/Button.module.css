@@ -18,6 +18,11 @@
     color: #fff;
 }
 
+._disabled {
+    pointer-events: none;
+    background-color: rgba(114, 99, 212, 0.3);
+}
+
 .fz12 {
     font-size: 12px;
 }

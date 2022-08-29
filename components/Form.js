@@ -2,15 +2,16 @@ import Button from './UI/Buttons/Button';
 import styles from '../styles/Form.module.css'
 
 
-function Form({ children, buttonText }) {
+function Form({ isFormValid, children, buttonText }) {
+
   return (
-      <form className={styles.form} action="submit">
+      <form className={styles.form} action="submit" >
 
         <fieldset className={styles.fieldset}>
           {children}
         </fieldset>
 
-        <Button type='submit' text={buttonText} font="fz14" padd="p1475"/>
+        <Button disabled={isFormValid} type='submit' text={buttonText} font="fz14" padd="p1475"/>
 
       </form>
    

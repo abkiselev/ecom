@@ -28,6 +28,7 @@
     background-color: white;
     padding: 50px;
     gap: 50px;
+    max-width: 500px;
 }
 
 .name {

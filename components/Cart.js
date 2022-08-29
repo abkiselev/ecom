@@ -1,20 +1,14 @@
-import { Navigation, Pagination, Controller,Thumbs  } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { useState } from "react";
 import Image from 'next/image'
-import Link from 'next/link'
-import Button from './UI/Buttons/Button';
-import styles from '../styles/ProductCart.module.css'
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import Fancybox from './Fancybox';
-import MiniCard from './MiniCard';
+import styles from '../styles/Cart.module.css'
 import Form from './Form';
 import Input from './UI/Inputs/Input';
 import Select from './UI/Inputs/Select';
+import UseValidation from '../hooks/UseValidation';
 
 
-function ProductCart() {
+function Cart() {
+  const { isFormValid, values, handleValues, errors } = UseValidation();
+
   return (
       <section className={styles.cart}>
 
@@ -51,27 +45,25 @@ function ProductCart() {
                 <p>Доставка: </p> <p>0 р.</p>
               </div>
             
-            <Form buttonText="Отправить заказ" >
+            <Form isFormValid={isFormValid} buttonText="Отправить заказ" >
 
               <div className={styles.addings}>
-                <Select name="" id="">
-                  <option value="reset">Способ доставки*</option>
-                  <option value="reset">Белый</option>
-                  <option value="reset">Синий</option>
-                  <option value="reset">Красный</option>
+                <Select onChange={handleValues} value={values.dostavka} name="dostavka" id="" required='true'>
+                  <option value=""></option>
+                  <option value="pochta">Почта России</option>
+                  <option value="curier">Курьером в руки</option>
                 </Select>
-                <Select name="" id="">
-                  <option value="reset">Способ оплаты*</option>
-                  <option value="reset">Белый</option>
-                  <option value="reset">Синий</option>
-                  <option value="reset">Красный</option>
+                <Select onChange={handleValues} value={values.oplata} name="oplata" id="" required='true'>
+                  <option value="not">Способ оплаты*</option>
+                  <option defaultValue value="online">Картой онлайн</option>
+                  <option value="onDelivery">При получении</option>
                 </Select>
               </div>
 
-              <Input type="text" name='fio' placeholder='ФИО*' required='true' />
-              <Input type="text" name='address' placeholder='Адрес доставки*' required='true' />
-              <Input type="text" name='tel' placeholder='Контактный телефон*' required='true' />
-              <Input type="text" name='email' placeholder='E-mail*' required='true' />
+              <Input onChange={handleValues} value={values.fio} error={errors.fio} type="text" name='fio' placeholder='ФИО*' required='true' />
+              <Input onChange={handleValues} value={values.address} error={errors.address} type="text" name='address' placeholder='Адрес доставки*' required='true' />
+              <Input onChange={handleValues} value={values.tel} error={errors.tel} type="tel" name='tel' placeholder='Контактный телефон*' required='true' />
+              <Input onChange={handleValues} value={values.email} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' />
 
             </Form>
 
@@ -84,4 +76,4 @@ function ProductCart() {
   );
 }
 
-export default ProductCart;
+export default Cart;

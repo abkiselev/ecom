@@ -1,10 +1,10 @@
 import styles from './Input.module.css'
 
-function Input({ type, name, placeholder, required, errorMessage }) {
+function Input({ value, error, pattern, onChange, type, name, placeholder, required }) {
   return (
     <>
-        <input className={styles.input} type={type} name={name} placeholder={placeholder} required={Boolean(required)}/>
-        <span className={styles.errorText}>{errorMessage}</span>
+        <input pattern={pattern} value={value || ''} onChange={onChange} className={styles.input} type={type} name={name} placeholder={placeholder} required={Boolean(required)}/>
+        <span className={styles.errorText}>{error}</span>
     </>
   );
 }

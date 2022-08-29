@@ -1,8 +1,8 @@
 import styles from './Select.module.css'
 
-function Select({ children, name, id }) {
+function Select({ onChange, required, children, name, id }) {
   return (
-    <select className={styles.select} name={name} id={id}>
+    <select onChange={onChange} className={styles.select} name={name} id={id} required={Boolean(required)}>
       {children}
     </select>
   );

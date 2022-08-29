@@ -2,15 +2,16 @@ import Login from '../components/Login'
 import Meta from '../components/Meta'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
+import Cabinet from '../components/Cabinet';
 
 
 export default function Lk() {
-  const isLoggedIn = false;
+  // const isLoggedIn = false;
   const router = useRouter();
 
-  useEffect(() => {
-    !isLoggedIn && router.push("/auth/login")
-  }, [])
+  // useEffect(() => {
+  //   !isLoggedIn && router.push("/auth/login")
+  // }, [])
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function Lk() {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      
+      <Cabinet />
 
     </>
   )
