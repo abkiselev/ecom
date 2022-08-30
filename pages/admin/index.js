@@ -1,7 +1,7 @@
 import styles from '../../styles/Admin.module.css'
 import Image from 'next/image'
 import Meta from '../../components/Meta'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MiniCard from '../../components/MiniCard';
 import Fancybox from '../../components/Fancybox';
 import Select from '../../components/UI/Inputs/Select';
@@ -10,9 +10,25 @@ import axios from 'axios';
 
 export default function Admin() {
   const [isActive, setIsActive] = useState('lookbook');
+  const [isImagesChosen, setisImagesChosen] = useState(false);
   const [category, setCategory] = useState('');
   const [files, setFiles] = useState([]);
+  const [data, setData] = useState([]);
+  const [isButtonActive, setIsButtonActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log("isFormValid", isButtonActive)
+  console.log("category", category)
+  console.log("isImagesChosen", isImagesChosen)
+  console.log("data", data)
+  console.log("files", files)
+
+  useEffect(() => {
+    if(category !== '' && data.length > 0){
+      setIsButtonActive(false)
+    } else setIsButtonActive(true)
+    
+  }, [category, data]);
 
   function transliterate(word) {
     const keys = {
@@ -26,19 +42,29 @@ export default function Admin() {
     return word.split("").map((char) => keys[char] || char).join("");
   }
 
-  const handlenChange = (e) => {    
-    setCategory(e.target.value)
+  const handlenChange = (e) => {
+    if(e.target.value === 'none'){
+      setCategory('');
+      setisImagesChosen(false);
+    } else {       
+        setCategory(e.target.value);
+        setisImagesChosen(true);
+    }
   }
 
   const handleLoad = (e) => {
     let files = e.target.files;
     const formData = new FormData();
+    const currentData = [];
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("theFiles", files[i], transliterate(files[i].name.toLowerCase()))
+      const nameTranslated = transliterate(files[i].name.toLowerCase());
+      currentData.push({ link: nameTranslated, category });
+      formData.append("theFiles", files[i], nameTranslated);
     }
     
     setFiles(formData)
+    setData(currentData)
   }
 
   const handleSubmit = async (e) => {
@@ -52,10 +78,17 @@ export default function Admin() {
         },
       };
 
-    const response = await axios.post('/api/routs/upload', files, config);
+    const responseUpload = await axios.post('/api/routes/upload', files, config);
+    const responseDatabase = await axios.post('/api/routes/lookbook', data, config);
 
-    console.log('response', response.data);
-    setIsLoading(false)
+    console.log('responseUpload', response.data);
+    console.log('responseDatabase', response.data);
+
+    setIsLoading(false);
+    setisImagesChosen(false);
+    setCategory('');
+    setFiles([])
+    setData([])
   }
 
   return (
@@ -101,17 +134,18 @@ export default function Admin() {
           <ul className={`${styles.zakazList} ${isActive === 'lookbook' && styles.content_active}`}>
 
             <form className={styles.addfoto} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
-              <input type="file" onChange={handleLoad} multiple/>
 
               <div className={styles.select}>
                 <Select onChange={handlenChange} value={category} name="category" id="category" required='true'>
-                  <option value="">категория</option>
+                  <option value="none">категория</option>
                   <option value="sumki">Сумки</option>
                   <option value="remni">Ремни</option>
                 </Select>
               </div>
 
-              <button type='submit' disabled={isLoading} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить фото"}</button>
+              <input type="file" onChange={handleLoad} multiple disabled={!isImagesChosen}/>
+
+              <button type='submit' disabled={isButtonActive} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить фото"}</button>
             </form>
 
           <ul className={styles.imageList}>

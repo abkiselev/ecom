@@ -12,6 +12,7 @@
     "@fancyapps/ui": "^4.0.31",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
+    "mongodb": "^4.9.0",
     "mongoose": "^6.5.3",
     "multer": "^1.4.5-lts.1",
     "next": "12.2.5",
