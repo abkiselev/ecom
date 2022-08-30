@@ -1,25 +1,35 @@
-// export default function handler(req, res) {
-//     res.status(200).json(req.body)
-//     // console.log(req.body)
+import { createRouter } from 'next-connect';
+import multer from 'multer';
 
-    
-// }
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: './public/images/lookbook',
+    filename: (req, file, cb) => cb(null, file.originalname),
+  }),
+});
+
+const apiRoute = createRouter({
+  onError(error, req, res) {
+    res.status(501).json({ error: `Sorry something Happened! ${error.message}` });
+  },
+  onNoMatch(req, res) {
+    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+  },
+});
+
+apiRoute.use(upload.array('theFiles'));
+
+apiRoute.post((req, res) => {
+  console.log(req)
+  res.status(200).json({ data: 'success' });
+});
+
+export default apiRoute.handler();
+
 export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '4mb' // Set desired value here
-        }
-    }
-}
+  api: {
+    bodyParser: false,
+  },
+};
 
-export default function handler(req, res) {
-    if (req.method === 'POST') {
-      // Process a POST request
-      res.status(200).json({ data: 'success' });
-    } else {
-      // Handle any other HTTP method
-      res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-    }
-  };
-
-  

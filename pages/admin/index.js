@@ -16,23 +16,26 @@ export default function Admin() {
 
     for (let i = 0; i < files.length; i++) {
       console.log(files[i])
-      formData.append(files[i].name, files[i])
+      // formData.append(files[i].name, files[i])
+      formData.append("theFiles", files[i])
     }
     
     setFiles(formData)
-    console.log(formData.entries())
+    console.log(formData.getAll("theFiles"))
 
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // let files = e.target.files;
+
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' }
+    };
+
     fetch('http://localhost:3000/api/upload', {
       method: 'POST',
-      // headers: {
-      //   'Content-Type': 'application/json;charset=utf-8'
-      // },
-      body: files
+      body: files,
+      config,
     })
     .then(res => res.json())
     .then(res => console.log(res))
@@ -79,7 +82,7 @@ export default function Admin() {
 
           <ul className={`${styles.zakazList} ${isActive === 'lookbook' && styles.content_active}`}>
 
-          <form className={styles.addfoto} action="submit" onSubmit={handleSubmit}>
+          <form className={styles.addfoto} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
             <input type="file" onChange={handleLoad} multiple/>
             <select type="text" placeholder='Категория'>
               <option value="sumki">Сумки</option>
