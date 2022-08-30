@@ -1,5 +1,6 @@
-module.exports.OK_CODE = 200;
-module.exports.CREATED_CODE = 201;
-module.exports.BAD_REQUEST_CODE = 400;
-module.exports.NOT_FOUND_CODE = 404;
-module.exports.DEFAULT_CODE = 404;
+export const OK_CODE = 200;
+export const CREATED_CODE = 201;
+export const BAD_REQUEST_CODE = 400;
+export const NOT_FOUND_CODE = 404;
+export const DEFAULT_CODE = 404;
+export const NOT_ALLOWED_CODE = 405;
