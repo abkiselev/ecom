@@ -82,6 +82,13 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 30px;
+    padding: 30px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+}
+
+.select {
+    width: 120px ;
 }
 
 .button_add {
@@ -90,6 +97,11 @@
     border: none;
     border-radius: 5px;
     padding: 10px;
+}
+
+.button_add:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .imageList {

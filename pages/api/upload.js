@@ -21,7 +21,7 @@ const apiRoute = createRouter({
 apiRoute.use(upload.array('theFiles'));
 
 apiRoute.post((req, res) => {
-  console.log(req)
+  // console.log(req)
   res.status(200).json({ data: 'Загружено' });
 });
 

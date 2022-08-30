@@ -4,12 +4,15 @@ import Meta from '../../components/Meta'
 import { useState } from 'react';
 import MiniCard from '../../components/MiniCard';
 import Fancybox from '../../components/Fancybox';
+import Select from '../../components/UI/Inputs/Select';
 import axios from 'axios';
 
 
 export default function Admin() {
   const [isActive, setIsActive] = useState('lookbook');
+  const [category, setCategory] = useState('');
   const [files, setFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function transliterate(word) {
     const keys = {
@@ -21,6 +24,10 @@ export default function Admin() {
       'щ': 'shch', 'ы': 'y', 'ъ': 'y', 'ь': 'y', 'э': 'e', 'ю': 'u', 'я': 'ya'
     }
     return word.split("").map((char) => keys[char] || char).join("");
+  }
+
+  const handlenChange = (e) => {    
+    setCategory(e.target.value)
   }
 
   const handleLoad = (e) => {
@@ -36,6 +43,7 @@ export default function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
@@ -47,6 +55,7 @@ export default function Admin() {
     const response = await axios.post('/api/upload', files, config);
 
     console.log('response', response.data);
+    setIsLoading(false)
   }
 
   return (
@@ -69,7 +78,9 @@ export default function Admin() {
 
           <ul className={`${styles.productList} ${isActive === 'goods' && styles.content_active}`}>
             <li className={styles.product}>
-              <MiniCard />
+              <div>
+                
+              </div>
             </li>
             <li className={styles.product}>
               <MiniCard />
@@ -88,14 +99,19 @@ export default function Admin() {
 
           <ul className={`${styles.zakazList} ${isActive === 'lookbook' && styles.content_active}`}>
 
-          <form className={styles.addfoto} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
-            <input type="file" onChange={handleLoad} multiple/>
-            <select type="text" placeholder='Категория'>
-              <option value="sumki">Сумки</option>
-              <option value="remni">Ремни</option>
-            </select>
-            <button className={styles.button_add}>Добавить фото</button>
-          </form>
+            <form className={styles.addfoto} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
+              <input type="file" onChange={handleLoad} multiple/>
+
+              <div className={styles.select}>
+                <Select onChange={handlenChange} value={category} name="category" id="category" required='true'>
+                  <option value="">категория</option>
+                  <option value="sumki">Сумки</option>
+                  <option value="remni">Ремни</option>
+                </Select>
+              </div>
+
+              <button type='submit' disabled={isLoading} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить фото"}</button>
+            </form>
 
           <ul className={styles.imageList}>
             <li className={styles.image}>
