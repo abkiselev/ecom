@@ -19,7 +19,7 @@ export default function Home() {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <MainSlider slidesPerView='1'/>
+      <MainSlider slidesPerView='1' auto={true} />
       <GoodsSlider title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
       <LookbookSlider slidesPerView='3.2' className="swiper_overflow" />
       <Zakaz setIsOpen={setIsOpen}/>
