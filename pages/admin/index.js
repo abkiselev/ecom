@@ -74,6 +74,7 @@ export default function Admin() {
             <button className={`${styles.tab} ${isActive === 'lookbook' && styles.tab_active}`} onClick={() => setIsActive('lookbook')}>Lookbook</button>
             <button className={`${styles.tab} ${isActive === 'goods' && styles.tab_active}`} onClick={() => setIsActive('goods')}>Товары</button>
             <button className={`${styles.tab} ${isActive === 'orders' && styles.tab_active}`} onClick={() => setIsActive('orders')}>Заказы</button>
+            <button className={`${styles.tab} ${isActive === 'users' && styles.tab_active}`} onClick={() => setIsActive('users')}>Пользователи</button>
           </div> 
 
           <ul className={`${styles.productList} ${isActive === 'goods' && styles.content_active}`}>
@@ -146,6 +147,20 @@ export default function Admin() {
           <ul className={`${styles.infoList} ${isActive === 'orders' && styles.content_active}`}>
             <li className={styles.infoItem}>
               <h3 className={styles.title}>ФИО</h3>
+              <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
+            </li>
+            <li className={styles.infoItem}>
+              <h3 className={styles.title}>E-mail</h3>
+              <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
+            </li>
+            <li className={styles.infoItem}>
+              <button className={styles.button}>Изменить</button>
+            </li>
+          </ul>
+
+          <ul className={`${styles.infoList} ${isActive === 'users' && styles.content_active}`}>
+            <li className={styles.infoItem}>
+              <h3 className={styles.title}>ФИОцц</h3>
               <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
             </li>
             <li className={styles.infoItem}>
