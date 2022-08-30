@@ -52,7 +52,7 @@ export default function Admin() {
         },
       };
 
-    const response = await axios.post('/api/upload', files, config);
+    const response = await axios.post('/api/routs/upload', files, config);
 
     console.log('response', response.data);
     setIsLoading(false)
@@ -79,7 +79,7 @@ export default function Admin() {
           <ul className={`${styles.productList} ${isActive === 'goods' && styles.content_active}`}>
             <li className={styles.product}>
               <div>
-                
+
               </div>
             </li>
             <li className={styles.product}>
