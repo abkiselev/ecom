@@ -4,43 +4,49 @@ import Meta from '../../components/Meta'
 import { useState } from 'react';
 import MiniCard from '../../components/MiniCard';
 import Fancybox from '../../components/Fancybox';
+import axios from 'axios';
 
 
 export default function Admin() {
   const [isActive, setIsActive] = useState('lookbook');
   const [files, setFiles] = useState([]);
 
+  function transliterate(word) {
+    const keys = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+      'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i', 'й': 'y',
+      'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+      'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+      'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
+      'щ': 'shch', 'ы': 'y', 'ъ': 'y', 'ь': 'y', 'э': 'e', 'ю': 'u', 'я': 'ya'
+    }
+    return word.split("").map((char) => keys[char] || char).join("");
+  }
+
   const handleLoad = (e) => {
     let files = e.target.files;
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      console.log(files[i])
-      // formData.append(files[i].name, files[i])
-      formData.append("theFiles", files[i])
+      formData.append("theFiles", files[i], transliterate(files[i].name.toLowerCase()))
     }
     
     setFiles(formData)
-    console.log(formData.getAll("theFiles"))
-
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const config = {
-      headers: { 'content-type': 'multipart/form-data' }
-    };
+      headers: { 'content-type': 'multipart/form-data' },
+        onUploadProgress: (event) => {
+          console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+        },
+      };
 
-    fetch('http://localhost:3000/api/upload', {
-      method: 'POST',
-      body: files,
-      config,
-    })
-    .then(res => res.json())
-    .then(res => console.log(res))
-    
-    // console.log(files)
+    const response = await axios.post('/api/upload', files, config);
+
+    console.log('response', response.data);
   }
 
   return (

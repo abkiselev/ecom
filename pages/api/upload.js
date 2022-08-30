@@ -11,10 +11,10 @@ const upload = multer({
 
 const apiRoute = createRouter({
   onError(error, req, res) {
-    res.status(501).json({ error: `Sorry something Happened! ${error.message}` });
+    res.status(501).json({ error: `Ошибка ${error.message}` });
   },
   onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+    res.status(405).json({ error: `Нельзя использовать метод '${req.method}'` });
   },
 });
 
@@ -22,7 +22,7 @@ apiRoute.use(upload.array('theFiles'));
 
 apiRoute.post((req, res) => {
   console.log(req)
-  res.status(200).json({ data: 'success' });
+  res.status(200).json({ data: 'Загружено' });
 });
 
 export default apiRoute.handler();
