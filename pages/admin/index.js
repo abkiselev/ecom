@@ -10,24 +10,21 @@ import axios from 'axios';
 
 export default function Admin() {
   const [isActive, setIsActive] = useState('lookbook');
-  const [isImagesChosen, setisImagesChosen] = useState(false);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('none');
   const [files, setFiles] = useState([]);
   const [data, setData] = useState([]);
-  const [isButtonActive, setIsButtonActive] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log("isFormValid", isButtonActive)
-  console.log("category", category)
-  console.log("isImagesChosen", isImagesChosen)
-  console.log("data", data)
-  console.log("files", files)
+  // console.log("isButtonDisabled", isButtonDisabled)
+  // console.log("category", category)
+  // console.log("data", data)
+  // console.log("files", files)
 
   useEffect(() => {
-    if(category !== '' && data.length > 0){
-      setIsButtonActive(false)
-    } else setIsButtonActive(true)
-    
+    if(category !== 'none' && data.length > 0){
+      setIsButtonDisabled(false)
+    } else setIsButtonDisabled(true)
   }, [category, data]);
 
   function transliterate(word) {
@@ -42,14 +39,11 @@ export default function Admin() {
     return word.split("").map((char) => keys[char] || char).join("");
   }
 
-  const handlenChange = (e) => {
-    if(e.target.value === 'none'){
-      setCategory('');
-      setisImagesChosen(false);
-    } else {       
-        setCategory(e.target.value);
-        setisImagesChosen(true);
-    }
+  const handleSelect = (e) => {
+      setCategory(e.target.value)
+      if(data.length > 0){
+        setData(data.map(item => ({...item, category: e.target.value})))
+      }
   }
 
   const handleLoad = (e) => {
@@ -71,24 +65,31 @@ export default function Admin() {
     e.preventDefault();
     setIsLoading(true)
 
-    const config = {
+    const configFiles = {
       headers: { 'content-type': 'multipart/form-data' },
         onUploadProgress: (event) => {
           console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
         },
-      };
+    };
 
-    const responseUpload = await axios.post('/api/routes/upload', files, config);
-    const responseDatabase = await axios.post('/api/routes/lookbook', data, config);
+    const configData = {
+      headers: { 'content-type': 'application/json' },
+        onUploadProgress: (event) => {
+          console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+        },
+    };
 
-    console.log('responseUpload', response.data);
-    console.log('responseDatabase', response.data);
+    const responseUpload = await axios.post('/api/routes/upload', files, configFiles);
+    const responseDatabase = await axios.post('/api/routes/lookbook', data, configData);
+
+    console.log('responseUpload', responseUpload.data);
+    console.log('responseDatabase', responseDatabase.data);
 
     setIsLoading(false);
-    setisImagesChosen(false);
     setCategory('');
     setFiles([])
     setData([])
+    e.target.reset()
   }
 
   return (
@@ -136,16 +137,16 @@ export default function Admin() {
             <form className={styles.addfoto} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
 
               <div className={styles.select}>
-                <Select onChange={handlenChange} value={category} name="category" id="category" required='true'>
+                <Select onChange={handleSelect} value={category} name="category" id="category" required='true'>
                   <option value="none">категория</option>
                   <option value="sumki">Сумки</option>
                   <option value="remni">Ремни</option>
                 </Select>
               </div>
 
-              <input type="file" onChange={handleLoad} multiple disabled={!isImagesChosen}/>
+              <input type="file" onChange={handleLoad} multiple />
 
-              <button type='submit' disabled={isButtonActive} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить фото"}</button>
+              <button type='submit' disabled={isButtonDisabled} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить фото"}</button>
             </form>
 
           <ul className={styles.imageList}>

@@ -12,4 +12,5 @@ const lookbookSchema = new mongoose.Schema({
 },
 { timestamps: true });
 
-export default mongoose.model('lookbook', lookbookSchema);
+// export default mongoose.model('lookbook', lookbookSchema);
+export default mongoose.models.lookbook || mongoose.model('lookbook', lookbookSchema);

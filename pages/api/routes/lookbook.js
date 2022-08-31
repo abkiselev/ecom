@@ -1,14 +1,12 @@
-import { getImages, createCard } from '../controllers/lookbook';
+import { getImages, createImages } from '../controllers/lookbook';
 
 export default function handler(req, res) {
-  const { method } = req;
-
-  switch (method) {
+  switch (req.method) {
     case 'GET':
         getImages(req, res)
         break;
     case 'POST':
-        createCard(req, res)
+        createImages(req, res)
         break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });
