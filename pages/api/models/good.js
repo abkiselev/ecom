@@ -4,15 +4,14 @@ const goodSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minlength: 2,
+    minlength: 1,
   },
   link: {
     type: String,
     required: true,
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'category',
+    type: String,
     required: true,
   },
   likes: {
@@ -28,10 +27,15 @@ const goodSchema = new mongoose.Schema({
     required: true,
   },
   size: {
-    type: [ Number ],
+    type: Number,
+    required: true,
+  },
+  images: {
+    type: [ String ],
     required: true,
   },
 },
 { timestamps: true });
 
-export default mongoose.model('good', goodSchema);
+// export default mongoose.model('good', goodSchema);
+export default mongoose.models.good || mongoose.model('good', goodSchema);

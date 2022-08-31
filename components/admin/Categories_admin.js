@@ -1,11 +1,11 @@
-import styles from '../../styles/Goods_admin.module.css'
+import styles from '../../styles/Categories_admin.module.css'
 import Image from 'next/image'
 import { useState, useEffect } from 'react';
 import Select from '../UI/Inputs/Select';
 import Input from '../UI/Inputs/Input';
 import axios from 'axios';
 
-const GoodsAdmin = () => {
+const CategoriesAdmin = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [inputsData, setInputsData] = useState({category: '', title: '', color: '', size: '', price: '', images: []});
@@ -101,54 +101,17 @@ const GoodsAdmin = () => {
 
   return (
     <>
-      <form className={styles.addgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
-              <p className={styles.addgood_title}>Загрузить новый товар</p>
-
-              <div className={styles.inputs}>
-                <Select onChange={(e) => handleSelect(e)}  value={inputsData.category || ''} name="category" id="category" required='true'>
-                  <option value="">категория</option>
-                  <option value="sumki">Сумки</option>
-                  <option value="remni">Ремни</option>
-                </Select>
-                <Input onChange={(e) => handleInput(e)} value={inputsData.title || ''} type="text" name='title' placeholder='Название*' required='true' />
-                <Input onChange={(e) => handleInput(e)} value={inputsData.color || ''} type="text" name='color' placeholder='Цвет*' required='true' />
-                <Input onChange={(e) => handleInput(e)} value={inputsData.size || ''} type="text" name='size' placeholder='Размеры*' required='true' />
-                <Input onChange={(e) => handleInput(e)} value={inputsData.price || ''} type="text" name='price' placeholder='Цена*' required='true' />
-              </div>
-
-              <div className={styles.actions}>
-                <input type="file" onChange={handleLoad} multiple />
-
-                <button type='submit' disabled={isLoading} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить"}</button>
-              </div>
-
+      <form className={styles.addcat} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
+              <p className={styles.addcat_title}>Создать категорию</p>
+              <Input onChange={(e) => handleInput(e)} value={inputsData.title || ''} type="text" name='title' placeholder='Название*' required='true' />
+              <Input onChange={(e) => handleInput(e)} value={inputsData.color || ''} type="text" name='color' placeholder='Ссылка после /*' required='true' />
+              <button type='submit' disabled={isLoading} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить"}</button>
       </form>
-
-      <div className={styles.filter}>
-        <p className={styles.filter_text}>Фильтр по категориям:</p>
-        <Select onChange={(e) => setFilterValue(e.target.value)} name="category" id="category" required='true'>
-          <option value="">Все</option>
-          <option value="sumki">Сумки</option>
-          <option value="remni">Ремни</option>
-        </Select>
-      </div>
             
-      <ul className={styles.productList}>
-          <li className={styles.product}>
-            <Image className={styles.img} src={`/images/test.jpg`} width="400" height="300" alt=''/>
-            <div className={styles.imgs_mini}>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-            </div>
-            <h3 className={styles.name}>Название товара</h3>
-            <p className={styles.text}>категория</p>
-            <p className={styles.text}>Цвет</p>
-            <p className={styles.text}>Размеры</p>
-            <p className={styles.text}>Артикул</p>
-            <p className={styles.text}>Цена</p>
+      <ul className={styles.categoriestList}>
+          <li className={styles.category}>
+            <h3 className={styles.name}>Название категории</h3>
+            <p className={styles.text}>ссылка</p>
             <button className={styles.button_delete} onClick={() => deleteImg(img)}>удалить</button>
             <button className={styles.button_edit} onClick={() => deleteImg(img)}>редактировать</button>
           </li>
@@ -158,4 +121,4 @@ const GoodsAdmin = () => {
   );
 }
 
-export default GoodsAdmin;
+export default CategoriesAdmin;

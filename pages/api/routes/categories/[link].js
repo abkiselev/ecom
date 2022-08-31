@@ -1,12 +1,12 @@
-import { getGoods, createGood } from '../../controllers/goods';
+import { getCategory, deleteCategory } from '../../controllers/categories';
 
 export default function handler(req, res) {
   switch (req.method) {
     case 'GET':
-        getGoods(req, res)
+      getCategory(req, res)
         break;
-    case 'POST':
-        createGood(req, res)
+    case 'DELETE':
+        deleteCategory(req, res)
         break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });
