@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: space-evenly;
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     padding: 20px;
     background-color: rgb(241, 241, 241);
     border-radius: 5px;
@@ -16,6 +16,7 @@
 
 .addfoto_title {
     font-size: 14px;
+    font-weight: 500;
 }
 
 .select {
@@ -33,6 +34,18 @@
 .button_add:disabled {
     pointer-events: none;
     cursor: not-allowed;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.filter_text {
+    font-weight: 500;
+    margin: 0;
+    width: 30%;
 }
 
 .imageList {

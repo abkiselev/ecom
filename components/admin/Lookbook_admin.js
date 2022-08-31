@@ -7,8 +7,7 @@ import axios from 'axios';
 
 const LookbookAdmin = () => {
     const [lookbookImages, setLookbookImages] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
-    const [filteredImages, setFilteredImages] = useState([]);
+    const [filterValue, setFilterValue] = useState('');
     const [category, setCategory] = useState('none');
     const [files, setFiles] = useState([]);
     const [data, setData] = useState([]);
@@ -22,10 +21,7 @@ const LookbookAdmin = () => {
     async function renderImages(){
       const images = await axios.get('/api/routes/lookbook');
       setLookbookImages(images.data.data.reverse())
-      setFilteredImages(images.data.data.reverse())
     }
-
-    console.log("ререндер")
 
     useEffect(() => {
         if((category !== 'none') && data.length > 0){
@@ -101,12 +97,7 @@ const LookbookAdmin = () => {
       const response = await axios.delete(`/api/routes/lookbook/${img._id}`);
       renderImages();
     }
-
-    useEffect(() => {
-      const result = lookbookImages.slice().filter(img => img.category.startsWith(searchValue))
-      setFilteredImages(result)
-    }, [searchValue]);
-  
+ 
 
     return (
         <div className={styles.zakazList}>
@@ -128,15 +119,20 @@ const LookbookAdmin = () => {
 
             </form>
 
-            <Select onChange={(e) => setSearchValue(e.target.value)} name="category" id="category" required='true'>
-              <option value="">фильтр по категории</option>
-              <option value="sumki">Сумки</option>
-              <option value="remni">Ремни</option>
-            </Select>
+            <div className={styles.filter}>
+              <p className={styles.filter_text}>Фильтр по категориям:</p>
+              <Select onChange={(e) => setFilterValue(e.target.value)} name="category" id="category" required='true'>
+                <option value="">Все</option>
+                <option value="sumki">Сумки</option>
+                <option value="remni">Ремни</option>
+              </Select>
+            </div>
+
+            
 
             <ul className={styles.imageList}>
 
-              {filteredImages.map(img => (
+              {lookbookImages.filter(img => img.category.startsWith(filterValue)).map(img => (
                 <li key={img._id} className={styles.image}>
                   <Image data-fancybox="gallery" className={styles.img} src={`/images/lookbook/${img.link}`} width="1000" height="800" alt={img.category}/>
                   <button className={styles.button_delete} onClick={() => deleteImg(img)}>х</button>
