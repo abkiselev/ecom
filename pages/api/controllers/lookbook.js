@@ -1,6 +1,6 @@
 import dbConnect from '../../../lib/mongodb'
 import Lookbook from '../models/lookbook.js';
-import { OK_CODE, CREATED_CODE, DEFAULT_CODE } from '../constants/errors';
+import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
 export const getImages = async (req, res) => {
   await dbConnect()
@@ -11,9 +11,6 @@ export const getImages = async (req, res) => {
 };
 
 export const createImages = async (req, res) => {
-  console.log('пришел запрос пост')
-  console.log(req.body)
-
   await dbConnect()
 
   try {
@@ -23,6 +20,24 @@ export const createImages = async (req, res) => {
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания карточки' });
     }
-    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', error: error.message });
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
+  }
+};
+
+module.exports.deleteImage = async (req, res) => {
+  await dbConnect()
+
+  try {
+    const image = await Lookbook.findByIdAndRemove(req.query.id);
+
+    if (!image) {
+      return res.status(NOT_FOUND_CODE).send({ message: 'Карточка с указанным _id не найдена' });
+    }
+    return res.status(OK_CODE).send({ data: image });
+  } catch (error) {
+    if (error.kind === 'ObjectId') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID карточки' });
+    }
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
   }
 };

@@ -13,19 +13,19 @@ const LookbookAdmin = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
+    console.log(category)
+
     useEffect(() => {
-      getImages()
+      renderImages()
     }, []);
 
-    async function getImages(){
+    async function renderImages(){
       const images = await axios.get('/api/routes/lookbook');
-      setLookbookImages(images.data.data)
-
-      // console.log(images.data.data)
+      setLookbookImages(images.data.data.reverse())
     }
 
     useEffect(() => {
-        if(category !== 'none' && data.length > 0){
+        if((category !== 'none') && data.length > 0){
           setIsButtonDisabled(false)
         } else setIsButtonDisabled(true)
     }, [category, data]);
@@ -89,14 +89,17 @@ const LookbookAdmin = () => {
         console.log('responseDatabase', responseDatabase.data);
 
         setIsLoading(false);
-        setCategory('');
-        setFiles([])
-        setData([])
-        e.target.reset()
+        setCategory('none');
+        setFiles([]);
+        setData([]);
+        e.target.reset();
+
+        renderImages();
     }
 
-    const deleteImg = (img) => {
-      console.log(img)
+    const deleteImg = async (img) => {
+      const response = await axios.delete(`/api/routes/lookbook/${img._id}`);
+      renderImages();
     }
 
     return (
