@@ -1,0 +1,30 @@
+.infoList {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template: auto / repeat(auto-fit,minmax(200px, 1fr));
+    align-items: flex-end;
+    column-gap: 30px;
+    row-gap: 50px;
+    margin-bottom: 100px;
+}
+
+.subtitle {
+    margin: 0;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    padding: 10px 20px;
+    background-color: #c3aed6;
+    border-radius: 5px;
+    color: white;
+    opacity: 0.8;
+}
+
+.button:hover {
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}

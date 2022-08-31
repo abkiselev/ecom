@@ -1,0 +1,71 @@
+.zakazList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.addfoto {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+}
+
+.addfoto_title {
+    font-size: 14px;
+}
+
+.select {
+    width: 120px ;
+}
+
+.button_add {
+    cursor: pointer;
+    background-color: #c3aed6;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.button_add:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.imageList {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template: auto / repeat(auto-fit,minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.image {
+    cursor: pointer;
+    position: relative;
+    max-width: 150px;
+}
+.img {
+    border-radius: 5px;
+    object-fit: contain;
+}
+
+.button_delete {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: none;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+.button_delete:hover {
+    opacity: 1;
+}

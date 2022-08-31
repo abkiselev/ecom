@@ -1,0 +1,9 @@
+.productList {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template: auto / repeat(auto-fit,minmax(200px, 220px));
+    column-gap: 30px;
+    row-gap: 50px;
+    margin-bottom: 100px;
+}
