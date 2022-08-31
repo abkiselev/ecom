@@ -6,6 +6,7 @@ export const getGoods = async (req, res) => {
   await dbConnect()
 
   Good.find({})
+    .populate('category')
     .then((goods) => res.status(OK_CODE).send({ data: goods }))
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
 };
@@ -16,7 +17,7 @@ export const createGood = async (req, res) => {
 
   try {
     const good = await Good.create(req.body);
-    return res.status(CREATED_CODE).send({ data: good });
+    return res.status(CREATED_CODE).send({ data: good.populate('category') });
   } catch (error) {
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания карточки', ...error });

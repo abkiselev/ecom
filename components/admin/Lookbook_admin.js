@@ -134,7 +134,7 @@ const LookbookAdmin = () => {
 
               {lookbookImages.filter(img => img.category.startsWith(filterValue)).map(img => (
                 <li key={img._id} className={styles.image}>
-                  <Image data-fancybox="gallery" className={styles.img} src={`/images/lookbook/${img.link}`} width="1000" height="800" alt={img.category}/>
+                  <Image data-fancybox="gallery" className={styles.img} src={`/images/uploads/${img.link}`} width="1000" height="800" alt={img.category}/>
                   <button className={styles.button_delete} onClick={() => deleteImg(img)}>х</button>
                 </li>
               ))}

@@ -4,7 +4,7 @@ import multer from 'multer';
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: './public/images/lookbook',
+    destination: './public/images/uploads',
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
 });

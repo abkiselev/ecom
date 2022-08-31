@@ -1,5 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { deleteGood } from '../../controllers/goods';
 
 export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+  switch (req.method) {
+    case 'DELETE':
+        deleteGood(req, res)
+        break;
+    default:
+        res.status(405).json({ error: `Недопустимый метод` });
+        break;
+  }
 }

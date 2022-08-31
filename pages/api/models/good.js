@@ -4,7 +4,6 @@ const goodSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minlength: 1,
   },
   link: {
     type: String,
@@ -27,7 +26,15 @@ const goodSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  size: {
+  visota: {
+    type: Number,
+    required: true,
+  },
+  shirina: {
+    type: Number,
+    required: true,
+  },
+  glubina: {
     type: Number,
     required: true,
   },

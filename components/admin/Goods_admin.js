@@ -6,18 +6,30 @@ import Input from '../UI/Inputs/Input';
 import axios from 'axios';
 
 const GoodsAdmin = () => {
+  const [goods, setGoods] = useState([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [inputsData, setInputsData] = useState({category: '', title: '', color: '', size: '', price: '', images: []});
+  const [inputsData, setInputsData] = useState({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
   const [files, setFiles] = useState([]);
   const [data, setData] = useState([]);
+  const [filterValue, setFilterValue] = useState('');
 
-  // console.log(typeof inputsData.category)
+  useEffect(() => {
+    renderImages()
+  }, []);
+
   useEffect(() => {
     if(!Object.values(inputsData).includes('') && data.length > 0){
       setIsButtonDisabled(false)
     } else setIsButtonDisabled(true)
   }, [inputsData, files]);
+
+  const renderImages = async () => {
+    const goods = await axios.get('/api/routes/goods');
+    console.log(goods.data.data)
+    setGoods(goods.data.data.reverse())
+  }
+  console.log(goods)
   
   const handleInput = (e) => {
     setInputsData({ ...inputsData, [e.target.name]: e.target.value})
@@ -54,12 +66,28 @@ const GoodsAdmin = () => {
     e.preventDefault();
     setIsLoading(true)
 
-    console.log('files', files)
-    console.log('data', data)
+    // console.log('files', files)
+    // console.log('data', data)
     
     const link = transliterate(inputsData.title.toLowerCase());
-    const outData = { ...inputsData, link }
-    console.log('outData', outData)
+    const categories = await axios.get('/api/routes/categories');
+    const categoryID = categories.data.data.find(cat => cat.link === inputsData.category);
+    const outData = { 
+      category: categoryID._id, 
+      title: inputsData.title, 
+      color: inputsData.color, 
+      visota: Number(inputsData.visota), 
+      shirina: Number(inputsData.shirina), 
+      glubina: Number(inputsData.glubina), 
+      price: Number(inputsData.price), 
+      images: inputsData.images,
+      link 
+    };
+
+    // console.log('categories', categories)
+    // console.log('categoryID', categoryID)
+    // console.log('outData', outData)
+    // console.log('price', typeof inputsData.price)
 
     const configFiles = {
         headers: { 'content-type': 'multipart/form-data' },
@@ -81,13 +109,13 @@ const GoodsAdmin = () => {
     console.log(responseUpload);
     console.log(responseDatabase);
 
-    // setIsLoading(false);
-    // setFiles([]);
-    // setData([]);
-    // setInputsData({category: '', title: '', color: '', size: '', price: ''});
-    // e.target.reset();
+    setIsLoading(false);
+    setFiles([]);
+    setData([]);
+    setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
+    e.target.reset();
 
-    // renderImages();
+    renderImages();
   }
 
   const handleSelect = (e) => {
@@ -97,7 +125,11 @@ const GoodsAdmin = () => {
     }
   }
 
-  console.log(inputsData)
+  const deleteImg = async (good) => {
+    await axios.delete(`/api/routes/goods/${good._id}`);
+    renderImages();
+  }
+
 
   return (
     <>
@@ -112,8 +144,10 @@ const GoodsAdmin = () => {
                 </Select>
                 <Input onChange={(e) => handleInput(e)} value={inputsData.title || ''} type="text" name='title' placeholder='Название*' required='true' />
                 <Input onChange={(e) => handleInput(e)} value={inputsData.color || ''} type="text" name='color' placeholder='Цвет*' required='true' />
-                <Input onChange={(e) => handleInput(e)} value={inputsData.size || ''} type="text" name='size' placeholder='Размеры*' required='true' />
-                <Input onChange={(e) => handleInput(e)} value={inputsData.price || ''} type="text" name='price' placeholder='Цена*' required='true' />
+                <Input onChange={(e) => handleInput(e)} value={inputsData.visota || ''} type="number" name='visota' placeholder='Высота*' required='true' />
+                <Input onChange={(e) => handleInput(e)} value={inputsData.shirina || ''} type="number" name='shirina' placeholder='Ширина*' required='true' />
+                <Input onChange={(e) => handleInput(e)} value={inputsData.glubina || ''} type="number" name='glubina' placeholder='Глубина*' required='true' />
+                <Input onChange={(e) => handleInput(e)} value={inputsData.price || ''} type="number" name='price' placeholder='Цена*' required='true' />
               </div>
 
               <div className={styles.actions}>
@@ -134,24 +168,30 @@ const GoodsAdmin = () => {
       </div>
             
       <ul className={styles.productList}>
-          <li className={styles.product}>
-            <Image className={styles.img} src={`/images/test.jpg`} width="400" height="300" alt=''/>
+
+        {goods.filter(good => good.category.link.startsWith(filterValue)).map(good => (
+
+          <li key={good._id} className={styles.product}>
+            <Image className={styles.img} src={`/images/uploads/${good.images[0]}`} width="200" height="150" alt={good.title}/>
+
             <div className={styles.imgs_mini}>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
-              <Image className={styles.img} src={`/images/test.jpg`} width="50" height="50" alt=''/>
+              {good.images.map(img => (
+                <Image key={img} className={styles.img} src={`/images/uploads/${img}`} width="50" height="50" alt={good.title}/>
+              ))}
             </div>
-            <h3 className={styles.name}>Название товара</h3>
-            <p className={styles.text}>категория</p>
-            <p className={styles.text}>Цвет</p>
-            <p className={styles.text}>Размеры</p>
-            <p className={styles.text}>Артикул</p>
-            <p className={styles.text}>Цена</p>
-            <button className={styles.button_delete} onClick={() => deleteImg(img)}>удалить</button>
-            <button className={styles.button_edit} onClick={() => deleteImg(img)}>редактировать</button>
+
+            <h3 className={styles.name}>{good.title}</h3>
+            <p className={styles.text}>{`Категория: ${good.category.title}`}</p>
+            <p className={styles.text}>{`Цвет: ${good.color}`}</p>
+            <p className={styles.text}>{`Размеры: в:${good.visota} ш:${good.shirina} г:${good.glubina}`}</p>
+            <p className={styles.text}>{`Артикул: ${good._id}`}</p>
+            <p className={styles.text}>{`Цена: ${good.price} р.`}</p>
+            <button className={styles.button_delete} onClick={() => deleteImg(good)}>удалить</button>
+            <button className={styles.button_edit} onClick={() => deleteImg(good)}>редактировать</button>
           </li>
+
+        ))}
+        
           
       </ul>
     </>
