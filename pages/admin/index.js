@@ -1,11 +1,6 @@
 import styles from '../../styles/Admin.module.css'
-import Image from 'next/image'
 import Meta from '../../components/Meta'
-import { useState, useEffect } from 'react';
-import MiniCard from '../../components/MiniCard';
-import Fancybox from '../../components/Fancybox';
-import Select from '../../components/UI/Inputs/Select';
-import axios from 'axios';
+import { useState } from 'react';
 import LookbookAdmin from '../../components/admin/Lookbook_admin';
 import GoodsAdmin from '../../components/admin/Goods_admin';
 import OrdersAdmin from '../../components/admin/Orders_admin';
@@ -13,12 +8,12 @@ import UsersAdmin from '../../components/admin/Users_admin';
 
 
 export default function Admin() {
-  const [isActive, setIsActive] = useState('lookbook');  
+  const [isActive, setIsActive] = useState('goods');  
 
   return (
     <>
       <Meta
-        title="Интернет-магазин кожаных сумок и ремней"
+        title="Админ-панель"
         description="Интернет-магазин кожаных сумок и ремней ручной работы с доставкой по всей России"
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />

@@ -18,18 +18,18 @@ const LookbookAdmin = () => {
       renderImages()
     }, []);
 
-    async function renderImages(){
-      const images = await axios.get('/api/routes/lookbook');
-      setLookbookImages(images.data.data.reverse())
-    }
-
     useEffect(() => {
         if((category !== 'none') && data.length > 0){
           setIsButtonDisabled(false)
         } else setIsButtonDisabled(true)
     }, [category, data]);
 
-    function transliterate(word) {
+    const renderImages = async () =>{
+      const images = await axios.get('/api/routes/lookbook');
+      setLookbookImages(images.data.data.reverse())
+    }
+
+    const transliterate = (word) => {
         const keys = {
             'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
             'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i', 'й': 'y',

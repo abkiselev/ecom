@@ -1,4 +1,4 @@
-import { getImages, createImages, deleteImage } from '../../controllers/lookbook';
+import { getImages, createImages } from '../../controllers/lookbook';
 
 export default function handler(req, res) {
   switch (req.method) {
@@ -8,9 +8,6 @@ export default function handler(req, res) {
     case 'POST':
         createImages(req, res)
         break;
-    // case 'DELETE':
-    //     deleteImage(req, res)
-    //     break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });
         break;
