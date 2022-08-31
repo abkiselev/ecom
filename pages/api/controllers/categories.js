@@ -1,5 +1,5 @@
 import dbConnect from '../../../lib/mongodb'
-import Category from '../models/categories.js';
+import Category from '../models/category.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
 export const getCategories = async (req, res) => {
@@ -7,14 +7,6 @@ export const getCategories = async (req, res) => {
 
   Category.find({})
     .then((cats) => res.status(OK_CODE).send({ data: cats }))
-    .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
-};
-
-export const getCategory = async (req, res) => {
-  await dbConnect()
-
-  Category.find({})
-    .then((cat) => res.status(OK_CODE).send({ data: cat }))
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
 };
 
