@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Fancybox from '../../components/Fancybox';
 import Select from '../../components/UI/Inputs/Select';
 import axios from 'axios';
+import Loader from '../Loader';
 
 const LookbookAdmin = () => {
     const [lookbookImages, setLookbookImages] = useState([]);
@@ -24,6 +25,8 @@ const LookbookAdmin = () => {
         } else setIsButtonDisabled(true)
     }, [category, data]);
 
+  // console.log(files)
+
     const renderImages = async () =>{
       const images = await axios.get('/api/routes/lookbook');
       setLookbookImages(images.data.data.reverse())
@@ -36,7 +39,7 @@ const LookbookAdmin = () => {
             'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
             'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
             'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
-            'щ': 'shch', 'ы': 'y', 'ъ': 'y', 'ь': 'y', 'э': 'e', 'ю': 'u', 'я': 'ya'
+            'щ': 'shch', 'ы': 'y', 'ъ': 'y', 'ь': 'y', 'э': 'e', 'ю': 'u', 'я': 'ya', ' ': '_'
         }
         return word.split("").map((char) => keys[char] || char).join("");
     }
@@ -132,12 +135,16 @@ const LookbookAdmin = () => {
 
             <ul className={styles.imageList}>
 
-              {lookbookImages.filter(img => img.category.startsWith(filterValue)).map(img => (
+              {lookbookImages.length === 0
+              ? <Loader />
+              : lookbookImages.filter(img => img.category.startsWith(filterValue)).map(img => (
                 <li key={img._id} className={styles.image}>
                   <Image data-fancybox="gallery" className={styles.img} src={`/images/uploads/${img.link}`} width="1000" height="800" alt={img.category}/>
                   <button className={styles.button_delete} onClick={() => deleteImg(img)}>х</button>
                 </li>
               ))}
+
+              {}
               
             </ul>
             

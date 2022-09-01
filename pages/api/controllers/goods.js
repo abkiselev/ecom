@@ -8,7 +8,7 @@ export const getGoods = async (req, res) => {
   Good.find({})
     .populate('category')
     .then((goods) => res.status(OK_CODE).send({ data: goods }))
-    .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
+    .catch((error) => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', error: error.message }));
 };
 
 export const createGood = async (req, res) => {

@@ -2,6 +2,7 @@ import styles from '../../styles/Categories_admin.module.css'
 import { useState, useEffect } from 'react';
 import Input from '../UI/Inputs/Input';
 import axios from 'axios';
+import Loader from '../Loader';
 
 const CategoriesAdmin = () => {
   const [categories, setCategories] = useState([]);
@@ -67,7 +68,9 @@ const CategoriesAdmin = () => {
             
       <ul className={styles.categoriestList}>
 
-          {categories.map(cat => (
+          {categories.length === 0
+          ? <Loader />
+          : categories.map(cat => (
             
             <li key={cat._id} className={styles.category}>
               <h3 className={styles.name}>{cat.title}</h3>
