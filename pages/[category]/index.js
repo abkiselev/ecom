@@ -8,7 +8,7 @@ import Hleb from '../../components/Hleb'
 import axios from 'axios';
 
 
-export default function Category({ goods }) {
+export default function Category({ goods, colors, visota, glubina, shirina, dlina }) {
   
   return (
     <>
@@ -20,7 +20,7 @@ export default function Category({ goods }) {
 
       <Hleb />
 
-      <ProductsList products={goods}/>
+      <ProductsList goods={goods} colors={colors} visota={visota} glubina={glubina} shirina={shirina} dlina={dlina} />
       {/* <ProductsList /> */}
 
       <Zakaz />
@@ -30,9 +30,24 @@ export default function Category({ goods }) {
 }
 
 export async function getServerSideProps(context) {
-  console.log(context.resolvedUrl)
-  const response = await axios.get('http://localhost:3000/api/routes/goods');
-  const goods = response.data.data;
+  // console.log(context.params.category)
+  const response = await axios.get(`http://localhost:3000/api/routes/goods`);
+  const goods = response.data.data.filter(item => item.category.link === context.params.category);
+
+  // .filter(item => item.category.link === context.params.category)
+  const colors = []
+  const visota = []
+  const glubina = []
+  const shirina = []
+  const dlina = []
+
+  goods.forEach(el => {
+    el.color && colors.push(el.color)
+    el.visota && visota.push(el.visota)
+    el.glubina && glubina.push(el.glubina)
+    el.shirina && shirina.push(el.shirina)
+    el.dlina && dlina.push(el.dlina)
+  });
   
   if (!goods) {
     return {
@@ -44,5 +59,5 @@ export async function getServerSideProps(context) {
   }
 
 
-  return { props: { goods } }
+  return { props: { goods, colors, visota, glubina, shirina, dlina } }
 }

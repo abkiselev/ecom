@@ -1,9 +1,12 @@
 import dbConnect from '../../../lib/mongodb'
+import Category from '../models/category.js';
 import Good from '../models/good.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
 export const getGoods = async (req, res) => {
   await dbConnect()
+
+  Category.find({})
 
   Good.find({})
     .populate('category')
