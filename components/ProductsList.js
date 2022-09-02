@@ -6,7 +6,8 @@ import Select from './UI/Inputs/Select';
 import Search from './UI/Inputs/Search';
 
 
-function ProductsList() {
+function ProductsList({products}) {
+  console.log(products)
   return (
       <section className={styles.goods}>
 
@@ -49,8 +50,15 @@ function ProductsList() {
           </div>   
 
           <ul className={styles.productList}>
-            <li className={styles.product}>
-              <MiniCard />
+
+            {products.map(product => (
+              <li key={product._id} className={styles.product}>
+                <MiniCard product={product}/>
+              </li>
+            ))}
+
+            {/* <li className={styles.product}>
+              <MiniCard products={products}/>
             </li>
             <li className={styles.product}>
               <MiniCard />
@@ -63,7 +71,7 @@ function ProductsList() {
             </li>
             <li className={styles.product}>
               <MiniCard />
-            </li>
+            </li> */}
           </ul>
 
           

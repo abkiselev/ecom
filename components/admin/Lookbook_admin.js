@@ -25,7 +25,6 @@ const LookbookAdmin = () => {
         } else setIsButtonDisabled(true)
     }, [category, data]);
 
-  // console.log(files)
 
     const renderImages = async () =>{
       const images = await axios.get('/api/routes/lookbook');

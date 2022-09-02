@@ -5,9 +5,11 @@ import GoodsSlider from '../../components/GoodsSlider'
 import Zakaz from '../../components/Zakaz'
 import ProductsList from '../../components/ProductsList'
 import Hleb from '../../components/Hleb'
+import axios from 'axios';
 
 
-export default function Category() {
+export default function Category({ goods }) {
+  
   return (
     <>
       <Meta
@@ -18,10 +20,29 @@ export default function Category() {
 
       <Hleb />
 
-      <ProductsList />
+      <ProductsList products={goods}/>
+      {/* <ProductsList /> */}
 
       <Zakaz />
 
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  console.log(context.resolvedUrl)
+  const response = await axios.get('http://localhost:3000/api/routes/goods');
+  const goods = response.data.data;
+  
+  if (!goods) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+
+  return { props: { goods } }
 }

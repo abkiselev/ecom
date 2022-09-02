@@ -1,8 +1,8 @@
 import styles from './Search.module.css'
 
-function Search() {
+function Search({placeholder}) {
   return (
-    <input className={styles.search} type="text" />
+    <input className={styles.search} type="text" placeholder={placeholder}/>
   );
 }
 

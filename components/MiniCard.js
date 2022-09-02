@@ -3,20 +3,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 
-function MiniCard() {
+function MiniCard({product}) {
   return (
         <div className={styles.slide}>
           
           <div className={styles.info}>
-            <Link href='/sumki/1'>
+            <Link href={`/${product.category.link}/${product.link}`}>
               <a className={styles.url}>
-                <Image className={styles.img} src="/images/test.jpg" width="550" height="650" alt="Товар" />
-                <h3 className={styles.title}>New collection 2022</h3>
+                <Image className={styles.img} src={`/images/uploads/${product.images[0]}`} width="550" height="650" alt={product.title} />
+                <h3 className={styles.title}>{product.title}</h3>
               </a>
             </Link>
 
             <div className={styles.prices}>
-              <p className={styles.price}>6 990 р.</p>
+              <p className={styles.price}>{`${product.price} р.`}</p>
               <button className={styles.likeButton}></button>
               <button className={styles.priceButton}></button>
             </div>              

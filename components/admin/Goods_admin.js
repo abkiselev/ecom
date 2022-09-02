@@ -5,7 +5,6 @@ import Select from '../UI/Inputs/Select';
 import Input from '../UI/Inputs/Input';
 import axios from 'axios';
 import Loader from '../Loader';
-import GoodsEdit from './GoodsEdit_admin';
 
 const GoodsAdmin = () => {
   const [goods, setGoods] = useState([]);
@@ -175,9 +174,6 @@ const GoodsAdmin = () => {
     setInputsData({...inputsData, images: imagesToEdit.filter(img => img !== e.target.value)})
     setImagesToEdit(imagesToEdit.filter(img => img !== e.target.value))
   }
-
-  console.log('imagesToEdit', imagesToEdit)
-  console.log('inputsData', inputsData)
 
   return (
     <>
