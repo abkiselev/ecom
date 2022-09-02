@@ -14,5 +14,6 @@
     appearance: none;
     font-family: 'Montserrat', sans-serif;
     width: 100%;
+    min-width: fit-content;
     margin: 15px 0;
 }
