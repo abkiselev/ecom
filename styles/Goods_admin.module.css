@@ -5,7 +5,7 @@
 }
 
 .ok {
-    position: absolute;
+    position: fixed;
     top: 100px;
     right: 120px;
     background-color: rgb(63, 122, 61);

@@ -13,6 +13,7 @@ const GoodsAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [goodToEdit, setGoodToEdit] = useState({});
+  const [imagesToEdit, setImagesToEdit] = useState([]);
   const [isOkShown, setIsOkShown] = useState(false);
   const [textOk, setTextOk] = useState('');
   const [inputsData, setInputsData] = useState({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
@@ -128,6 +129,7 @@ const GoodsAdmin = () => {
     setFiles([]);
     setPreviewURLs([])
     setPreviewFiles([])
+    setImagesToEdit([])
     setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
     e.target.reset();
 
@@ -146,21 +148,23 @@ const GoodsAdmin = () => {
     setTimeout(() => {
       setIsOkShown(false);
       setTextOk('')
-    }, 2000);
+    }, 1500);
   }
 
   const handleSelect = (e) => {
     setInputsData({ ...inputsData, [e.target.name]: e.target.value});
   }
 
-  const deleteImg = async (good) => {
+  const deleteGood = async (good) => {
     await axios.delete(`/api/routes/goods/${good._id}`);
     renderImages();
+    showOK('удален!')
   }
 
 
-  const editImg = (good) => {
+  const editGood = (good) => {
     setGoodToEdit(good)
+    setImagesToEdit(good.images)
     setInputsData({...good, category: good.category.link})
     setIsEdit(true)
     setPreviewURLs([])
@@ -168,10 +172,12 @@ const GoodsAdmin = () => {
 
   const delImg = (e) => {
     e.preventDefault()
-    setInputsData({...inputsData, images: inputsData.images.filter(img => img !== e.target.value)})
+    setInputsData({...inputsData, images: imagesToEdit.filter(img => img !== e.target.value)})
+    setImagesToEdit(imagesToEdit.filter(img => img !== e.target.value))
   }
 
-
+  console.log('imagesToEdit', imagesToEdit)
+  console.log('inputsData', inputsData)
 
   return (
     <>
@@ -216,7 +222,7 @@ const GoodsAdmin = () => {
           <p className={styles.addgood_title}>Редактировать товар</p>
 
           <div className={styles.editImgs}>
-            {inputsData.images.map((img, index) => (
+            {imagesToEdit.map((img, index) => (
               <div className={styles.editImg} key={img}>
                 <Image className={styles.img} src={`/images/uploads/${img}`} width="100" height="80" alt={img}/>
                 <button className={styles.button_edit} value={img} onClick={(e) => delImg(e)}>х</button>
@@ -293,8 +299,8 @@ const GoodsAdmin = () => {
               <p className={styles.text}>{`Размеры: в:${good.visota} ш:${good.shirina} г:${good.glubina}`}</p>
               <p className={styles.text}>{`Артикул: ${good._id}`}</p>
               <p className={styles.text}>{`Цена: ${good.price} р.`}</p>
-              <button className={styles.button_delete} onClick={() => deleteImg(good)}>удалить</button>
-              <button className={styles.button_edit} onClick={() => editImg(good)}>редактировать</button>
+              <button className={styles.button_delete} onClick={() => deleteGood(good)}>удалить</button>
+              <button className={styles.button_edit} onClick={() => editGood(good)}>редактировать</button>
             </li>
 
           ))}
