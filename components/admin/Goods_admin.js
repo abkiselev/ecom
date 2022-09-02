@@ -15,8 +15,9 @@ const GoodsAdmin = () => {
   const [goodToEdit, setGoodToEdit] = useState({});
   const [inputsData, setInputsData] = useState({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
   const [files, setFiles] = useState([]);
+  const [preview, setPreview] = useState(false);
   const [previewFiles, setPreviewFiles] = useState([]);
-  const [data, setData] = useState([]);
+  const [previewURLs, setPreviewURLs] = useState([]);
   const [filterValue, setFilterValue] = useState('');
 
   useEffect(() => {
@@ -29,14 +30,19 @@ const GoodsAdmin = () => {
     } else setIsButtonDisabled(true)
   }, [inputsData]);
 
+  useEffect(() => {
+    if(previewFiles.length > 0){
+      const newImageURLs = [];
+      previewFiles.forEach(image => newImageURLs.push(URL.createObjectURL(image)));
+      setPreviewURLs(newImageURLs)
+    } else return;
+  }, [previewFiles]);
+
   const renderImages = async () => {
     const goods = await axios.get('/api/routes/goods');
-    // console.log(goods.data.data)
     setGoods(goods.data.data.reverse())
   }
   
-  console.log(inputsData);
-
   const handleInput = (e) => {
     setInputsData({ ...inputsData, [e.target.name]: e.target.value})
   }
@@ -56,31 +62,22 @@ const GoodsAdmin = () => {
   const handleLoad = (e) => {
     const files = e.target.files;
     const formData = new FormData();
-    const currentData = {...inputsData};   
-    const peviewFiles = []; 
+    const currentData = {...inputsData, images: []};
 
     for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const nameTranslated = transliterate(files[i].name.toLowerCase());
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-              const {result} = ev.target
-              peviewFiles.push({name: nameTranslated, result})
-        };
-        reader.readAsDataURL(file);
+      const file = files[i];
+      const nameTranslated = transliterate(files[i].name.toLowerCase());
 
-        currentData.images.push(nameTranslated);
-        formData.append("theFiles", files[i], nameTranslated);
+      currentData.images.push(nameTranslated);
+      formData.append("theFiles", files[i], nameTranslated);
     }
-
-    console.log(peviewFiles)
       
+      
+    setPreviewFiles([...e.target.files])
     setFiles(formData)
-    setData(currentData)
-    setPreviewFiles(peviewFiles)
+    setInputsData(currentData)
   }
 
-  // console.log(uploadedFiles)
 
 
   const handleSubmit = async (e) => {
@@ -119,12 +116,10 @@ const GoodsAdmin = () => {
     const responseUpload = await axios.post('/api/routes/upload', files, configFiles);
     const responseDatabase = await axios.post('/api/routes/goods', outData, configData);
 
-    console.log(responseUpload);
-    console.log(responseDatabase);
-
     setIsLoading(false);
     setFiles([]);
-    setData([]);
+    setPreviewURLs([])
+    setPreviewFiles([])
     setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
     e.target.reset();
 
@@ -133,9 +128,6 @@ const GoodsAdmin = () => {
 
   const handleSelect = (e) => {
     setInputsData({ ...inputsData, [e.target.name]: e.target.value});
-    if(data.length > 0){
-      setData(data.map(item => ({...item, category: e.target.value})))
-    }
   }
 
   const deleteImg = async (good) => {
@@ -143,29 +135,23 @@ const GoodsAdmin = () => {
     renderImages();
   }
 
+
   const editImg = (good) => {
     setGoodToEdit(good)
     setInputsData({...good, category: good.category.link})
     setIsEdit(true)
-    setPreviewFiles([])
+    setPreviewURLs([])
   }
-
-  console.log(previewFiles)
 
   const delImg = (e) => {
     e.preventDefault()
     setInputsData({...inputsData, images: inputsData.images.filter(img => img !== e.target.value)})
   }
 
-  useEffect(() => {
-    inputsData.images.forEach(item => {
-      console.log(previewFiles.includes({name:item}))
-    })
-  }, [previewFiles]);
+
 
   return (
     <>
-      
       { !isEdit
         ? <form className={styles.addgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
           <p className={styles.addgood_title}>Загрузить новый товар</p>
@@ -187,7 +173,17 @@ const GoodsAdmin = () => {
           <div className={styles.actions}>
             <input type="file" onChange={handleLoad} multiple />
 
-            <button type='submit' disabled={isLoading || isButtonDisabled} className={styles.button_add}>{isLoading ? "Загрузка..." : "Добавить"}</button>
+            <button type='submit' disabled={isLoading || isButtonDisabled} className={styles.button_add}>Добавить</button>
+
+            {isLoading && <Loader />}
+          </div>
+
+          <div className={styles.editImgs}>
+            {previewURLs.map((img, index) => (
+              <div className={styles.editImg} key={index}>
+                <Image className={styles.img} src={img} width="60" height="50" alt='Превью'/>
+              </div>
+            ))}
           </div>
 
           </form>
@@ -202,14 +198,6 @@ const GoodsAdmin = () => {
                 <button className={styles.button_edit} value={img} onClick={(e) => delImg(e)}>х</button>
               </div>
             ))}
-
-            {previewFiles.map((img, index) => (
-              <div className={styles.editImg} key={index}>
-                <Image className={styles.img} src={img.result} width="100" height="80" alt={img.name}/>
-                <button className={styles.button_edit} value={img.name} onClick={(e) => delImg(e)}>х</button>
-              </div>
-            ))}
-            
           </div>
 
           <div className={styles.editinputs}>
@@ -232,9 +220,20 @@ const GoodsAdmin = () => {
             <button type='submit' disabled={isLoading || isButtonDisabled} className={styles.button_add}>{isLoading ? "Загрузка..." : "Сохранить изменения"}</button>
             <button onClick={()=>{
               setIsEdit(false);
-              setGoodToEdit({})
-              setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []})
+              setGoodToEdit({});
+              setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
+              setPreviewURLs([])
             }}>отменить редактирование</button>
+
+            {isLoading && <Loader />}
+          </div>
+
+          <div className={styles.editImgs}>
+            {previewURLs.map((img, index) => (
+              <div className={styles.editImg} key={index}>
+                <Image className={styles.img} src={img} width="60" height="50" alt='Превью'/>
+              </div>
+            ))}
           </div>
 
           </form>       

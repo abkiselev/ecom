@@ -24,6 +24,9 @@
     padding: 20px;
     background-color: rgb(255, 253, 116);
     border-radius: 5px;
+    position: sticky;
+    top: 50px;
+    z-index: 33;
 }
 
 .editinputs {
@@ -43,6 +46,10 @@
 
 .editImg {
     position: relative;
+}
+
+.img {
+    object-fit: cover;
 }
 
 .inputs {
@@ -72,6 +79,7 @@
     border: none;
     border-radius: 5px;
     padding: 10px;
+    height: 35px;
 }
 
 .button_add:disabled {

@@ -21,6 +21,8 @@ export default function Admin() {
 
       <section className={styles.admin}>
 
+        <div className={styles.header}>
+
           <h1 className={styles.name}>АДМИНКА</h1>
 
           <div className={styles.tabs}>
@@ -30,6 +32,8 @@ export default function Admin() {
             <button className={`${styles.tab} ${isActive === 'orders' && styles.tab_active}`} onClick={() => setIsActive('orders')}>Заказы</button>
             <button className={`${styles.tab} ${isActive === 'users' && styles.tab_active}`} onClick={() => setIsActive('users')}>Пользователи</button>
           </div> 
+
+          </div>
 
           {isActive === 'lookbook' && <LookbookAdmin />}
           {isActive === 'goods' && <GoodsAdmin />}
