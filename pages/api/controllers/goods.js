@@ -12,7 +12,6 @@ export const getGoods = async (req, res) => {
 };
 
 export const createGood = async (req, res) => {
-  console.log(req.body)
   await dbConnect()
 
   try {
@@ -26,6 +25,31 @@ export const createGood = async (req, res) => {
   }
 };
 
+export const updateGood = async (req, res) => {
+  await dbConnect()
+
+  try {
+    const good = await Good.findByIdAndUpdate(
+      req.query.id,
+      req.body,
+      // { new: true, runValidators: true },
+    );
+    // console.log(good)
+    if (!good) {
+      return res.status(NOT_FOUND_CODE).send({ message: 'Указанный _id не найден' });
+    }
+    return res.status(OK_CODE).send({ data: good.populate('category') });
+  } catch (error) {
+    if (error.kind === 'ObjectId') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID' });
+    }
+    if (error.name === 'ValidationError') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для обновления' });
+    }
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', error: error.message });
+  }
+};
+
 module.exports.deleteGood = async (req, res) => {
   await dbConnect()
 
@@ -33,12 +57,12 @@ module.exports.deleteGood = async (req, res) => {
     const good = await Good.findByIdAndRemove(req.query.id);
 
     if (!good) {
-      return res.status(NOT_FOUND_CODE).send({ message: 'Карточка с указанным _id не найдена' });
+      return res.status(NOT_FOUND_CODE).send({ message: 'Указанный _id не найден' });
     }
     return res.status(OK_CODE).send({ data: good });
   } catch (error) {
     if (error.kind === 'ObjectId') {
-      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID карточки' });
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID' });
     }
     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
   }

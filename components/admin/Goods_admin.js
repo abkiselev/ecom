@@ -13,9 +13,10 @@ const GoodsAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [goodToEdit, setGoodToEdit] = useState({});
+  const [isOkShown, setIsOkShown] = useState(false);
+  const [textOk, setTextOk] = useState('');
   const [inputsData, setInputsData] = useState({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
   const [files, setFiles] = useState([]);
-  const [preview, setPreview] = useState(false);
   const [previewFiles, setPreviewFiles] = useState([]);
   const [previewURLs, setPreviewURLs] = useState([]);
   const [filterValue, setFilterValue] = useState('');
@@ -113,8 +114,15 @@ const GoodsAdmin = () => {
         },
     };
 
-    const responseUpload = await axios.post('/api/routes/upload', files, configFiles);
-    const responseDatabase = await axios.post('/api/routes/goods', outData, configData);
+    await axios.post('/api/routes/upload', files, configFiles);
+
+    if(e.target.id === 'add'){
+      await axios.post('/api/routes/goods', outData, configData);
+    }
+
+    if(e.target.id === 'edit'){
+      await axios.patch(`/api/routes/goods/${goodToEdit._id}`, outData, configData);
+    }
 
     setIsLoading(false);
     setFiles([]);
@@ -123,7 +131,22 @@ const GoodsAdmin = () => {
     setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
     e.target.reset();
 
+    setIsEdit(false)
     renderImages();
+
+    if(e.target.id === 'add'){
+      showOK('добавлен!')
+    } else showOK('обновлен!')
+    
+  }
+
+  const showOK = (text) => {
+    setIsOkShown(true);
+    setTextOk(text)
+    setTimeout(() => {
+      setIsOkShown(false);
+      setTextOk('')
+    }, 2000);
   }
 
   const handleSelect = (e) => {
@@ -152,8 +175,9 @@ const GoodsAdmin = () => {
 
   return (
     <>
+      {isOkShown && <div className={styles.ok}>{`Товар ${textOk}`}</div>}
       { !isEdit
-        ? <form className={styles.addgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
+        ? <form id='add' className={styles.addgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
           <p className={styles.addgood_title}>Загрузить новый товар</p>
 
           <div className={styles.inputs}>
@@ -188,7 +212,7 @@ const GoodsAdmin = () => {
 
           </form>
 
-        : <form className={styles.editgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
+        : <form id='edit' className={styles.editgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
           <p className={styles.addgood_title}>Редактировать товар</p>
 
           <div className={styles.editImgs}>
@@ -217,7 +241,7 @@ const GoodsAdmin = () => {
           <div className={styles.actions}>
             <input type="file" onChange={handleLoad} multiple />
 
-            <button type='submit' disabled={isLoading || isButtonDisabled} className={styles.button_add}>{isLoading ? "Загрузка..." : "Сохранить изменения"}</button>
+            <button type='submit' disabled={isLoading || isButtonDisabled} className={styles.button_add}>Сохранить изменения</button>
             <button onClick={()=>{
               setIsEdit(false);
               setGoodToEdit({});
