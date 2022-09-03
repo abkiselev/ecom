@@ -1,3 +1,12 @@
+.wrapper {
+    height: 25px;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    /* margin: 15px 0; */
+    /* border: 1px solid gray; */
+}
+
 .search {
     outline: none;
     border: 0 solid rgba(0, 0, 0, 0.15);
@@ -8,8 +17,25 @@
     background-position: left center;
     background-size: 11px;
     font-family: 'Montserrat', sans-serif;
-    transition: all 0.1s ease;
     padding-left: 20px;
+    padding-bottom: 5px;
     width: 170px;
-    margin: 15px 0;
+    /* margin: 15px 0; */
+}
+
+.search::placeholder {
+    font-size: 15px;
+    padding: 5px;
+    transition: all 0.15s ease;
+}
+
+.search:focus::placeholder {
+    opacity: 0;
+}
+
+
+.clear::after {
+    content: url(/images/delete.svg);
+    z-index: 15;
+    cursor: pointer;
 }

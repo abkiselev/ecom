@@ -6,7 +6,7 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE }
 export const getGoods = async (req, res) => {
   await dbConnect()
 
-  Category.find({})
+  Category.find();
 
   Good.find({})
     .populate('category')
