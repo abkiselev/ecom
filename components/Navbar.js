@@ -1,10 +1,13 @@
+import styles from '../styles/Navbar.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '../styles/Navbar.module.css'
-import { useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
 
 const Navbar = () => {
-    const [isMenuChecked, setIsMenuChecked] = useState(false);   
+    const totalInCart = useSelector((state) => state.cart.quantity)
+    const [isMenuChecked, setIsMenuChecked] = useState(false);
 
     return (
         <header className={styles.navbar}>
@@ -37,14 +40,15 @@ const Navbar = () => {
             <ul className={styles.icons}>
                 <li className={styles.icon}>
                     <Link href='/lk'>
-                        <a><Image src="/images/lk.svg" width="25" height="25" alt="Логотип"/></a>
+                        <a><Image src="/images/lk.svg" width="25" height="25" alt="ЛК"/></a>
                     </Link>
                 </li>
                 <li className={styles.icon}>
                     <Link href='/cart'>
-                        <a><Image src="/images/cart.svg" width="25" height="25" alt="Логотип"/></a>
+                        <a><Image src="/images/cart.svg" width="25" height="25" alt="Корзина"/></a>
                     </Link>
-                    <span className={styles.counter}>2</span>
+                    {totalInCart && <span className={styles.counter}>{totalInCart}</span>}
+                    
                 </li>                
             </ul>
           </nav>

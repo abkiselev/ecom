@@ -1,11 +1,15 @@
 import Link from "next/link";
 import styles from './ButtonUnFilled.module.css'
 
-const ButtonUnFilled = ({ text, url }) => {
+const ButtonUnFilled = ({ disabled, text, font, padd, type, onClick }) => {
     return (
-        <Link href={ url }>
-        <a className={styles.button_unfilled}>{ text }  {'\u27f6'}</a>
-        </Link>
+        <button
+            onClick={onClick} 
+            type={type}
+            className={`${!disabled && styles._disabled} ${styles.button_unfilled} ${styles[font]} ${styles[padd]}`}
+        >
+            { text }
+        </button>
     );
 }
 

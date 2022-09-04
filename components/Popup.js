@@ -5,7 +5,7 @@ import ButtonArrow from './UI/Buttons/ButtonArrow';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { closePopup } from '../redux/popupsSlice'
+import { closePopup } from '../redux/slices/popupsSlice'
 import Textarea from './UI/Inputs/Textarea';
 import UseValidation from '../hooks/UseValidation';
 

@@ -53,8 +53,12 @@
     font-size: 11px;
     font-weight: 400;
     color: white;
-    background-color: #c3aed6;
-    padding: 2px 5px;
+    background-color: rgb(139, 123, 255);
+    text-align: center;
+    line-height: 1.6;
+    width: 17px;
+    height: 17px;
+    padding: 0 0 0 2px;
     border-radius: 50%;
     top: -7px;
     right: -7px;

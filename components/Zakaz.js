@@ -3,7 +3,7 @@ import Image from 'next/image'
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { openPopup } from '../redux/popupsSlice'
+import { openPopup } from '../redux/slices/popupsSlice'
 
 function Zakaz() {
   const isOpen = useSelector((state) => state.popups.zakazPopup)

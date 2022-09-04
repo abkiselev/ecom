@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import popupsReduser from "./popupsSlice";
+import popupsReduser from "./slices/popupsSlice";
+import cartReduser from "./slices/cartSlice";
 
 export const store = configureStore({
     reducer: {
         popups: popupsReduser,
+        cart: cartReduser,
       },
 })
   
