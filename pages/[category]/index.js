@@ -1,14 +1,37 @@
 import Image from 'next/image'
 import Meta from '../../components/Meta'
-import MainSlider from '../../components/MainSlider'
-import GoodsSlider from '../../components/GoodsSlider'
 import Zakaz from '../../components/Zakaz'
 import ProductsList from '../../components/ProductsList'
 import Hleb from '../../components/Hleb'
 import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
 
 
-export default function Category({ goods, colors }) {
+export default function Category({ category, goods, colors }) {
+  const [mainGoods, setMainGoods] = useState(goods);
+  const [mainCategory, setMainCategory] = useState(category);
+  const [filterValues, setFilterValues] = useState({});
+  const [sortValue, setSortValue] = useState('popular');
+  const filters = useRef();
+
+  useEffect(() => {
+    setMainCategory(category)
+    setMainGoods(goods)
+    setFilterValues({})
+    setSortValue('popular')
+    filters.current.reset()
+  }, [category, goods]);
+
+  useEffect(() => {
+    if (sortValue === 'cheap'){
+      setMainGoods(prev => [...prev].sort((a, b,) => a.price - b.price))
+    } else if (sortValue === 'expencive'){
+      setMainGoods(prev => [...prev].sort((a, b,) => b.price - a.price))
+    } else {
+      setMainGoods(goods)
+    }
+  }, [sortValue, goods]);
+  
   
   return (
     <>
@@ -20,7 +43,16 @@ export default function Category({ goods, colors }) {
 
       <Hleb />
 
-      <ProductsList goods={goods} colors={colors} />
+      <ProductsList
+        category={mainCategory === 'sumki' ? 'СУМКИ' : 'РЕМНИ'}
+        mainGoods={mainGoods}
+        colors={colors}
+        filters={filters}
+        filterValues={filterValues}
+        setFilterValues={setFilterValues}
+        sortValue={sortValue}
+        setSortValue={setSortValue}
+      />
 
       <Zakaz />
 
@@ -50,5 +82,5 @@ export async function getServerSideProps(context) {
   }
 
 
-  return { props: { goods, colors } }
+  return { props: { category, goods, colors } }
 }

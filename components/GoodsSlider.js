@@ -4,7 +4,7 @@ import ButtonArrow from './UI/Buttons/ButtonArrow';
 import MiniCard from './MiniCard';
 
 
-function GoodsSlider({title, slidesPerView, className}) {
+function GoodsSlider({ goods, title, slidesPerView, className }) {
   return (
       <section className={styles.goods_slider}>
 
@@ -14,8 +14,9 @@ function GoodsSlider({title, slidesPerView, className}) {
         </div>
 
         <Slider slidesPerView={slidesPerView} className={className}>
-          <MiniCard />
-          <MiniCard />
+          {goods.slice(0,10).map(good => (
+            <MiniCard key={good._id} good={good} />
+          ))}
         </Slider>
         
       </section>

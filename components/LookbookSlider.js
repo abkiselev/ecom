@@ -4,7 +4,7 @@ import ButtonArrow from './UI/Buttons/ButtonArrow';
 import Image from 'next/image'
 
 
-function LookbookSlider({slidesPerView, className}) {
+function LookbookSlider({ lookbook, slidesPerView, className }) {
   return (
       <section className={styles.slider}>
         <div className={styles.head}>
@@ -13,10 +13,9 @@ function LookbookSlider({slidesPerView, className}) {
         </div>
 
         <Slider slidesPerView={slidesPerView} className={className}>
-          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
-          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
-          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
-          <Image className={styles.img} src="/images/test.jpg" width="400" height="300" alt="Фото" />       
+          {lookbook.slice(0,10).map(item => (
+            <Image key={item.link} className={styles.img} src={`/images/uploads/${item.link}`} width="400" height="300" alt={item.link} />   
+          ))}  
         </Slider>
 
       </section>

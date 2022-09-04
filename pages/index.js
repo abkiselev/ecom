@@ -5,12 +5,11 @@ import GoodsSlider from '../components/GoodsSlider'
 import LookbookSlider from '../components/LookbookSlider'
 import Zakaz from '../components/Zakaz'
 import Popup from '../components/Popup'
-import { useState } from 'react';
+import axios from 'axios';
 
 
-export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function Home({ goods, lookbook }) {
+  
   return (
     <>
       <Meta
@@ -20,12 +19,22 @@ export default function Home() {
       />
 
       <MainSlider slidesPerView='1' auto={true} />
-      <GoodsSlider title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
-      <LookbookSlider slidesPerView='3.2' className="swiper_overflow" />
-      <Zakaz setIsOpen={setIsOpen}/>
+      <GoodsSlider goods={goods} title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
+      <LookbookSlider lookbook={lookbook} slidesPerView='3.2' className="swiper_overflow" />
+      <Zakaz />
 
       <Popup />
 
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const goodsResponse = await axios.get(`http://localhost:3000/api/routes/goods`);
+  const goods = goodsResponse.data.data;
+  
+  const lookbookResponse = await axios.get(`http://localhost:3000/api/routes/lookbook`);
+  const lookbook = lookbookResponse.data.data;
+
+  return { props: { goods, lookbook } }
 }

@@ -2,9 +2,7 @@
     height: 25px;
     position: relative;
     display: flex;
-    gap: 10px;
-    /* margin: 15px 0; */
-    /* border: 1px solid gray; */
+    /* gap: 10px; */
 }
 
 .search {
@@ -33,9 +31,24 @@
     opacity: 0;
 }
 
+.clear {
+    opacity: 0;
+}
+
+._active {
+    opacity: 1;
+}
 
 .clear::after {
-    content: url(/images/delete.svg);
+    content: '';
+    background-image: url(/images/delete.svg);
+    background-size: 15px;
+    background-repeat: no-repeat;
     z-index: 15;
+    position: absolute;
+    top: 3px;
+    right: 0;
     cursor: pointer;
+    width: 15px;
+    height: 15px;
 }

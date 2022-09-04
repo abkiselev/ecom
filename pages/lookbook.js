@@ -1,12 +1,11 @@
 import Meta from '../components/Meta'
-import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import Hleb from '../components/Hleb';
 import LookbookList from '../components/LookbookList';
 import Zakaz from '../components/Zakaz';
+import axios from 'axios';
 
-
-export default function Lookbook() {
+export default function Lookbook({ lookbook }) {
   return (
     <>
       <Meta
@@ -17,10 +16,17 @@ export default function Lookbook() {
 
       <Hleb />
 
-      <LookbookList />    
+      <LookbookList lookbook={lookbook} />    
 
       <Zakaz /> 
 
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const lookbookResponse = await axios.get(`http://localhost:3000/api/routes/lookbook`);
+  const lookbook = lookbookResponse.data.data;
+
+  return { props: { lookbook } }
 }
