@@ -11,6 +11,12 @@ function UseValidation() {
         setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
         setErrors({...errors, [e.target.name]: e.target.validationMessage})
     }
+
+    function setInitialValues(initialInputs) {
+        setValues(initialInputs)
+        setIsValuesValid(initialInputs)
+        setErrors(initialInputs)
+    }
     
     useEffect(() => {
         if((Object.values(isValuesValid).every(i => i === true) && Object.values(isValuesValid).length !== 0)){
@@ -27,6 +33,7 @@ function UseValidation() {
         values,
         handleValues, 
         errors,
+        setInitialValues,
         setIsFormValid,
         setErrors,
         setValues

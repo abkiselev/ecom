@@ -2,10 +2,10 @@ import Button from './UI/Buttons/Button';
 import styles from '../styles/Form.module.css'
 
 
-function Form({ isFormValid, children, buttonText }) {
+function Form({ onSubmit, isFormValid, children, buttonText }) {
 
   return (
-      <form className={styles.form} action="submit" >
+      <form onSubmit={onSubmit} className={styles.form} action="submit" >
 
         <fieldset className={styles.fieldset}>
           {children}

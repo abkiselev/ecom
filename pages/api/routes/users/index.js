@@ -1,5 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { getUsers, createUser } from '../../controllers/users';
 
 export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+  switch (req.method) {
+    case 'GET':
+        getUsers(req, res)
+        break;
+    case 'POST':
+        createUser(req, res)
+        break;
+    default:
+        res.status(405).json({ error: `Недопустимый метод` });
+        break;
+  }
 }

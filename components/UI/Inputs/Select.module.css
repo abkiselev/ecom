@@ -1,3 +1,9 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .select {
     outline: none;
     color: rgb(51, 51, 51);
@@ -15,5 +21,11 @@
     font-family: 'Montserrat', sans-serif;
     width: 100%;
     min-width: fit-content;
-    margin: 15px 0;
+    margin-bottom: 5px;
+}
+
+.errorText {
+    font-size: 10px;
+    color: red;
+    opacity: 0.8;
 }

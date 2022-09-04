@@ -10,7 +10,7 @@
     align-items: flex-start;
     margin-top: 50px;
     margin-bottom: 50px;
-    gap: 30px;
+    gap: 10px;
 }
 
 .goods {
@@ -18,7 +18,8 @@
     padding: 0;
     margin: 0;
     max-width: 50%;
-    display: flex;
+    display: flex;    
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -94,13 +95,18 @@
     width: 50%;
 }
 
-
 .addings {
     display: flex;
+    justify-content: space-between;
     gap: 30px;
+    margin-bottom: 10px;
 }
 
-
+.fio {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
 
 .data {
     display: flex;

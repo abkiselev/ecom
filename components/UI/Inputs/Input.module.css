@@ -1,3 +1,9 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .input {
     outline: none;
     width: 100%;
@@ -20,7 +26,7 @@
 }
 
 .errorText {
-    font-size: 12px;
+    font-size: 10px;
     color: red;
     opacity: 0.8;
 }

@@ -1,10 +1,13 @@
 import styles from './Select.module.css'
 
-function Select({ onChange, required, children, name, id }) {
+function Select({ onChange, error, required, children, name, id }) {
   return (
-    <select onChange={onChange} className={styles.select} name={name} id={id} required={Boolean(required)} >
-      {children}
-    </select>
+    <div className={styles.wrapper}>
+      <select onChange={onChange} className={styles.select} name={name} id={id} required={Boolean(required)} >
+        {children}
+      </select>
+      <span className={styles.errorText}>{error}</span>
+    </div>
   );
 }
 

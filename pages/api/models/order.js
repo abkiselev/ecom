@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
   goods: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'good' }],
-    default: [],
     required: true,
   },
   total: {
@@ -11,19 +10,20 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   owner: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
-    default: [],
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'user',
     required: true,
   },
-  pay: {
+  oplata: {
     type: String,
     required: true,
   },
-  delivery: {
+  dostavka: {
     type: String,
     required: true,
   },
 },
 { timestamps: true });
 
-export default mongoose.model('order', orderSchema);
+// export default mongoose.model('order', orderSchema);
+export default mongoose.models.order || mongoose.model('order', orderSchema);

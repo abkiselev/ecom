@@ -69,7 +69,7 @@ function Product({ good, handleAdd, handleRemove }) {
             <p className={styles.specItem}><strong>Размеры: </strong>{`в: ${good.visota}, ш: ${good.shirina}, г: ${good.glubina}`}</p>
           </div>
 
-          <h2 className={styles.price}>{`${good.price} р.`}</h2>
+          <h2 className={styles.price}>{`${good.price.toLocaleString()} р.`}</h2>
 
           <div className={styles.actions}>
             {isAdded 

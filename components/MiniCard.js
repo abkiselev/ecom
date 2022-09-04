@@ -19,7 +19,7 @@ function MiniCard({ good, handleAdd, handleRemove }) {
             </Link>
 
             <div className={styles.prices}>
-              <p className={styles.price}>{`${good.price} р.`}</p>
+              <p className={styles.price}>{`${good.price.toLocaleString()} р.`}</p>
               <button className={styles.likeButton}></button>
               {isAdded 
               ? <button className={styles.removeButton} onClick={()=>handleRemove(good)}></button>

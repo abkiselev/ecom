@@ -4,29 +4,33 @@ const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
-    minlength: 2,
   },
   secondName: {
     type: String,
     required: true,
-    minlength: 2,
   },
   surName: {
     type: String,
     required: true,
-    minlength: 2,
   },
   email: {
     type: String,
     required: true,
-    minlength: 2,
   },
-  phone: {
+  tel: {
     type: String,
     required: true,
-    minlength: 8,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    select: false,
   },
 },
 { timestamps: true });
 
-export default mongoose.model('user', userSchema);
+// export default mongoose.model('user', userSchema);
+export default mongoose.models.user || mongoose.model('user', userSchema);

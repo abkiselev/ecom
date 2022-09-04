@@ -1,13 +1,23 @@
 import Image from 'next/image'
 import Meta from '../../components/Meta'
-import MainSlider from '../../components/MainSlider'
-import GoodsSlider from '../../components/GoodsSlider'
-import Zakaz from '../../components/Zakaz'
 import Hleb from '../../components/Hleb'
 import Cart from '../../components/Cart'
+import { useDispatch } from 'react-redux'
+import { addToCart, removeFromCart } from '../../redux/slices/cartSlice'
+
 
 
 export default function Category() {
+  const dispatch = useDispatch();
+ 
+  const handleAdd = (good) => {
+    dispatch(addToCart(good))
+  }
+
+  const handleRemove = (good) => {
+    dispatch(removeFromCart(good))
+  }
+
   return (
     <>
       <Meta
@@ -18,9 +28,7 @@ export default function Category() {
 
       <Hleb />
 
-      <Cart />
-
-
+      <Cart removeFromCart={handleRemove} />
     </>
   )
 }
