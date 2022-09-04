@@ -7,16 +7,13 @@ import Product from '../../../components/Product'
 import Hleb from '../../../components/Hleb'
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../../../redux/slices/cartSlice'
 
 
-export default function ProductPage({ category, good }) {
-  const isAdded = useSelector((state) => state.cart.goods.some(item => item._id === good._id));
+export default function ProductPage({ category, good, goodsToRecommend }) {
   const dispatch = useDispatch();
-
-  console.log(isAdded)
-  
+ 
   const handleAdd = (good) => {
     dispatch(addToCart(good))
   }
@@ -35,9 +32,9 @@ export default function ProductPage({ category, good }) {
 
       <Hleb category={category} good={good.title}/>
 
-      <Product good={good} handleAdd={handleAdd} handleRemove={handleRemove} isAdded={isAdded} />
+      <Product good={good} handleAdd={handleAdd} handleRemove={handleRemove} />
 
-      {/* <GoodsSlider title="ВАМ ПОНРАВЯТСЯ" slidesPerView='4.7' className="swiper_overflow"/> */}
+      <GoodsSlider goods={goodsToRecommend} handleAdd={handleAdd} handleRemove={handleRemove} title="ВАМ ПОНРАВЯТСЯ" slidesPerView='4.7' className="swiper_overflow"/>
 
       <Zakaz />
 
@@ -49,7 +46,8 @@ export async function getServerSideProps(context) {
   const { category } = context.params;
   const { slug } = context.params;
   const response = await axios.get(`http://localhost:3000/api/routes/goods`);
+  const goodsToRecommend = response.data.data.slice(0,10);
   const good = response.data.data.find(item => item.link === slug);
   
-  return { props: { category, good } }
+  return { props: { category, good, goodsToRecommend } }
 }

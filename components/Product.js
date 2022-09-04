@@ -8,9 +8,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Fancybox from './Fancybox';
 import ButtonUnFilled from './UI/Buttons/ButtonUnFilled';
+import { useSelector } from 'react-redux'
 
 
-function Product({ good, handleAdd, handleRemove, isAdded }) {
+function Product({ good, handleAdd, handleRemove }) {
+  const isAdded = useSelector((state) => state.cart.goods.some(item => item._id === good._id));
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   
   return (

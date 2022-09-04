@@ -1,9 +1,12 @@
 import styles from '../styles/MiniCard.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 
-function MiniCard({good}) {
+function MiniCard({ good, handleAdd, handleRemove }) {
+  const isAdded = useSelector((state) => state.cart.goods.some(item => item._id === good._id));
+
   return (
         <div className={styles.slide}>
           
@@ -18,7 +21,10 @@ function MiniCard({good}) {
             <div className={styles.prices}>
               <p className={styles.price}>{`${good.price} р.`}</p>
               <button className={styles.likeButton}></button>
-              <button className={styles.priceButton}></button>
+              {isAdded 
+              ? <button className={styles.removeButton} onClick={()=>handleRemove(good)}></button>
+              : <button className={styles.addButton} onClick={()=>handleAdd(good)}></button>
+              }
             </div>              
           </div>
         </div>

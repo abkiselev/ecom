@@ -21,4 +21,5 @@
     height: 250px;
     border-radius: 5px;
     object-fit: cover;
+    cursor: grab;
 }

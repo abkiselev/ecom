@@ -5,6 +5,8 @@ import ProductsList from '../../components/ProductsList'
 import Hleb from '../../components/Hleb'
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux'
+import { addToCart, removeFromCart } from '../../redux/slices/cartSlice'
 
 
 export default function Category({ category, goods, colors }) {
@@ -13,6 +15,16 @@ export default function Category({ category, goods, colors }) {
   const [filterValues, setFilterValues] = useState({});
   const [sortValue, setSortValue] = useState('popular');
   const filters = useRef();
+
+  const dispatch = useDispatch();
+ 
+  const handleAdd = (good) => {
+    dispatch(addToCart(good))
+  }
+
+  const handleRemove = (good) => {
+    dispatch(removeFromCart(good))
+  }
 
   useEffect(() => {
     setMainCategory(category)
@@ -31,7 +43,7 @@ export default function Category({ category, goods, colors }) {
       setMainGoods(goods)
     }
   }, [sortValue, goods]);
-  
+
   
   return (
     <>
@@ -41,9 +53,11 @@ export default function Category({ category, goods, colors }) {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <Hleb />
+      <Hleb category={category} />
 
       <ProductsList
+        handleAdd={handleAdd}
+        handleRemove={handleRemove}
         category={mainCategory === 'sumki' ? 'СУМКИ' : 'РЕМНИ'}
         mainGoods={mainGoods}
         colors={colors}

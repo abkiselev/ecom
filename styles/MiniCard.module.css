@@ -51,7 +51,7 @@
     transform: rotate(-9deg);
 }
 
-.priceButton {
+.addButton {
     border: none;
     background-image: url(/images/plus.svg);
     background-color: transparent;
@@ -66,8 +66,27 @@
     transition: all 0.25s ease-out;
 }
 
-.priceButton:hover {
+.addButton:hover {
     cursor: pointer;
     opacity: 1;
     transform: rotate(90deg);
+}
+
+.removeButton {
+    border: none;
+    background-image: url(/images/check.svg);
+    background-color: rgb(139, 123, 255);
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: center;
+    border-radius: 50%;
+    padding: 11px;
+    margin: 0;
+    opacity: .9;
+    cursor: pointer;
+}
+
+.removeButton:hover {
+    transition: all 0.25s ease-out;
+    opacity: 1;
 }

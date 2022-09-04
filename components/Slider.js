@@ -15,8 +15,8 @@ function Slider({slidesPerView, className, children, auto = false}) {
       }}
     >
 
-      {children.map(child => (
-        <SwiperSlide>{child}</SwiperSlide>
+      {children.map((child, index) => (
+        <SwiperSlide key={index}>{child}</SwiperSlide>
 
       ))}
       

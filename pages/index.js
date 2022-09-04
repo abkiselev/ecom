@@ -5,10 +5,21 @@ import GoodsSlider from '../components/GoodsSlider'
 import LookbookSlider from '../components/LookbookSlider'
 import Zakaz from '../components/Zakaz'
 import Popup from '../components/Popup'
+import { useDispatch } from 'react-redux'
+import { addToCart, removeFromCart } from '../redux/slices/cartSlice'
 import axios from 'axios';
 
 
 export default function Home({ goods, lookbook }) {
+  const dispatch = useDispatch();
+ 
+  const handleAdd = (good) => {
+    dispatch(addToCart(good))
+  }
+
+  const handleRemove = (good) => {
+    dispatch(removeFromCart(good))
+  }
   
   return (
     <>
@@ -19,7 +30,7 @@ export default function Home({ goods, lookbook }) {
       />
 
       <MainSlider slidesPerView='1' auto={true} />
-      <GoodsSlider goods={goods} title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
+      <GoodsSlider goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
       <LookbookSlider lookbook={lookbook} slidesPerView='3.2' className="swiper_overflow" />
       <Zakaz />
 

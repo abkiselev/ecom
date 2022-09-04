@@ -6,15 +6,18 @@ function Hleb(props) {
   return (
       <div className={styles.wrapper}>
         <Link href="/"><a className={`link ${styles.link}`}>Главная</a></Link>
-        {props.category && 
+        {(props.category && !props.good) && 
+          <span className={styles.current}>{`/ ${props.category === 'sumki' ? 'Сумки' : 'Ремни'}`}</span>
+        }
+        {props.good && 
           <span className={styles.comma}>
             / <Link href={`/${props.category}`}>
                 <a className={`link ${styles.link}`}>{props.category === 'sumki' ? 'Сумки' : 'Ремни'}</a>
-              </Link> /
+              </Link>
           </span>
         }
         {props.good && 
-          <span className={styles.current}>{props.good.toUpperCase()}</span>
+          <span className={styles.current}>{`/ ${props.good.toUpperCase()}`}</span>
         }
       </div>
    
