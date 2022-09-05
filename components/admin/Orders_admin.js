@@ -3,36 +3,45 @@ import { useState, useEffect } from 'react';
 import Search from '../UI/Inputs/Search';
 import axios from 'axios';
 import Loader from '../Loader';
-import usePagination from "../../hooks/usePagination";
+import ReactPaginate from 'react-paginate';
 
 const OrdersAdmin = () => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-  const [pages, setPages] = useState({});
 
-  let {
-    firstContentIndex,
-    lastContentIndex,
-    nextPage,
-    prevPage,
-    page,
-    gaps,
-    setPage,
-    totalPages,
-  } = usePagination(pages);
-
-  console.log(totalPages)
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [endOffset, setEndOffset] = useState(0);
 
   useEffect(() => {
-    const filtered = orders 
-          .filter((item) => Object.entries(item.owner).some(value => 
-            String(value).toLowerCase().includes(searchValue.toLowerCase()))
-            || item._id.includes(searchValue.toLowerCase()))   
+    // Fetch items from another resources.
+    const filtered = orders.filter((item) => Object.entries(item.owner).some(value => 
+      String(value).toLowerCase().includes(searchValue.toLowerCase()))
+      || item._id.includes(searchValue.toLowerCase()))
 
-    setFilteredOrders(filtered.reverse())
-    setPages({ contentPerPage: 5, count: filtered.length, })
-  }, [searchValue]);
+    setFilteredOrders( filtered )
+
+    setEndOffset(itemOffset + itemsPerPage)
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    // setFilteredOrders(filteredOrders.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filtered.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, searchValue]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredOrders.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
+  // console.log(totalPages)
 
   useEffect(() => {
     renderOrders()
@@ -47,8 +56,12 @@ const OrdersAdmin = () => {
     const orders = await axios.get('/api/routes/orders');
     const filtered = orders.data.data.slice();
     setOrders(orders.data.data.reverse());
+
+    // setFilteredOrders(filtered.slice(itemOffset, endOffset));
     setFilteredOrders(filtered.reverse());
-    setPages({ contentPerPage: 5, count: orders.data.data.length, })
+
+    setEndOffset(itemOffset + itemsPerPage)
+    setPageCount(Math.ceil(filtered.length / itemsPerPage));
   }
 
   const setTime = (data) => {
@@ -80,7 +93,7 @@ const OrdersAdmin = () => {
           // .filter((item) => Object.entries(item.owner).some(value => 
           //   String(value).toLowerCase().includes(searchValue.toLowerCase()))
           //   || item._id.includes(searchValue.toLowerCase()))         
-          .slice(firstContentIndex, lastContentIndex)
+          .slice(itemOffset, endOffset)
           .map(ord => (
             
             <li key={ord._id} className={styles.order}>
@@ -101,18 +114,16 @@ const OrdersAdmin = () => {
         </ul>
       }
 
-      <div className="pagination">
-        <p className="text">{page}/{totalPages}</p>
-        <button onClick={prevPage} className={`page ${page === 1 && "disabled"}`}>&larr;</button>
-        <button onClick={() => setPage(1)} className={`page ${page === 1 && "disabled"}`}>1</button>
-        {gaps.before ? "..." : null}
-        {gaps.paginationGroup.map((el) => (
-          <button onClick={() => setPage(el)} key={el} className={`page ${page === el ? "active" : ""}`}>{el}</button>
-        ))}
-        {gaps.after ? "..." : null}
-        <button onClick={() => setPage(totalPages)} className={`page ${page === totalPages && "disabled"}`}>{totalPages}</button>
-        <button onClick={nextPage} className={`page ${page === totalPages && "disabled"}`}>&rarr;</button>
-      </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+      />
+
 
     </div>
   );
