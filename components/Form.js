@@ -1,8 +1,9 @@
 import Button from './UI/Buttons/Button';
-import styles from '../styles/Form.module.css'
+import styles from '../styles/Form.module.css';
+import Loader from './Loader';
 
 
-function Form({ onSubmit, isFormValid, children, buttonText }) {
+function Form({ onSubmit, isFormValid, isloading, children, buttonText }) {
 
   return (
       <form onSubmit={onSubmit} className={styles.form} action="submit" >
@@ -11,7 +12,11 @@ function Form({ onSubmit, isFormValid, children, buttonText }) {
           {children}
         </fieldset>
 
-        <Button disabled={isFormValid} type='submit' text={buttonText} font="fz14" padd="p1475"/>
+        {isloading
+        ? <Loader />
+        : <Button disabled={isFormValid} type='submit' text={buttonText} font="fz14" padd="p1475"/>
+        }
+        
 
       </form>
    

@@ -18,7 +18,7 @@
     padding-left: 20px;
     padding-bottom: 5px;
     width: 170px;
-    /* margin: 15px 0; */
+    margin: 0 0 3px 0;
 }
 
 .search::placeholder {

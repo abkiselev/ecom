@@ -3,19 +3,19 @@ import Meta from '../../components/Meta'
 import Hleb from '../../components/Hleb'
 import Cart from '../../components/Cart'
 import { useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../../redux/slices/cartSlice'
+import { addToCart, removeFromCart, resetCart } from '../../redux/slices/cartSlice'
 
 
 
 export default function Category() {
   const dispatch = useDispatch();
- 
-  const handleAdd = (good) => {
-    dispatch(addToCart(good))
-  }
 
   const handleRemove = (good) => {
     dispatch(removeFromCart(good))
+  }
+
+  const clearCart = () => {
+    dispatch(resetCart())
   }
 
   return (
@@ -28,7 +28,7 @@ export default function Category() {
 
       <Hleb />
 
-      <Cart removeFromCart={handleRemove} />
+      <Cart removeFromCart={handleRemove} clearCart={clearCart} />
     </>
   )
 }
