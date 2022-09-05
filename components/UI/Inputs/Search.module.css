@@ -2,7 +2,7 @@
     height: 25px;
     position: relative;
     display: flex;
-    /* gap: 10px; */
+    width: 100%;
 }
 
 .search {
@@ -17,7 +17,7 @@
     font-family: 'Montserrat', sans-serif;
     padding-left: 20px;
     padding-bottom: 5px;
-    width: 170px;
+    width: 100%;
     margin: 0 0 3px 0;
 }
 

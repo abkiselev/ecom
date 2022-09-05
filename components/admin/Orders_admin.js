@@ -1,28 +1,87 @@
 import styles from '../../styles/Orders_admin.module.css'
-import Image from 'next/image'
 import { useState, useEffect } from 'react';
-import Fancybox from '../Fancybox';
-import Select from '../UI/Inputs/Select';
+import Search from '../UI/Inputs/Search';
 import axios from 'axios';
-import MiniCard from '../MiniCard';
+import Loader from '../Loader';
 
 const OrdersAdmin = () => {
+  const [orders, setOrders] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-    return (
-      <ul className={styles.infoList}>
-            <li className={styles.infoItem}>
-              <h3 className={styles.title}>ФИО</h3>
-              <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
+  console.log(orders)
+
+  useEffect(() => {
+    renderOrders()
+    
+  }, []);
+  
+  // orders.length > 0 && console.log(Object.values(orders[0]).join(''))
+
+  // useEffect(() => {
+  //   setOrders(prev => [prev].filter((item) => Object.keys(item).every(([key]) => item[key].startsWith(searchValue))))
+  // }, [searchValue]);
+
+  const clearSearch = () => {
+    setSearchValue('');
+  }
+
+  const renderOrders = async () => {
+    const orders = await axios.get('/api/routes/orders');
+    setOrders(orders.data.data.reverse())
+    
+  }
+
+  const setTime = (data) => {
+    const date = new Date(data);
+    return date.toLocaleString();
+  }
+
+  const getGoodsNames = (data) => {
+    const names = [];
+    data.forEach(item => {
+      names.push(item.title)
+    })
+    return names.join(', ');
+  }
+
+  return (
+    <div className={styles.orders}>
+
+      <div className={styles.filter}>
+        <p className={styles.filter_text}>Поиск по номеру заказа или данным заказчика:</p>
+        <Search onChange={(e)=>setSearchValue(e.target.value)} onClick={clearSearch} name='search' value={searchValue || ''} placeholder='поиск'/>
+      </div>
+
+      {orders.length === 0
+        ? <Loader />
+        :<ul className={styles.orders_list}>
+
+          {orders
+          .filter((item) => Object.entries(item.owner).some(value => 
+                            String(value).toLowerCase().includes(searchValue.toLowerCase()))
+                            || item._id.includes(searchValue.toLowerCase()))
+          .map(ord => (
+            
+            <li key={ord._id} className={styles.order}>
+              <div className={styles.head}>
+                <h2 className={styles.title}>{setTime(ord.createdAt)}</h2>
+                <p className={styles.title}>{ord._id}</p>
+                <p className={styles.title}>{`${ord.owner.surName} ${ord.owner.firstName} ${ord.owner.secondName}`}</p>
+              </div>
+              <div className={styles.info}>
+                <h2 className={styles.title}>{getGoodsNames(ord.goods)}</h2>
+                <p className={styles.title}>{`${ord.total} руб.`}</p>
+                <p className={styles.title}>{`${ord.owner.tel} ${ord.owner.email}`}</p>
+              </div>
             </li>
-            <li className={styles.infoItem}>
-              <h3 className={styles.title}>E-mail</h3>
-              <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
-            </li>
-            <li className={styles.infoItem}>
-              <button className={styles.button}>Изменить</button>
-            </li>
-          </ul>
-    );
+          
+          ))}
+
+        </ul>
+      }
+
+    </div>
+  );
 }
 
 export default OrdersAdmin;

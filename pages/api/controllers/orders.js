@@ -4,10 +4,12 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE }
 
 
 export const getOrders = async (req, res) => {
+  console.log('shrtjrtjrtj')
   await dbConnect()
 
   Order.find({})
-    .populate('category')
+    .populate('owner')
+    .populate('goods')
     .then((orders) => res.status(OK_CODE).send({ data: orders }))
     .catch((error) => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', error: error.message }));
 };

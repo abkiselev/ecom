@@ -9,7 +9,7 @@ import CategoriesAdmin from '../../components/admin/Categories_admin';
 
 
 export default function Admin() {
-  const [isActive, setIsActive] = useState('goods');  
+  const [isActive, setIsActive] = useState('orders');  
 
   return (
     <>

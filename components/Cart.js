@@ -68,10 +68,10 @@ function Cart({ removeFromCart, clearCart }) {
 
         <h1>КОРЗИНА</h1>
 
-        {goodsInCart.length === 0 
-          ? <CartEmpty />
-          : isOrderConfirmed
-            ? <ConfirmationOrder email={values.email}/>
+        {isOrderConfirmed
+          ? <ConfirmationOrder email={values.email}/>
+          : goodsInCart.length === 0 
+            ? <CartEmpty />
             : <section className={styles.cartWrapper}>
 
               <ul className={styles.goods}>
