@@ -3,23 +3,41 @@ import { useState, useEffect } from 'react';
 import Search from '../UI/Inputs/Search';
 import axios from 'axios';
 import Loader from '../Loader';
+import usePagination from "../../hooks/usePagination";
 
 const OrdersAdmin = () => {
   const [orders, setOrders] = useState([]);
+  const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [pages, setPages] = useState({});
 
-  console.log(orders)
+  let {
+    firstContentIndex,
+    lastContentIndex,
+    nextPage,
+    prevPage,
+    page,
+    gaps,
+    setPage,
+    totalPages,
+  } = usePagination(pages);
+
+  console.log(totalPages)
+
+  useEffect(() => {
+    const filtered = orders 
+          .filter((item) => Object.entries(item.owner).some(value => 
+            String(value).toLowerCase().includes(searchValue.toLowerCase()))
+            || item._id.includes(searchValue.toLowerCase()))   
+
+    setFilteredOrders(filtered.reverse())
+    setPages({ contentPerPage: 5, count: filtered.length, })
+  }, [searchValue]);
 
   useEffect(() => {
     renderOrders()
     
   }, []);
-  
-  // orders.length > 0 && console.log(Object.values(orders[0]).join(''))
-
-  // useEffect(() => {
-  //   setOrders(prev => [prev].filter((item) => Object.keys(item).every(([key]) => item[key].startsWith(searchValue))))
-  // }, [searchValue]);
 
   const clearSearch = () => {
     setSearchValue('');
@@ -27,8 +45,10 @@ const OrdersAdmin = () => {
 
   const renderOrders = async () => {
     const orders = await axios.get('/api/routes/orders');
-    setOrders(orders.data.data.reverse())
-    
+    const filtered = orders.data.data.slice();
+    setOrders(orders.data.data.reverse());
+    setFilteredOrders(filtered.reverse());
+    setPages({ contentPerPage: 5, count: orders.data.data.length, })
   }
 
   const setTime = (data) => {
@@ -56,10 +76,11 @@ const OrdersAdmin = () => {
         ? <Loader />
         :<ul className={styles.orders_list}>
 
-          {orders
-          .filter((item) => Object.entries(item.owner).some(value => 
-                            String(value).toLowerCase().includes(searchValue.toLowerCase()))
-                            || item._id.includes(searchValue.toLowerCase()))
+          {filteredOrders 
+          // .filter((item) => Object.entries(item.owner).some(value => 
+          //   String(value).toLowerCase().includes(searchValue.toLowerCase()))
+          //   || item._id.includes(searchValue.toLowerCase()))         
+          .slice(firstContentIndex, lastContentIndex)
           .map(ord => (
             
             <li key={ord._id} className={styles.order}>
@@ -79,6 +100,19 @@ const OrdersAdmin = () => {
 
         </ul>
       }
+
+      <div className="pagination">
+        <p className="text">{page}/{totalPages}</p>
+        <button onClick={prevPage} className={`page ${page === 1 && "disabled"}`}>&larr;</button>
+        <button onClick={() => setPage(1)} className={`page ${page === 1 && "disabled"}`}>1</button>
+        {gaps.before ? "..." : null}
+        {gaps.paginationGroup.map((el) => (
+          <button onClick={() => setPage(el)} key={el} className={`page ${page === el ? "active" : ""}`}>{el}</button>
+        ))}
+        {gaps.after ? "..." : null}
+        <button onClick={() => setPage(totalPages)} className={`page ${page === totalPages && "disabled"}`}>{totalPages}</button>
+        <button onClick={nextPage} className={`page ${page === totalPages && "disabled"}`}>&rarr;</button>
+      </div>
 
     </div>
   );
