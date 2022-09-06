@@ -3,9 +3,25 @@ import Meta from '../components/Meta'
 import { useRouter } from 'next/router'
 import Cabinet from '../components/Cabinet';
 import { checkAuth } from './api/middlewares/checkAuth';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../redux/slices/userSlice';
 
 
 export default function Lk(props) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  // console.log(props.user)
+
+  useEffect(() => {
+    if(user){
+      dispatch(setUser(props.user))
+    }
+  }, []);
+
+
   const router = useRouter();
 
   return (
@@ -16,13 +32,13 @@ export default function Lk(props) {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <Cabinet user={props.user} />
+      <Cabinet user={user} />
     </>
   )
 }
 
-export async function getServerSideProps(ctx) {
-  const user = await checkAuth(ctx.req)
+export async function getServerSideProps(context) {
+  const user = await checkAuth(context.req)
 
   if (!user) {
     return {

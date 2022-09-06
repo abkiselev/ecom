@@ -11,18 +11,20 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-function Cart({ removeFromCart, clearCart }) {
-  const goodsInCart = useSelector((state) => state.cart.goods);
-  const totalGoodsCost = useSelector((state) => state.cart.totalSum);
-  const { isFormValid, values, setInitialValues, handleValues, errors } = UseValidation();
+function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) {
+  // const goodsInCart = useSelector((state) => state.cart.goods);
+  // const totalGoodsCost = useSelector((state) => state.cart.totalSum);
+  const { isFormValid, values, isValuesValid, setInitialValues, handleValues, errors } = UseValidation();
   const [deliveryCost, setDeliveryCost] = useState(0);
   const [totalOrderCost, setTotalOrderCost] = useState(0);
   const [isloading, setIsloading] = useState(false);
   const [isOrderConfirmed, setOrderConfirmed] = useState(false);
   
   useEffect(() => {
-    setInitialValues({dostavka: '', oplata: '', firstName: '', secondName: '', surName: '', address: '', tel: '', email: ''});
+    setInitialValues({dostavka: '', oplata: '', firstName: user.firstName || '', secondName: user.secondName || '', surName: user.surName || '', address: user.address || '', tel: user.tel || '', email: user.email || ''});
   }, []);  
+
+  console.log(errors)
   
   useEffect(() => {    
     if(values.dostavka === 'pochta'){
@@ -129,7 +131,7 @@ function Cart({ removeFromCart, clearCart }) {
                   </div>
                   <Input onChange={handleValues} value={values.address} error={errors.address} type="text" name='address' placeholder='Адрес доставки*' required='true' />
                   <Input onChange={handleValues} value={values.tel} error={errors.tel} type="tel" name='tel' placeholder='Контактный телефон*' required='true' />
-                  <Input onChange={handleValues} value={values.email} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' />
+                  <Input onChange={handleValues} value={values.email} isValuesValid={isValuesValid} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' />
 
                 </Form>
 

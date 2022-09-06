@@ -32,7 +32,11 @@ function UseValidation() {
     function setInitialValues(initialInputs) {
         setValues(initialInputs)
         setIsValuesValid(initialInputs)
-        setErrors(initialInputs)
+        
+        Object.keys(initialInputs).forEach((key) => {
+            setErrors(prev => ...prev[key]: '')
+        })
+        // setErrors(initialInputs)
     }
     
     useEffect(() => {
