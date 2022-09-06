@@ -6,14 +6,11 @@ import ConfirmationOrder from './ConfirmationOrder';
 import Input from './UI/Inputs/Input';
 import Select from './UI/Inputs/Select';
 import UseValidation from '../hooks/UseValidation';
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
 function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) {
-  // const goodsInCart = useSelector((state) => state.cart.goods);
-  // const totalGoodsCost = useSelector((state) => state.cart.totalSum);
   const { isFormValid, values, isValuesValid, setInitialValues, handleValues, errors } = UseValidation();
   const [deliveryCost, setDeliveryCost] = useState(0);
   const [totalOrderCost, setTotalOrderCost] = useState(0);
@@ -24,7 +21,7 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
     setInitialValues({dostavka: '', oplata: '', firstName: user.firstName || '', secondName: user.secondName || '', surName: user.surName || '', address: user.address || '', tel: user.tel || '', email: user.email || ''});
   }, []);  
 
-  console.log(errors)
+  console.log(values)
   
   useEffect(() => {    
     if(values.dostavka === 'pochta'){

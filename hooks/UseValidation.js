@@ -8,7 +8,6 @@ function UseValidation() {
 
     function handleValues(e) {
         setValues({...values, [e.target.name]: e.target.value})
-        // setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
 
         if (e.target.name === 'email'){
             validateEmail(e.target.value)
@@ -26,7 +25,6 @@ function UseValidation() {
             validateLoginPass(e.target.value)
         } 
         
-        // setErrors({...errors, [e.target.name]: e.target.validationMessage})
     }
 
     function setInitialValues(initialInputs) {
@@ -34,7 +32,8 @@ function UseValidation() {
         setIsValuesValid(initialInputs)
         
         Object.keys(initialInputs).forEach((key) => {
-            setErrors(prev => ...prev[key]: '')
+            console.log(key)
+            setErrors( { ...errors}, errors[key] = ''  )
         })
         // setErrors(initialInputs)
     }
