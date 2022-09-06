@@ -1,4 +1,7 @@
 import dbConnect from '../../../lib/mongodb';
+import Cookies from 'cookies'
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
@@ -30,21 +33,77 @@ module.exports.getUser = async (req, res) => {
 };
 
 module.exports.createUser = async (req, res) => {
-  const { firstName, secondName, surName, email, tel, address } = req.body;
-  console.log(firstName, secondName, surName, email, tel, address)
-
-  await dbConnect()
-
+  console.log('создание юзера')
   try {
-    const user = await User.create({ firstName, secondName, surName, email, tel, address });
-    return res.status(CREATED_CODE).send({ data: user });
+    const { firstName, secondName, surName, email, tel, address, password } = req.body;
+  
+    await dbConnect()
+    const user = await User.create({ firstName, secondName, surName, email, tel, address, password });
+    return res.status(CREATED_CODE).send({ 
+      data: { _id: user._id, firstName: user.firstName, secondName: user.secondName, surName: user.surName, email: user.email, tel: user.tel, address: address.tel } 
+    });
   } catch (error) {
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания пользователя' });
     }
-    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
   }
 };
+
+module.exports.register = async (req, res) => {
+  console.log('регистрация юзера')
+  try {
+    const { email, password } = req.body;
+    const hash = await bcrypt.hash(password, 10);
+  
+    await dbConnect()
+    const user = await User.create({ email, password: hash });
+    return res.status(CREATED_CODE).send({ 
+      data: { _id: user._id, email: user.email } 
+    });
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания пользователя' });
+    }
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
+  }
+};
+
+module.exports.login = async (req, res) => {
+  console.log('логин юзера')
+  try {
+    const { email, password } = req.body;
+
+    await dbConnect()
+    const user = await User.findOne({ email }).select('+password');
+    console.log('полученный юзер в логине', user)
+    if (!user) {
+      throw new UnautorizedError('Неправильные почта или пароль');
+    }
+
+    const matched = await bcrypt.compare(password, user.password);
+    if (!matched) {
+      throw new UnautorizedError('Неправильные почта или пароль');
+    }
+
+    const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+    const cookies = new Cookies(req, res);
+    
+    res.cookie = cookies.set('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true })
+    return res.status(OK_CODE).send({ token });
+
+  } catch (error) {
+    if (error.kind === 'ObjectId') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID пользователя' });
+    }
+    if (error.name === 'ValidationError') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные' });
+    }
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
+  }
+};
+
+
 
 // module.exports.updateUser = async (req, res) => {
 //   const { name, about } = req.body;

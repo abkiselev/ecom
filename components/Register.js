@@ -3,9 +3,37 @@ import Form from './Form'
 import Input from './UI/Inputs/Input';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import UseValidation from '../hooks/UseValidation';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
+import axios from 'axios';
 
 function Register() {
-  const { isFormValid, values, handleValues, errors } = UseValidation();
+  const router = useRouter();
+  const { isFormValid, values, isValuesValid, handleValues, errors, setInitialValues } = UseValidation();
+  const [isloading, setIsloading] = useState(false);
+
+  useEffect(() => {
+    setInitialValues({ email: '', password: '', passwordRepeat: '', })
+  }, []);
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    setIsloading(true)
+    const { email, password } = values;
+
+    const configData = {
+      headers: { 'content-type': 'application/json' }
+    };
+
+    const user = await axios.post('/api/routes/users/register', { email, password }, configData);
+    console.log(user.data.data)
+    
+    const login = await axios.post('/api/routes/users/login', { email, password }, configData);
+    console.log(login)
+
+    login && router.push("/lk")
+  }
+
   
   return (
     <section className={styles.login}>
@@ -14,10 +42,10 @@ function Register() {
 
         <h1>РЕГИСТРАЦИЯ</h1>
 
-        <Form isFormValid={isFormValid} buttonText="Войти">
-          <Input value={values.email} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />
-          <Input value={values.password} error={errors.password} type="password" name='password' placeholder='Пароль*' required='true' onChange={handleValues} />
-          <Input value={values.passwordRepeat} error={errors.passwordRepeat} type="password" name='passwordRepeat' placeholder='Повторите пароль*' required='true' onChange={handleValues} />
+        <Form isFormValid={isFormValid} onSubmit={handleRegister} isloading={isloading} buttonText="Зарегистрироваться">
+          <Input value={values.email} error={errors.email} isValuesValid={isValuesValid.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />
+          <Input value={values.password} error={errors.password} isValuesValid={isValuesValid.password} type="password" name='password' placeholder='Пароль*' required='true' onChange={handleValues} />
+          <Input value={values.passwordRepeat} error={errors.passwordRepeat} isValuesValid={isValuesValid.passwordRepeat} type="password" name='passwordRepeat' placeholder='Повторите пароль*' required='true' onChange={handleValues} />
         </Form>
 
         <div className={styles.info}>

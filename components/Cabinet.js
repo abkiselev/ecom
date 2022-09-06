@@ -20,7 +20,7 @@ console.log(isActive)
           </div> 
 
           <ul className={`${styles.productList} ${isActive === 'favorites' && styles.content_active}`}>
-            <li className={styles.product}>
+            {/* <li className={styles.product}>
               <MiniCard />
             </li>
             <li className={styles.product}>
@@ -34,7 +34,7 @@ console.log(isActive)
             </li>
             <li className={styles.product}>
               <MiniCard />
-            </li>
+            </li> */}
           </ul>
 
 
