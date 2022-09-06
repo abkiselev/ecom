@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 
 function Cabinet() {
-  const [isActive, setIsActive] = useState('favorites');
+  const [isActive, setIsActive] = useState('zakazy');
 
 console.log(isActive)
   return (
@@ -14,8 +14,8 @@ console.log(isActive)
           <h1 className={styles.name}>ЛИЧНЫЙ КАБИНЕТ</h1>
 
           <div className={styles.tabs}>
-            <button className={`${styles.tab} ${isActive === 'favorites' && styles.tab_active}`} onClick={() => setIsActive('favorites')}>Избранное</button>
             <button className={`${styles.tab} ${isActive === 'zakazy' && styles.tab_active}`} onClick={() => setIsActive('zakazy')}>Заказы</button>
+            <button className={`${styles.tab} ${isActive === 'favorites' && styles.tab_active}`} onClick={() => setIsActive('favorites')}>Избранное</button>
             <button className={`${styles.tab} ${isActive === 'info' && styles.tab_active}`} onClick={() => setIsActive('info')}>Личные данные</button>
           </div> 
 

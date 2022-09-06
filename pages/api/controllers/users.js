@@ -78,12 +78,12 @@ module.exports.login = async (req, res) => {
     const user = await User.findOne({ email }).select('+password');
     console.log('полученный юзер в логине', user)
     if (!user) {
-      throw new UnautorizedError('Неправильные почта или пароль');
+      return res.status(401).send({ message: 'Неправильные почта или пароль' });
     }
 
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) {
-      throw new UnautorizedError('Неправильные почта или пароль');
+      return res.status(401).send({ message: 'Неправильные почта или пароль' });
     }
 
     const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });

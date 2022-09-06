@@ -21,6 +21,10 @@ function UseValidation() {
         if (e.target.name === 'passwordRepeat'){
             validatePassRepeat(e.target.value)
         } 
+
+        if (e.target.name === 'loginPass'){
+            validateLoginPass(e.target.value)
+        } 
         
         // setErrors({...errors, [e.target.name]: e.target.validationMessage})
     }
@@ -44,7 +48,7 @@ function UseValidation() {
         if(!String(inputText)
             .toLowerCase()
             .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                setErrors({...errors, email: 'Пока e-mail не верный...'})
+                setErrors({...errors, email: 'Пока это не похоже на e-mail...'})
                 setIsValuesValid({...isValuesValid, email: false})
             } else {
                 setErrors({...errors, email: ''})
@@ -73,7 +77,13 @@ function UseValidation() {
             }
     }
 
-    // console.log(errors)
+    function validateLoginPass(inputText){
+        if(inputText.length > 0) {
+                setIsValuesValid({...isValuesValid, loginPass: true})
+            } else setIsValuesValid({...isValuesValid, loginPass: false})
+    }
+
+    // console.log(values)
 
     return ({
         isFormValid,

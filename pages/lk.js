@@ -1,18 +1,12 @@
 import Login from '../components/Login'
 import Meta from '../components/Meta'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react';
 import Cabinet from '../components/Cabinet';
-import Zakaz from '../components/Zakaz';
+import { checkAuth } from './api/middlewares/checkAuth';
 
 
-export default function Lk() {
-  // const isLoggedIn = false;
+export default function Lk(props) {
   const router = useRouter();
-
-  // useEffect(() => {
-  //   !isLoggedIn && router.push("/auth/login")
-  // }, [])
 
   return (
     <>
@@ -22,8 +16,26 @@ export default function Lk() {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <Cabinet />
+      <Cabinet user={props.user} />
     </>
   )
 }
 
+export async function getServerSideProps(ctx) {
+  const user = await checkAuth(ctx.req)
+
+  if (!user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/auth/login'
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user))
+    }
+  }
+}
