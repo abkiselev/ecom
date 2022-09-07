@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../../../redux/slices/cartSlice'
 import { setLike, removeLike } from '../../../redux/slices/likeSlice';
 import { checkAuth } from '../../api/middlewares/checkAuth';
-import { setUser } from '../../../redux/slices/userSlice';
+import { setUser, removeUser } from '../../../redux/slices/userSlice';
 
 
 export default function ProductPage({ category, good, goodsToRecommend, userProps }) {
@@ -21,6 +21,8 @@ export default function ProductPage({ category, good, goodsToRecommend, userProp
   useEffect(() => {
     if(userProps && !user.loggedIn){
       dispatch(setUser(userProps))
+    } else if (!userProps && user.loggedIn){
+      dispatch(removeUser())
     }
   }, []);
  

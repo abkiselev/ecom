@@ -15,6 +15,8 @@ export default function Lookbook({ lookbook, userProps }) {
   useEffect(() => {
     if(userProps && !user.loggedIn){
       dispatch(setUser(userProps))
+    } else if (!userProps && user.loggedIn){
+      dispatch(removeUser())
     }
   }, []);
 

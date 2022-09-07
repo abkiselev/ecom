@@ -9,24 +9,46 @@ function UseValidation() {
     function handleValues(e) {
         setValues({...values, [e.target.name]: e.target.value})
 
-        if (e.target.name === 'email'){
-            validateEmail(e.target.value)
-        } 
+        switch (e.target.name) {
+            case 'email':
+                validateEmail(e.target.value)
+                break;
+            case 'password':
+                validatePass(e.target.value)
+                break;
+            case 'passwordRepeat':
+                validatePassRepeat(e.target.value)
+                break;
+            case 'loginPass':
+                validateLoginPass(e.target.value)
+                break;
+            case 'address':
+                validateAddress(e.target.value)
+                break;
+        
+            default:
+                setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
+                break;
+        }
 
-        if (e.target.name === 'password'){
-            validatePass(e.target.value)
-        } 
+        // if (e.target.name === 'email'){
+        //     validateEmail(e.target.value)
+        // } 
 
-        if (e.target.name === 'passwordRepeat'){
-            validatePassRepeat(e.target.value)
-        } 
+        // if (e.target.name === 'password'){
+        //     validatePass(e.target.value)
+        // } 
 
-        if (e.target.name === 'loginPass'){
-            validateLoginPass(e.target.value)
-        } 
-
-        setErrors({...errors, [e.target.name]: e.target.validationMessage})
-        setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
+        // if (e.target.name === 'passwordRepeat'){
+        //     validatePassRepeat(e.target.value)
+        // } 
+        
+        // if (e.target.name === 'loginPass'){
+        //     validateLoginPass(e.target.value)
+        // } 
+        
+        // setErrors({...errors, [e.target.name]: e.target.validationMessage})
+        // setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
         
     }
 
@@ -85,6 +107,19 @@ function UseValidation() {
         if(inputText.length > 0) {
                 setIsValuesValid({...isValuesValid, loginPass: true})
             } else setIsValuesValid({...isValuesValid, loginPass: false})
+    }
+
+    function validateAddress(inputText){
+        if((inputText.length < 5) && (!inputText.match(/^\d{6,}/)) ) {
+            setErrors({...errors, address: 'Начните с индекса, он состоит из 6 цифр'})
+            setIsValuesValid({...isValuesValid, address: false})
+        } else if((inputText.length < 33) && (inputText.match(/^\d{6,}/)) ){
+            setErrors({...errors, address: 'Указывайте полный адрес, чтобы доставка не потерялась'})
+            setIsValuesValid({...isValuesValid, address: false})
+        } else if((inputText.length < 34) && (inputText.match(/^\d{6,}/)) ){
+            setErrors({...errors, address: ''})
+            setIsValuesValid({...isValuesValid, address: true})
+        }
     }
 
     // console.log(values)

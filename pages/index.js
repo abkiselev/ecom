@@ -9,7 +9,7 @@ import { setLike, removeLike } from '../redux/slices/likeSlice';
 import axios from 'axios';
 import { checkAuth } from './api/middlewares/checkAuth';
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from '../redux/slices/userSlice';
+import { setUser, removeUser } from '../redux/slices/userSlice';
 import { useEffect } from 'react';
 
 
@@ -17,9 +17,13 @@ export default function Home({ goods, lookbook, userProps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
+  console.log(userProps)
+
   useEffect(() => {
     if(userProps && !user.loggedIn){
       dispatch(setUser(userProps))
+    } else if (!userProps && user.loggedIn){
+      dispatch(removeUser())
     }
   }, []);
  
@@ -66,6 +70,7 @@ export async function getServerSideProps(context) {
   const lookbook = lookbookResponse.data.data;
 
   const user = await checkAuth(context.req);
+  console.log(user)
 
   return { props: { goods, lookbook, userProps: JSON.parse(JSON.stringify(user)) } }
 }

@@ -18,10 +18,15 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
   const [isOrderConfirmed, setOrderConfirmed] = useState(false);
   
   useEffect(() => {
-    setInitialValues({dostavka: '', oplata: '', firstName: user.firstName || '', secondName: user.secondName || '', surName: user.surName || '', address: user.address || '', tel: user.tel || '', email: user.email || ''});
+    if(user === null){
+      setInitialValues({password: '', dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
+    } else {
+      setInitialValues({dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
+    }
   }, []);  
 
-  // console.log(user)
+  console.log(isValuesValid)
+  // console.log(Boolean(user === null))
  
   useEffect(() => {    
     if(values.dostavka === 'pochta'){
@@ -129,13 +134,17 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
                   </div>
 
                   <div className={styles.fio}>
-                    <Input onChange={handleValues} value={values.surName} error={errors.surName} type="text" name='surName' placeholder='Фамилия*' required='true' />
-                    <Input onChange={handleValues} value={values.firstName} error={errors.firstName} type="text" name='firstName' placeholder='Имя*' required='true' />
-                    <Input onChange={handleValues} value={values.secondName} error={errors.secondName} type="text" name='secondName' placeholder='Отчество*' required='true' />
+                    <Input onChange={handleValues} value={values.surName} isValuesValid={isValuesValid.surName} error={errors.surName} type="text" name='surName' placeholder='Фамилия*' required='true' />
+                    <Input onChange={handleValues} value={values.firstName} isValuesValid={isValuesValid.firstName} error={errors.firstName} type="text" name='firstName' placeholder='Имя*' required='true' />
+                    <Input onChange={handleValues} value={values.secondName} isValuesValid={isValuesValid.secondName} error={errors.secondName} type="text" name='secondName' placeholder='Отчество*' required='true' />
                   </div>
-                  <Input onChange={handleValues} value={values.address} error={errors.address} type="text" name='address' placeholder='Адрес доставки*' required='true' />
-                  <Input onChange={handleValues} value={values.tel} error={errors.tel} type="tel" name='tel' placeholder='Контактный телефон*' required='true' />
-                  <Input onChange={handleValues} value={values.email} isValuesValid={isValuesValid} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' />
+                  <Input onChange={handleValues} value={values.address} isValuesValid={isValuesValid.address} error={errors.address} type="text" name='address' placeholder='Адрес доставки*' required='true' />
+                  <Input onChange={handleValues} value={values.tel} isValuesValid={isValuesValid.tel} error={errors.tel} type="tel" name='tel' placeholder='Контактный телефон*' required='true' />
+                  <Input onChange={handleValues} value={values.email} isValuesValid={isValuesValid.email} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' />
+
+                  {user === null &&
+                    <Input onChange={handleValues} value={values.password} isValuesValid={isValuesValid.password} error={errors.password} type="password" name='password' placeholder='Придумайте пароль для личного кабинета*' required='true' />
+                  }
 
                 </Form>
 
