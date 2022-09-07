@@ -32,7 +32,6 @@ function UseValidation() {
         setIsValuesValid(initialInputs)
         
         Object.keys(initialInputs).forEach((key) => {
-            console.log(key)
             setErrors( { ...errors}, errors[key] = ''  )
         })
         // setErrors(initialInputs)

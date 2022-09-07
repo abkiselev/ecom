@@ -4,8 +4,7 @@ import { useRouter } from 'next/router'
 import Cabinet from '../components/Cabinet';
 import { checkAuth } from './api/middlewares/checkAuth';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../redux/slices/userSlice';
 
 
@@ -13,10 +12,8 @@ export default function Lk(props) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // console.log(props.user)
-
   useEffect(() => {
-    if(user){
+    if(props.user && !user.loggedIn){
       dispatch(setUser(props.user))
     }
   }, []);

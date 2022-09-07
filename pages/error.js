@@ -2,8 +2,6 @@ import Link from 'next/link'
 import Meta from '../components/Meta'
 import styles from '../styles/NotFound.module.css'
 
-
-
 export default function Error() {
   return (
     <>
@@ -24,7 +22,6 @@ export default function Error() {
           <Link href='/about'><a className={`link ${styles.link_error}`}>О бренде</a></Link>
           <Link href='/lookbook'><a className={`link ${styles.link_error}`}>LookBook</a></Link>
         </div>
-
 
       </section>
     </>

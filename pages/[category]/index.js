@@ -5,19 +5,27 @@ import ProductsList from '../../components/ProductsList'
 import Hleb from '../../components/Hleb'
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../../redux/slices/cartSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { addToCart, removeFromCart } from '../../redux/slices/cartSlice';
+import { checkAuth } from '../api/middlewares/checkAuth';
+import { setUser } from '../../redux/slices/userSlice';
 
 
-export default function Category({ category, goods, colors }) {
+export default function Category({ category, goods, colors, userProps }) {
   const [mainGoods, setMainGoods] = useState(goods);
   const [mainCategory, setMainCategory] = useState(category);
   const [filterValues, setFilterValues] = useState({});
   const [sortValue, setSortValue] = useState('popular');
   const filters = useRef();
-
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
- 
+
+  useEffect(() => {
+    if(userProps && !user.loggedIn){
+      dispatch(setUser(userProps))
+    }
+  }, []);
+
   const handleAdd = (good) => {
     dispatch(addToCart(good))
   }
@@ -79,22 +87,22 @@ export async function getServerSideProps(context) {
   const response = await axios.get(`http://localhost:3000/api/routes/goods`);
   const goods = response.data.data.filter(item => item.category.link === category);
 
+  if (goods.length === 0) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/error'
+      }
+    }
+  }
+
   const colors = [];
 
   goods.forEach(el => {
     !colors.includes(el.color) && colors.push(el.color)
   });
 
-  
-  if (!goods) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
+  const user = await checkAuth(context.req);
 
-
-  return { props: { category, goods, colors } }
+  return { props: { category, goods, colors, userProps: JSON.parse(JSON.stringify(user)) } }
 }

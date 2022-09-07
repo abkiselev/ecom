@@ -27,7 +27,6 @@ function Login() {
     };
     
     const login = await axios.post('/api/routes/users/login', { email, loginPass }, configData);
-    console.log(login)
 
     login && router.push("/lk")
   }

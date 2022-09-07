@@ -1,9 +1,9 @@
 import Meta from '../../components/Meta'
 import Register from '../../components/Register';
+import { checkAuth } from '../api/middlewares/checkAuth';
 
 
 export default function Lk() {
-  const isLoggedIn = false;
   return (
     <>
       <Meta
@@ -16,4 +16,23 @@ export default function Lk() {
 
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const user = await checkAuth(context.req)
+
+  if (user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/lk'
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user))
+    }
+  }
 }

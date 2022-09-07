@@ -7,12 +7,21 @@ import Product from '../../../components/Product'
 import Hleb from '../../../components/Hleb'
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../../../redux/slices/cartSlice'
+import { checkAuth } from '../../api/middlewares/checkAuth';
+import { setUser } from '../../../redux/slices/userSlice';
 
 
-export default function ProductPage({ category, good, goodsToRecommend }) {
+export default function ProductPage({ category, good, goodsToRecommend, userProps }) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if(userProps && !user.loggedIn){
+      dispatch(setUser(userProps))
+    }
+  }, []);
  
   const handleAdd = (good) => {
     dispatch(addToCart(good))
@@ -48,6 +57,17 @@ export async function getServerSideProps(context) {
   const response = await axios.get(`http://localhost:3000/api/routes/goods`);
   const goodsToRecommend = response.data.data.slice(0,10);
   const good = response.data.data.find(item => item.link === slug);
+
+  if (!good) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/error'
+      }
+    }
+  }
+
+  const user = await checkAuth(context.req);
   
-  return { props: { category, good, goodsToRecommend } }
+  return { props: { category, good, goodsToRecommend, userProps: JSON.parse(JSON.stringify(user)) } }
 }
