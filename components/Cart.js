@@ -21,8 +21,8 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
     setInitialValues({dostavka: '', oplata: '', firstName: user.firstName || '', secondName: user.secondName || '', surName: user.surName || '', address: user.address || '', tel: user.tel || '', email: user.email || ''});
   }, []);  
 
-  console.log(values)
-  
+  // console.log(user)
+ 
   useEffect(() => {    
     if(values.dostavka === 'pochta'){
       setDeliveryCost(250)
@@ -52,10 +52,17 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
     const configData = {
       headers: { 'content-type': 'application/json' }
     };
+    
+    if(user){
+      const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, tel, email }, configData);
+      const orderData = { dostavka, oplata, owner: user._id, goods: goodsIds, total: totalOrderCost };
+      const order = await axios.post('/api/routes/orders', orderData, configData);
+    } else {
+      const userCreated = await axios.post('/api/routes/users', userData, configData);
+      const orderData = { dostavka, oplata, owner: userCreated.data.data._id, goods: goodsIds, total: totalOrderCost };
+      const order = await axios.post('/api/routes/orders', orderData, configData);
+    }
 
-    const user = await axios.post('/api/routes/users', userData, configData);
-    const orderData = { dostavka, oplata, owner: user.data.data._id, goods: goodsIds, total: totalOrderCost };
-    const order = await axios.post('/api/routes/orders', orderData, configData);
 
     setIsloading(false)
     setOrderConfirmed(true)

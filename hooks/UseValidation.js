@@ -24,17 +24,19 @@ function UseValidation() {
         if (e.target.name === 'loginPass'){
             validateLoginPass(e.target.value)
         } 
+
+        setErrors({...errors, [e.target.name]: e.target.validationMessage})
+        setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
         
     }
 
     function setInitialValues(initialInputs) {
         setValues(initialInputs)
-        setIsValuesValid(initialInputs)
         
         Object.keys(initialInputs).forEach((key) => {
             setErrors( { ...errors}, errors[key] = ''  )
+            setIsValuesValid( { ...isValuesValid}, isValuesValid[key] = initialInputs[key].length > 0 )
         })
-        // setErrors(initialInputs)
     }
     
     useEffect(() => {

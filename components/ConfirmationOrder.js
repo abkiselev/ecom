@@ -12,8 +12,11 @@ function ConfirmationOrder({ email }) {
           <h2 className={styles.title}>Заказ оформлен!</h2>
         </div>
           <p>Мы свяжемся с вами для подтверждения.</p>
-          <p>Чтобы отслеживать заказ - зарегистрируйтесь с вашей почтой ({email}) &#160;
-            <Link href="/register"><a className={styles.link}>здесь</a></Link>
+          <p>Отслеживать заказ можно &#160;
+            <Link href="/lk"><a className={styles.link}>в личном кабинете</a></Link>
+          </p>
+          <p>Если вы не регистрировались - зарегистрируйтесь с вашей почтой ({email}) &#160;
+            <Link href="/auth/register"><a className={styles.link}>здесь</a></Link>
           </p>
 
       </section>

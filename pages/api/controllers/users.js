@@ -33,7 +33,6 @@ module.exports.getUser = async (req, res) => {
 };
 
 module.exports.createUser = async (req, res) => {
-  console.log('создание юзера')
   try {
     const { firstName, secondName, surName, email, tel, address, password } = req.body;
   
@@ -51,7 +50,6 @@ module.exports.createUser = async (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
-  console.log('регистрация юзера')
   try {
     const { email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
@@ -70,7 +68,6 @@ module.exports.register = async (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
-  console.log('логин юзера')
   try {
     const { email, password } = req.body;
 
@@ -103,29 +100,30 @@ module.exports.login = async (req, res) => {
   }
 };
 
+module.exports.updateUser = async (req, res) => {
+  const { firstName, secondName, surName, tel, email } = req.body;
 
+  try {
+    const token = req.cookies['jwt']
+    const userId = jwt.verify(token, 'some-secret-key')._id;
 
-// module.exports.updateUser = async (req, res) => {
-//   const { name, about } = req.body;
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { firstName, secondName, surName, tel, email },
+      { new: true, runValidators: true },
+    );
 
-//   try {
-//     const user = await User.findByIdAndUpdate(
-//       req.user._id,
-//       { name, about },
-//       { new: true, runValidators: true },
-//     );
-
-//     if (!user) {
-//       return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });
-//     }
-//     return res.status(OK_CODE).send({ data: user });
-//   } catch (error) {
-//     if (error.kind === 'ObjectId') {
-//       return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID пользователя' });
-//     }
-//     if (error.name === 'ValidationError') {
-//       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для обновления пользователя' });
-//     }
-//     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
-//   }
-// };
+    if (!user) {
+      return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });
+    }
+    return res.status(OK_CODE).send({ data: user });
+  } catch (error) {
+    if (error.kind === 'ObjectId') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID пользователя' });
+    }
+    if (error.name === 'ValidationError') {
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для обновления пользователя' });
+    }
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
+  }
+};
