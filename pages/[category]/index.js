@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../../redux/slices/cartSlice';
+import { setLike, removeLike } from '../../redux/slices/likeSlice';
 import { checkAuth } from '../api/middlewares/checkAuth';
 import { setUser } from '../../redux/slices/userSlice';
 
@@ -32,6 +33,14 @@ export default function Category({ category, goods, colors, userProps }) {
 
   const handleRemove = (good) => {
     dispatch(removeFromCart(good))
+  }
+
+  const handleSetLike = (good) => {
+    dispatch(setLike(good))
+  }
+
+  const handleRemoveLike = (good) => {
+    dispatch(removeLike(good))
   }
 
   useEffect(() => {
@@ -66,6 +75,8 @@ export default function Category({ category, goods, colors, userProps }) {
       <ProductsList
         handleAdd={handleAdd}
         handleRemove={handleRemove}
+        handleSetLike={handleSetLike}
+        handleRemoveLike={handleRemoveLike}
         category={mainCategory === 'sumki' ? 'СУМКИ' : 'РЕМНИ'}
         mainGoods={mainGoods}
         colors={colors}

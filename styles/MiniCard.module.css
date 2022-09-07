@@ -51,6 +51,28 @@
     transform: rotate(-9deg);
 }
 
+.unlikeButton {
+    border: none;
+    background-image: url(/images/liked.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    opacity: .8;
+    transition: all 0.25s ease-out;
+}
+
+
+.unlikeButton:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: rotate(-9deg);
+}
+
 .addButton {
     border: none;
     background-image: url(/images/plus.svg);

@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit'
 import popupsReduser from "./slices/popupsSlice";
 import cartReduser from "./slices/cartSlice";
 import userReduser from "./slices/userSlice";
+import likesReduser from "./slices/likeSlice";
 
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import {
-  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -17,26 +17,18 @@ import {
 } from 'redux-persist'
 import thunk from 'redux-thunk';
 
-// export const store = configureStore({
-//     reducer: {
-//         popups: popupsReduser,
-//         cart: cartReduser,
-//         user: userReduser,
-//       },
-// })
-
-
 const reducers = combineReducers({
   popups: popupsReduser,
   cart: cartReduser,
   user: userReduser,
+  likes: likesReduser,
 });
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['cart', 'user'],
+  whitelist: ['cart', 'user', 'likes'],
   blacklist: ['popups'],
 }
 

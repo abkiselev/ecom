@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 
 const Navbar = () => {
     const totalInCart = useSelector((state) => state.cart.quantity)
+    const totalLikes = useSelector((state) => state.likes.quantity)
     const [isMenuChecked, setIsMenuChecked] = useState(false);
 
     return (
@@ -42,13 +43,13 @@ const Navbar = () => {
                     <Link href='/lk'>
                         <a><Image src="/images/lk.svg" width="25" height="25" alt="ЛК"/></a>
                     </Link>
+                    {totalLikes && <span className={styles.counter}>{totalLikes}</span>}
                 </li>
                 <li className={styles.icon}>
                     <Link href='/cart'>
                         <a><Image src="/images/cart.svg" width="25" height="25" alt="Корзина"/></a>
                     </Link>
-                    {totalInCart && <span className={styles.counter}>{totalInCart}</span>}
-                    
+                    {totalInCart && <span className={styles.counter}>{totalInCart}</span>}                    
                 </li>                
             </ul>
           </nav>

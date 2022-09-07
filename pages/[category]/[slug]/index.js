@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../../../redux/slices/cartSlice'
+import { setLike, removeLike } from '../../../redux/slices/likeSlice';
 import { checkAuth } from '../../api/middlewares/checkAuth';
 import { setUser } from '../../../redux/slices/userSlice';
 
@@ -31,6 +32,14 @@ export default function ProductPage({ category, good, goodsToRecommend, userProp
     dispatch(removeFromCart(good))
   }
 
+  const handleSetLike = (good) => {
+    dispatch(setLike(good))
+  }
+
+  const handleRemoveLike = (good) => {
+    dispatch(removeLike(good))
+  }
+
   return (
     <>
       <Meta
@@ -41,9 +50,9 @@ export default function ProductPage({ category, good, goodsToRecommend, userProp
 
       <Hleb category={category} good={good.title}/>
 
-      <Product good={good} handleAdd={handleAdd} handleRemove={handleRemove} />
+      <Product good={good} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} />
 
-      <GoodsSlider goods={goodsToRecommend} handleAdd={handleAdd} handleRemove={handleRemove} title="ВАМ ПОНРАВЯТСЯ" slidesPerView='4.7' className="swiper_overflow"/>
+      <GoodsSlider goods={goodsToRecommend} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="ВАМ ПОНРАВЯТСЯ" slidesPerView='4.7' className="swiper_overflow"/>
 
       <Zakaz />
 

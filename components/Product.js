@@ -11,8 +11,9 @@ import ButtonUnFilled from './UI/Buttons/ButtonUnFilled';
 import { useSelector } from 'react-redux'
 
 
-function Product({ good, handleAdd, handleRemove }) {
+function Product({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
   const isAdded = useSelector((state) => state.cart.goods.some(item => item._id === good._id));
+  const isLiked = useSelector((state) => state.likes.likes.some(item => item._id === good._id));
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   
   return (
@@ -77,7 +78,10 @@ function Product({ good, handleAdd, handleRemove }) {
             : <Button text="В КОРЗИНУ" font="fz14" padd="p1475" disabled={true} onClick={()=>handleAdd(good)}/>
             }
             
-            <button className={styles.likeButton}></button>
+            {isLiked 
+              ? <button className={styles.unlikeButton} onClick={()=>handleRemoveLike(good)}></button>
+              : <button className={styles.likeButton} onClick={()=>handleSetLike(good)}></button>
+            }
 
           </div>
         </div>

@@ -4,7 +4,7 @@ import Select from './UI/Inputs/Select';
 import Search from './UI/Inputs/Search';
 
 
-function ProductsList({ category, mainGoods, colors, filters, filterValues, setFilterValues, sortValue, setSortValue, handleAdd, handleRemove }) {
+function ProductsList({ category, mainGoods, colors, filters, filterValues, setFilterValues, sortValue, setSortValue, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
   
   return (
       <section className={styles.goods}>
@@ -45,7 +45,7 @@ function ProductsList({ category, mainGoods, colors, filters, filterValues, setF
               .filter((item) => Object.entries(filterValues).every(([key, value]) => item[key].includes(value)))
               .map(good => (
                 <li key={good._id} className={styles.good}>
-                  <MiniCard good={good} handleAdd={handleAdd} handleRemove={handleRemove}/>
+                  <MiniCard good={good} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike}/>
                 </li>
             ))}
 

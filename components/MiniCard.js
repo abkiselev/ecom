@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 
 
-function MiniCard({ good, handleAdd, handleRemove }) {
+function MiniCard({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
   const isAdded = useSelector((state) => state.cart.goods.some(item => item._id === good._id));
+  const isLiked = useSelector((state) => state.likes.likes.some(item => item._id === good._id));
 
   return (
         <div className={styles.slide}>
@@ -20,7 +21,10 @@ function MiniCard({ good, handleAdd, handleRemove }) {
 
             <div className={styles.prices}>
               <p className={styles.price}>{`${good.price.toLocaleString()} р.`}</p>
-              <button className={styles.likeButton}></button>
+              {isLiked 
+              ? <button className={styles.unlikeButton} onClick={()=>handleRemoveLike(good)}></button>
+              : <button className={styles.likeButton} onClick={()=>handleSetLike(good)}></button>
+              }
               {isAdded 
               ? <button className={styles.removeButton} onClick={()=>handleRemove(good)}></button>
               : <button className={styles.addButton} onClick={()=>handleAdd(good)}></button>
