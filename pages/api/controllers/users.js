@@ -114,7 +114,7 @@ module.exports.updateUser = async (req, res) => {
       userId,
       { firstName, secondName, surName, tel, email },
       { new: true, runValidators: true },
-    );
+    ).select('-password');
 
     if (!user) {
       return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });

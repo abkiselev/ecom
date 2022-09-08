@@ -28,7 +28,7 @@ export default function Lookbook({ lookbook, userProps }) {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <Hleb />
+      <Hleb category='lookbook' />
 
       <LookbookList lookbook={lookbook} />    
 

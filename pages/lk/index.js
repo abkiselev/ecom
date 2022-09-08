@@ -13,6 +13,8 @@ import Me from '../../components/lk/Me';
 import axios from 'axios';
 import ButtonUnFilled from '../../components/UI/Buttons/ButtonUnFilled';
 
+import { updateUser2 } from '../../redux/slices/userSlice'
+
 
 export default function Lk(props) {
   const user = useSelector((state) => state.user);
@@ -23,16 +25,18 @@ export default function Lk(props) {
   const { asPath } = router;
 
 
-  useEffect(() => {
-    if(props.user && !user.loggedIn){
-      dispatch(setUser(props.user))
-    } else if (!props.user && user.loggedIn){
-      dispatch(removeUser())
-    }
-  }, []);
+  // useEffect(() => {
+  //   if(props.user && !user.loggedIn){
+  //     dispatch(setUser(props.user))
+  //   } else if (!props.user && user.loggedIn){
+  //     dispatch(removeUser())
+  //   }
+  // }, []);
 
   const updateUser = (data) => {
-    dispatch(setUser(data))
+    // dispatch(setUser(data))
+    dispatch(updateUser2(data))
+    
   }
 
   const handleAdd = (good) => {
@@ -109,7 +113,6 @@ export async function getServerSideProps(context) {
   }
 
   const orders = await axios.get(`http://localhost:3000/api/routes/orders/${user._id.toString()}`);
-  console.log(orders)
 
   return {
     props: { userOrders: orders.data.data, user: JSON.parse(JSON.stringify(user)) }

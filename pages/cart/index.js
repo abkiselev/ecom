@@ -43,7 +43,7 @@ export default function Category({ userProps }) {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <Hleb />
+      <Hleb category='cart' />
 
       <Cart removeFromCart={handleRemove} clearCart={clearCart} user={user} goodsInCart={goodsInCart} totalGoodsCost={totalGoodsCost} />
     </>

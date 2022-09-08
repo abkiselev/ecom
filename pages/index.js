@@ -17,7 +17,7 @@ export default function Home({ goods, lookbook, userProps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  console.log(userProps)
+  // console.log(userProps)
 
   useEffect(() => {
     if(userProps && !user.loggedIn){

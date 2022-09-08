@@ -40,6 +40,11 @@ const Navbar = () => {
           <nav>
             <ul className={styles.icons}>
                 <li className={styles.icon}>
+                    <Link href='/lk'>
+                        <a><Image src="/images/lk.svg" width="22" height="25" alt="ЛК"/></a>
+                    </Link>
+                </li>
+                <li className={styles.icon}>
                     <Link href='/lk#favorites'>
                         <a><Image src="/images/heart.svg" width="22" height="25" alt="ЛК"/></a>
                     </Link>

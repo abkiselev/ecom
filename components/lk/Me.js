@@ -7,6 +7,8 @@ import Input from '../UI/Inputs/Input';
 import UseValidation from '../../hooks/UseValidation';
 import axios from 'axios';
 
+
+
 function Me({ user, updateUser }) {
   const [isEdit, setIsEdit] = useState(false);  
   const { isFormValid, values, isValuesValid, setInitialValues, handleValues, errors } = UseValidation();
@@ -23,21 +25,34 @@ function Me({ user, updateUser }) {
     setIsEdit(!isEdit)
   }
 
+  // const handleSubmitUpdate = async (e) => {
+  //   e.preventDefault();
+  //   setIsloading(true)
+
+  //   const { firstName, secondName, surName, tel, email } = values;
+
+  //   const configData = {
+  //     headers: { 'content-type': 'application/json' }
+  //   };
+
+  //   const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, tel, email }, configData);
+  //   updateUser(userUpdated.data.data)
+    
+  //   setIsloading(false)
+  //   setIsEdit(false)
+  // }
+
   const handleSubmitUpdate = async (e) => {
     e.preventDefault();
-    setIsloading(true)
 
     const { firstName, secondName, surName, tel, email } = values;
 
-    const configData = {
-      headers: { 'content-type': 'application/json' }
-    };
+    // const configData = {
+    //   headers: { 'content-type': 'application/json' }
+    // };
 
-    const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, tel, email }, configData);
-
-    updateUser(userUpdated.data.data)
-
-    setIsloading(false)
+    updateUser({ id: user._id, firstName, secondName, surName, tel, email })
+    
     setIsEdit(false)
   }
 
