@@ -14,8 +14,10 @@ function Me({ user, updateUser }) {
 
 
   useEffect(() => {
-    !isEdit && setInitialValues({firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', tel: user?.tel || '', email: user?.email || ''});
+    isEdit && setInitialValues({firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', tel: user?.tel || '', email: user?.email || ''});
   }, [isEdit]); 
+
+  // console.log(isEdit)
 
   const handleEditButton = () => {
     setIsEdit(!isEdit)

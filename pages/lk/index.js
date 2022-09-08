@@ -11,6 +11,7 @@ import Liked from '../../components/lk/Liked';
 import Zakazy from '../../components/lk/Zakazy';
 import Me from '../../components/lk/Me';
 import axios from 'axios';
+import ButtonUnFilled from '../../components/UI/Buttons/ButtonUnFilled';
 
 
 export default function Lk(props) {
@@ -50,6 +51,15 @@ export default function Lk(props) {
     dispatch(removeLike(good))
   }
 
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    dispatch(removeUser());
+    const logout = await axios.get('/api/routes/users/logout');
+    console.log(logout)
+    router.push('/')
+
+  }
+
 
   return (
     <>
@@ -65,12 +75,15 @@ export default function Lk(props) {
 
           <h1 className={styles.name}>ЛИЧНЫЙ КАБИНЕТ</h1>
 
+
           <div className={styles.tabs}>
             <button className={`${styles.tab} ${asPath === '/lk#favorites' && styles.tab_active}`} onClick={() => router.push('/lk#favorites')}>Избранное</button>
             <button className={`${styles.tab} ${asPath === '/lk#zakazy' && styles.tab_active}`} onClick={() => router.push('/lk#zakazy')}>Заказы</button>
             <button className={`${styles.tab} ${((asPath === '/lk#me') || (asPath === '/lk')) && styles.tab_active}`} onClick={() => router.push('/lk#me')}>Личные данные</button>
           </div> 
 
+          <ButtonUnFilled disabled='false' text='выйти' font='fz12' padd='p1015' onClick={(e)=>handleLogout(e)} />
+          
         </div>
 
           {asPath === '/lk#favorites' && <Liked goods={likedGoods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} /> }

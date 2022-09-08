@@ -21,6 +21,10 @@
     background-color: rgba(114, 99, 212, 0.3);
 }
 
+.fz10 {
+    font-size: 10px;
+}
+
 .fz12 {
     font-size: 12px;
 }
@@ -31,6 +35,10 @@
 
 .fz16 {
     font-size: 16px;
+}
+
+.p1015 {
+    padding: 10px 15px;
 }
 
 .p1475 {

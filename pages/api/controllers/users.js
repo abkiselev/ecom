@@ -130,3 +130,14 @@ module.exports.updateUser = async (req, res) => {
     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
   }
 };
+
+module.exports.logout = async (req, res) => {
+  try {
+    const cookies = new Cookies(req, res);
+    
+    res.cookie = cookies.set('jwt')
+    return res.send({ message: 'Выход' });    
+  } catch (error) {
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
+  }
+};
