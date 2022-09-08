@@ -1,20 +1,38 @@
 import styles from '../../styles/Lk/Zakazy.module.css'
-import { useEffect } from 'react';
+import Image from 'next/image'
 
-function Zakazy({ goods, setUserOrders }) {
-  useEffect(() => {
-    // СДЕЛАТЬ ЗАПРОС ЗА СПИСКОМ ЗАКАЗОВ
-  }, []);
+function Zakazy({ orders }) {
+
+  console.log(orders)
+
+  const setTime = (data) => {
+    const date = new Date(data);
+    return date.toLocaleString();
+  }
   
   return (
     <>
-      {(goods.length === 0)
+      {(orders.length === 0)
         ? <p>Вы пока ничего не заказывали</p>
-        : <ul className={styles.productList}>
+        : <ul className={styles.ordersList}>
             
-              {goods.map(good => (
-                  <li key={good._id} className={styles.good}>
-                      {/* // ВЫВЕСТИ СПИСОК ЗАКАЗОВ */}
+              {orders.map(order => (
+                  <li key={order._id} className={styles.order}>
+                    <div className={styles.heading}>
+                      <h3 className={styles.title}>{setTime(order.createdAt)}</h3>
+                      <p className={styles.number}>{`Номер ${order._id}`}</p>
+                    </div>
+
+                        {order.goods.map(good => (
+                        <div key={good._id} className={styles.good}>
+                          <Image src={`/images/uploads/${good.images[0]}`} width='50' height='50' alt={good.images[0]} />
+                            <p>{good.title}</p>
+                            <p>{`${good.price} р.`}</p>
+                        </div>
+                        ))}
+
+                    <p className={styles.total}>{`Итого: ${order.total} р.`}</p>
+
                   </li>
               ))}
               

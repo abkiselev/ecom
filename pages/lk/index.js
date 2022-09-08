@@ -4,25 +4,29 @@ import { useRouter } from 'next/router'
 import { checkAuth } from '../api/middlewares/checkAuth';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from '../../redux/slices/userSlice';
+import { setUser, removeUser } from '../../redux/slices/userSlice';
 import { addToCart, removeFromCart } from '../../redux/slices/cartSlice';
 import { setLike, removeLike } from '../../redux/slices/likeSlice';
 import Liked from '../../components/lk/Liked';
 import Zakazy from '../../components/lk/Zakazy';
 import Me from '../../components/lk/Me';
+import axios from 'axios';
 
 
 export default function Lk(props) {
   const user = useSelector((state) => state.user);
   const likedGoods = useSelector((state) => state.likes.likes);
-  const [userOrders, setUserOrders] = useState([]);
+  const userOrders = props.userOrders;
   const dispatch = useDispatch();
   const router = useRouter();
   const { asPath } = router;
 
+
   useEffect(() => {
     if(props.user && !user.loggedIn){
       dispatch(setUser(props.user))
+    } else if (!props.user && user.loggedIn){
+      dispatch(removeUser())
     }
   }, []);
 
@@ -70,7 +74,7 @@ export default function Lk(props) {
         </div>
 
           {asPath === '/lk#favorites' && <Liked goods={likedGoods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} /> }
-          {asPath === '/lk#zakazy' && <Zakazy goods={userOrders} setUserOrders={setUserOrders} /> }
+          {asPath === '/lk#zakazy' && <Zakazy orders={userOrders} /> }
           {((asPath === '/lk#me') || (asPath === '/lk')) && <Me user={user.userInfo} updateUser={updateUser} /> }
        
       </section>
@@ -79,7 +83,8 @@ export default function Lk(props) {
 }
 
 export async function getServerSideProps(context) {
-  const user = await checkAuth(context.req)
+  const user = await checkAuth(context.req);
+  // console.log(user._id.toString())
 
   if (!user) {
     return {
@@ -90,9 +95,10 @@ export async function getServerSideProps(context) {
     }
   }
 
+  const orders = await axios.get(`http://localhost:3000/api/routes/orders/${user._id.toString()}`);
+  console.log(orders)
+
   return {
-    props: {
-      user: JSON.parse(JSON.stringify(user))
-    }
+    props: { userOrders: orders.data.data, user: JSON.parse(JSON.stringify(user)) }
   }
 }

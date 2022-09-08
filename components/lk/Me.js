@@ -14,7 +14,7 @@ function Me({ user, updateUser }) {
 
 
   useEffect(() => {
-    !isEdit && setInitialValues({firstName: user.firstName || '', secondName: user.secondName || '', surName: user.surName || '', tel: user.tel || '', email: user.email || ''});
+    !isEdit && setInitialValues({firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', tel: user?.tel || '', email: user?.email || ''});
   }, [isEdit]); 
 
   const handleEditButton = () => {
@@ -48,23 +48,23 @@ function Me({ user, updateUser }) {
                   <ul className={styles.info}>
                     <li className={styles.info_item}>
                       <h2 className={styles.title}>Фамилия:</h2>
-                      <p className={styles.subtitle}>{user.surName}</p>
+                      <p className={styles.subtitle}>{user?.surName}</p>
                     </li>
                     <li className={styles.info_item}>
                       <h2 className={styles.title}>Имя:</h2>
-                      <p className={styles.subtitle}>{user.firstName}</p>
+                      <p className={styles.subtitle}>{user?.firstName}</p>
                     </li>
                     <li className={styles.info_item}>
                       <h2 className={styles.title}>Отчество:</h2>
-                      <p className={styles.subtitle}>{user.secondName}</p>
+                      <p className={styles.subtitle}>{user?.secondName}</p>
                     </li>
                     <li className={styles.info_item}>
                       <h2 className={styles.title}>Телефон:</h2>
-                      <p className={styles.subtitle}>{user.tel}</p>
+                      <p className={styles.subtitle}>{user?.tel}</p>
                     </li>
                     <li className={styles.info_item}>
                       <h2 className={styles.title}>E-mail:</h2>
-                      <p className={styles.subtitle}>{user.email}</p>
+                      <p className={styles.subtitle}>{user?.email}</p>
                     </li>                
                   </ul>
 

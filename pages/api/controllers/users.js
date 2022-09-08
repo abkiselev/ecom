@@ -9,7 +9,7 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE }
 module.exports.getUsers = async (req, res) => {
   await dbConnect()
 
-  User.find({})
+  User.find({}).select('-password')
     .then((users) => res.status(OK_CODE).send({ data: users }))
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
 };
@@ -18,7 +18,7 @@ module.exports.getUser = async (req, res) => {
   await dbConnect()
 
   try {
-    const user = await User.findById(req.params.userId);
+    const user = await User.findById(req.params.userId).select('-password');
 
     if (!user) {
       return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });
@@ -35,9 +35,10 @@ module.exports.getUser = async (req, res) => {
 module.exports.createUser = async (req, res) => {
   try {
     const { firstName, secondName, surName, email, tel, address, password } = req.body;
+    const hash = await bcrypt.hash(password, 10);
   
     await dbConnect()
-    const user = await User.create({ firstName, secondName, surName, email, tel, address, password });
+    const user = await User.create({ firstName, secondName, surName, email, tel, address, password: hash });
     return res.status(CREATED_CODE).send({ 
       data: { _id: user._id, firstName: user.firstName, secondName: user.secondName, surName: user.surName, email: user.email, tel: user.tel, address: address.tel } 
     });
@@ -70,9 +71,11 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log('данные в логине', email, password)
 
     await dbConnect()
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email })
+    // .select('email password');
     console.log('полученный юзер в логине', user)
     if (!user) {
       return res.status(401).send({ message: 'Неправильные почта или пароль' });

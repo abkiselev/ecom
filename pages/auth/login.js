@@ -1,9 +1,23 @@
 import Login from '../../components/Login'
 import Meta from '../../components/Meta'
 import { checkAuth } from '../api/middlewares/checkAuth';
+import { useEffect, useState } from 'react';
+import { setUser, removeUser } from '../../redux/slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux'
 
 
-export default function Lk() {
+export default function Log(props) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(props.user && !user.loggedIn){
+      dispatch(setUser(props.user))
+    } else if (!props.user && user.loggedIn){
+      dispatch(removeUser())
+    }
+  }, []);
+
   return (
     <>
       <Meta

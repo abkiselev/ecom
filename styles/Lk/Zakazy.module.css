@@ -1,8 +1,32 @@
-.productList {
+.ordersList {
     list-style-type: none;
-    padding: 0;
-    display: grid;
-    grid-template: auto / repeat(4,minmax(250px, 1fr));
-    column-gap: 30px;
-    row-gap: 50px;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.title {
+    margin: 0;
+}
+
+.number {
+    margin: 0;
+}
+
+.good {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.total {
+    margin: 0;
+    font-weight: 600;
 }

@@ -1,4 +1,4 @@
-import { getOrders, createOrder } from '../controllers/orders';
+import { getOrders, createOrder } from '../../controllers/orders';
 
 export default function handler(req, res) {
   switch (req.method) {

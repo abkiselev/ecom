@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique : true,
   },
   tel: {
     type: String,
@@ -27,11 +28,11 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    select: false,
+    // select: false,
   },
   role: {
     type: String,
-    default: 'user'
+    default: 'user',
   },
 },
 { timestamps: true });

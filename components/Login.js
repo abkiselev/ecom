@@ -26,7 +26,7 @@ function Login() {
       headers: { 'content-type': 'application/json' }
     };
     
-    const login = await axios.post('/api/routes/users/login', { email, loginPass }, configData);
+    const login = await axios.post('/api/routes/users/login', { email, password: loginPass }, configData);
 
     login && router.push("/lk")
   }
