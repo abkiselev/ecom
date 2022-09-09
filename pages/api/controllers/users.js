@@ -1,4 +1,4 @@
-import dbConnect from '../../../lib/mongodb';
+import dbConnect from '../../../utils/mongodb';
 import Cookies from 'cookies'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';

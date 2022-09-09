@@ -10,8 +10,8 @@ import axios from 'axios';
 
 
 function Me({ user, updateUser }) {
-  const [isEdit, setIsEdit] = useState(false);  
   const { isFormValid, values, isValuesValid, setInitialValues, handleValues, errors } = UseValidation();
+  const [isEdit, setIsEdit] = useState(false);  
   const [isloading, setIsloading] = useState(false);
 
 

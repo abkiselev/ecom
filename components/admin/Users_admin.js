@@ -1,28 +1,56 @@
 import styles from '../../styles/Users_admin.module.css'
-import Image from 'next/image'
 import { useState, useEffect } from 'react';
-import Fancybox from '../Fancybox';
-import Select from '../UI/Inputs/Select';
+import Search from '../UI/Inputs/Search';
 import axios from 'axios';
-import MiniCard from '../MiniCard';
+import Loader from '../Loader';
 
 const UsersAdmin = () => {
+  const [users, setUsers] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-    return (
-      <ul className={styles.infoList}>
-            <li className={styles.infoItem}>
-              <h3 className={styles.title}>ФИОddd</h3>
-              <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
+  console.log(users)
+  useEffect(() => {
+    renderUsers()
+  }, []);
+
+  const clearSearch = () => {
+    setSearchValue('');
+  }
+
+  const renderUsers = async () => {
+    const users = await axios.get('/api/routes/users');
+    setUsers(users.data.data.reverse());
+  }
+
+  return (
+    <>
+      <div className={styles.filter}>
+        <p className={styles.filter_text}>Поиск:</p>
+        <Search onChange={(e)=>setSearchValue(e.target.value)} onClick={clearSearch} name='search' value={searchValue || ''} placeholder='поиск'/>
+      </div>
+
+      {users.length === 0
+        ? <Loader />
+        : <ul className={styles.infoList}>
+
+          {users    
+            .filter((item) => Object.entries(item).some(value => 
+                String(value).toLowerCase().includes(searchValue.toLowerCase())))  
+            .map(user => (
+            <li key={user._id} className={styles.infoItem}>
+              <h3 className={styles.title}>{`${user.surName} ${user.firstName} ${user.secondName}`}</h3>
+              <p className={styles.subtitle}>{user.email}</p>
+              <p className={styles.subtitle}>{user.tel}</p>
             </li>
-            <li className={styles.infoItem}>
-              <h3 className={styles.title}>E-mail</h3>
-              <p className={styles.subtitle}>ФИОФИО ФИОФИОФИО ФИОФИО</p>
-            </li>
-            <li className={styles.infoItem}>
-              <button className={styles.button}>Изменить</button>
-            </li>
+
+          ))}
+
           </ul>
-    );
+      }
+
+      
+    </>
+  );
 }
 
 export default UsersAdmin;

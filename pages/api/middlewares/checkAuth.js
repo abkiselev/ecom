@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import dbConnect from '../../../lib/mongodb';
+import dbConnect from '../../../utils/mongodb';
 import User from '../models/user';
 
 export const checkAuth = async (req) => {

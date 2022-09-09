@@ -24,28 +24,11 @@ function UseValidation() {
                 break;
             case 'address':
                 validateAddress(e.target.value)
-                break;
-        
+                break;      
             default:
                 setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
                 break;
         }
-
-        // if (e.target.name === 'email'){
-        //     validateEmail(e.target.value)
-        // } 
-
-        // if (e.target.name === 'password'){
-        //     validatePass(e.target.value)
-        // } 
-
-        // if (e.target.name === 'passwordRepeat'){
-        //     validatePassRepeat(e.target.value)
-        // } 
-        
-        // if (e.target.name === 'loginPass'){
-        //     validateLoginPass(e.target.value)
-        // } 
         
         // setErrors({...errors, [e.target.name]: e.target.validationMessage})
         // setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
@@ -54,10 +37,9 @@ function UseValidation() {
 
     function setInitialValues(initialInputs) {
         setValues(initialInputs)
-        
         Object.keys(initialInputs).forEach((key) => {
-            setErrors( { ...errors}, errors[key] = ''  )
-            setIsValuesValid( { ...isValuesValid}, isValuesValid[key] = initialInputs[key].length > 0 )
+            setErrors( { ...initialInputs, [key]: '' } );
+            setIsValuesValid( { ...initialInputs, [key]: initialInputs[key] !== '' } );
         })
     }
     

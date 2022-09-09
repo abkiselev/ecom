@@ -16,7 +16,7 @@ export default function Layout({ children }) {
       />
       <Popup
         id="writeUsPopup"
-        title="Написать мне"
+        title="Связаться со мной"
         buttonText="Отправить"
       />
 

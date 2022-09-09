@@ -1,20 +1,32 @@
 import styles from '../styles/Popup.module.css'
 import Form from './Form'
 import Input from './UI/Inputs/Input';
-import ButtonArrow from './UI/Buttons/ButtonArrow';
-import Image from 'next/image';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { closePopup } from '../redux/slices/popupsSlice'
-import Textarea from './UI/Inputs/Textarea';
 import UseValidation from '../hooks/UseValidation';
 
 
 function Popup({ id, title, buttonText }) {
   const isOpen = useSelector((state) => state.popups[id])
+  const [isloading, setIsloading] = useState(false);
   const dispatch = useDispatch()
 
-  const { isFormValid, values, handleValues, errors } = UseValidation();
+  const { isFormValid, values, isValuesValid, handleValues, errors, setInitialValues } = UseValidation();
+
+
+  useEffect(() => {
+    isOpen && setInitialValues({ tel: '', email: '' });
+  }, [isOpen]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsloading(true)
+
+    // дописать функцию ____________________________________________________________
+    
+    setIsloading(false)
+  }
   
   const close = (e) => {
     if(e.target === e.currentTarget){
@@ -29,15 +41,13 @@ function Popup({ id, title, buttonText }) {
 
         <h1 className={styles.name}>{title}</h1>
 
-        <Form isFormValid={isFormValid} buttonText={buttonText}>
-          <Input value={values.tel} error={errors.tel} pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" type="tel" name='tel' placeholder='Телефон*' required='true' onChange={handleValues} />
-          <Input value={values.email} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />
-          <Textarea />
+        <Form isFormValid={isFormValid} onSubmit={handleSubmit} isloading={isloading} buttonText={buttonText}>
+          <Input value={values.tel} error={errors.tel} isValuesValid={isValuesValid.tel} type="tel" name='tel' placeholder='Телефон*' required='true' onChange={handleValues} />
+          <Input value={values.email} error={errors.email} isValuesValid={isValuesValid.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />
         </Form>
         
         <button className={styles.closeButton} onClick={close}/>
       </div>
-
 
     </section>
    

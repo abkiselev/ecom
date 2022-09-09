@@ -1,3 +1,10 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
 .textarea {
     outline: none;
     width: 100%;
@@ -17,4 +24,29 @@
 
 .textarea:focus::placeholder {
     opacity: 0;
+}
+
+.errorText {
+    margin-top: 3px;
+    font-size: 10px;
+    color: red;
+    opacity: 0.8;
+    padding-left: 3px;
+}
+
+._ok {
+    border: 1px solid rgba(159, 212, 152, 0.8);
+}
+
+.icon::after {
+    content: '';
+    background-image: url(/images/check_green.svg);
+    background-size: 15px;
+    background-repeat: no-repeat;
+    z-index: 2;
+    position: absolute;
+    top: 23px;
+    right: 7px;
+    width: 15px;
+    height: 15px;
 }

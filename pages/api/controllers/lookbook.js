@@ -1,4 +1,4 @@
-import dbConnect from '../../../lib/mongodb'
+import dbConnect from '../../../utils/mongodb'
 import Lookbook from '../models/lookbook.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 

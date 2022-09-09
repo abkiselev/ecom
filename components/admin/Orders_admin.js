@@ -6,14 +6,11 @@ import Loader from '../Loader';
 
 const OrdersAdmin = () => {
   const [orders, setOrders] = useState([]);
-  // const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
-  // console.log(totalPages)
 
   useEffect(() => {
     renderOrders()
-    
   }, []);
 
   const clearSearch = () => {
@@ -22,7 +19,6 @@ const OrdersAdmin = () => {
 
   const renderOrders = async () => {
     const orders = await axios.get('/api/routes/orders');
-    // const filtered = orders.data.data.slice();
     setOrders(orders.data.data.reverse());
   }
 
@@ -49,9 +45,9 @@ const OrdersAdmin = () => {
 
       {orders.length === 0
         ? <Loader />
-        :<ul className={styles.orders_list}>
+        : <ul className={styles.orders_list}>
 
-          {filteredOrders 
+          {orders 
           .filter((item) => Object.entries(item.owner).some(value => 
             String(value).toLowerCase().includes(searchValue.toLowerCase()))
             || item._id.includes(searchValue.toLowerCase()))         

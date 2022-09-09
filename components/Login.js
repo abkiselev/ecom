@@ -7,13 +7,15 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios';
 
+
 function Login() {
   const router = useRouter();
   const { isFormValid, values, isValuesValid, handleValues, errors, setInitialValues } = UseValidation();
   const [isloading, setIsloading] = useState(false);
 
+
   useEffect(() => {
-    setInitialValues({ email: '', loginPass: '', })
+    setInitialValues({ email: '', loginPass: '' })
   }, []);
 
   const handleRegister = async (e) => {
