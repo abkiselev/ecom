@@ -24,14 +24,13 @@ export default function Lk(props) {
   const router = useRouter();
   const { asPath } = router;
 
-
-  // useEffect(() => {
-  //   if(props.user && !user.loggedIn){
-  //     dispatch(setUser(props.user))
-  //   } else if (!props.user && user.loggedIn){
-  //     dispatch(removeUser())
-  //   }
-  // }, []);
+  useEffect(() => {
+    if(props.user && !user.loggedIn){
+      dispatch(setUser(props.user))
+    } else if (!props.user && user.loggedIn){
+      dispatch(removeUser())
+    }
+  }, []);
 
   const updateUser = (data) => {
     // dispatch(setUser(data))
@@ -61,7 +60,6 @@ export default function Lk(props) {
     const logout = await axios.get('/api/routes/users/logout');
     console.log(logout)
     router.push('/')
-
   }
 
 
@@ -84,9 +82,12 @@ export default function Lk(props) {
             <button className={`${styles.tab} ${asPath === '/lk#favorites' && styles.tab_active}`} onClick={() => router.push('/lk#favorites')}>Избранное</button>
             <button className={`${styles.tab} ${asPath === '/lk#zakazy' && styles.tab_active}`} onClick={() => router.push('/lk#zakazy')}>Заказы</button>
             <button className={`${styles.tab} ${((asPath === '/lk#me') || (asPath === '/lk')) && styles.tab_active}`} onClick={() => router.push('/lk#me')}>Личные данные</button>
+            <ButtonUnFilled disabled='false' text='выйти' font='fz12' padd='p1015' onClick={(e)=>handleLogout(e)} />
+            {props.user.role === 'admin' && <ButtonUnFilled disabled='false' text='в админку' font='fz12' padd='p1015' onClick={()=>router.push('/admin')} />}
           </div> 
 
-          <ButtonUnFilled disabled='false' text='выйти' font='fz12' padd='p1015' onClick={(e)=>handleLogout(e)} />
+
+          
           
         </div>
 

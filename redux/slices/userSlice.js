@@ -9,9 +9,7 @@ const initialState = {
 }
 
 export const updateUser2 = createAsyncThunk('users/update', async (userData) => {
-  console.log('urdateuser2')
   const res = await axios.post(`/api/routes/users/${userData.id}`, userData);
-  console.log('urdateuser2', res)
   return res.data.data
 }) 
 
