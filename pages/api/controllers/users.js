@@ -7,9 +7,9 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE }
 
 
 module.exports.getUsers = async (req, res) => {
-  await dbConnect()
+  // await dbConnect()
 
-  User.find({}).select('-password')
+  User.find({}).select('-password -role -address -createdAt -updatedAt -__v')
     .then((users) => res.status(OK_CODE).send({ data: users }))
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
 };
@@ -71,12 +71,9 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('данные в логине', email, password)
 
     await dbConnect()
     const user = await User.findOne({ email })
-    // .select('email password');
-    console.log('полученный юзер в логине', user)
     if (!user) {
       return res.status(401).send({ message: 'Неправильные почта или пароль' });
     }

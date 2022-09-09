@@ -33,12 +33,8 @@ export const createOrder = async (req, res) => {
 };
 
 export const getUserOrders = async (req, res) => {
-  console.log('получение заказов пользователя')
-  
-
   try {
     const userId = req.query.id;
-    // console.log(req.query)
 
     await dbConnect()
 

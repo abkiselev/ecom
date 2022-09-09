@@ -1,9 +1,15 @@
 import { getUsers, createUser } from '../../controllers/users';
+import { checkAuth } from '../../middlewares/checkAuth';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   switch (req.method) {
     case 'GET':
-        getUsers(req, res)
+        const user = await checkAuth(req, res);
+        if (!user || user.role !== 'admin') {
+          return res.status(403).json({ error: `Нет прав` });
+        } else {
+          getUsers(req, res)
+        }
         break;
     case 'POST':
         createUser(req, res)
