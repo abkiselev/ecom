@@ -5,6 +5,7 @@ import Fancybox from '../../components/Fancybox';
 import Select from '../../components/UI/Inputs/Select';
 import axios from 'axios';
 import Loader from '../Loader';
+import { transliterate } from '../../utils/transliterate'
 
 const LookbookAdmin = () => {
     const [lookbookImages, setLookbookImages] = useState([]);
@@ -29,18 +30,6 @@ const LookbookAdmin = () => {
     const renderImages = async () =>{
       const images = await axios.get('/api/routes/lookbook');
       setLookbookImages(images.data.data.reverse())
-    }
-
-    const transliterate = (word) => {
-        const keys = {
-            'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
-            'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i', 'й': 'y',
-            'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
-            'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
-            'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
-            'щ': 'shch', 'ы': 'y', 'ъ': 'y', 'ь': 'y', 'э': 'e', 'ю': 'u', 'я': 'ya', ' ': '_'
-        }
-        return word.split("").map((char) => keys[char] || char).join("");
     }
 
     const handleSelect = (e) => {

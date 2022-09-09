@@ -1,15 +1,8 @@
 import styles from '../../styles/Lk/Zakazy.module.css'
 import Image from 'next/image'
+import { convertDate } from '../../utils/convertDate';
 
-function Zakazy({ orders }) {
-
-  console.log(orders)
-
-  const setTime = (data) => {
-    const date = new Date(data);
-    return date.toLocaleString();
-  }
-  
+function Zakazy({ orders }) {  
   return (
     <>
       {(orders.length === 0)
@@ -19,7 +12,7 @@ function Zakazy({ orders }) {
               {orders.map(order => (
                   <li key={order._id} className={styles.order}>
                     <div className={styles.heading}>
-                      <h3 className={styles.title}>{setTime(order.createdAt)}</h3>
+                      <h3 className={styles.title}>{convertDate(order.createdAt)}</h3>
                       <p className={styles.number}>{`Номер ${order._id}`}</p>
                     </div>
 

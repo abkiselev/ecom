@@ -23,3 +23,27 @@
     object-fit: cover;
     cursor: grab;
 }
+
+@media (max-width: 770px) {
+    .slider {
+        margin: 100px auto 0;
+    }
+
+    .head {
+        margin-bottom: 30px;
+    }
+
+    .name {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 425px) {
+    .slider {
+        padding: 0 10px;
+    }
+
+    .name {
+        font-size: 26px;
+    }
+}

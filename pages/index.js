@@ -52,8 +52,8 @@ export default function Home({ goods, lookbook, userProps }) {
       />
 
       <MainSlider slidesPerView='1' auto={true} />
-      <GoodsSlider goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="НОВИНКИ" slidesPerView='4.7' className="swiper_overflow"/>
-      <LookbookSlider lookbook={lookbook} slidesPerView='3.2' className="swiper_overflow" />
+      <GoodsSlider goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="НОВИНКИ" slidesPerView='4.6' className="swiper_overflow"/>
+      <LookbookSlider lookbook={lookbook} slidesPerView='3.6' className="swiper_overflow" />
       <Zakaz />
 
       <Popup />
@@ -70,7 +70,6 @@ export async function getServerSideProps(context) {
   const lookbook = lookbookResponse.data.data;
 
   const user = await checkAuth(context.req);
-  console.log(user)
 
   return { props: { goods, lookbook, userProps: JSON.parse(JSON.stringify(user)) } }
 }

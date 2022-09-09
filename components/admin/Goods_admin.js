@@ -5,6 +5,7 @@ import Select from '../UI/Inputs/Select';
 import Input from '../UI/Inputs/Input';
 import axios from 'axios';
 import Loader from '../Loader';
+import { transliterate } from '../../utils/transliterate'
 
 const GoodsAdmin = () => {
   const [goods, setGoods] = useState([]);
@@ -46,18 +47,6 @@ const GoodsAdmin = () => {
   
   const handleInput = (e) => {
     setInputsData({ ...inputsData, [e.target.name]: e.target.value})
-  }
-
-  const transliterate = (word) => {
-    const keys = {
-        'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
-        'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i', 'й': 'y',
-        'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
-        'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
-        'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
-        'щ': 'shch', 'ы': 'y', 'ъ': 'y', 'ь': 'y', 'э': 'e', 'ю': 'u', 'я': 'ya', ' ': '_'
-    }
-    return word.split("").map((char) => keys[char] || char).join("");
   }
 
   const handleLoad = (e) => {

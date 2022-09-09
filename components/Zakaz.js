@@ -19,8 +19,10 @@ function Zakaz() {
     <section className={styles.zakaz}>
 
       <div className={styles.zakaz_container}>
-          <Image className={styles.zakaz__img} src="/images/test.jpg" width="1950" height="350" alt="Товар" /> 
-          
+          <div className={styles.zakaz__img}>
+            <Image  className={styles.img}src="/images/test.jpg" layout='fill' objectFit='cover' alt="Товар" /> 
+          </div>
+
           <div className={styles.zakaz_descr}>
             <h3 className={styles.zakaz_title}>ИНДИВИДУАЛЬНЫЙ ПОШИВ</h3>
             <p className={styles.zakaz_text}>Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью ШьюШью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью ШьюШью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью Шью</p>

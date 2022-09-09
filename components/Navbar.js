@@ -26,13 +26,10 @@ const Navbar = () => {
                     <Link href='/remni'>Ремни</Link>
                 </li>
                 <li className={`${styles.link} link`}>
+                    <Link href='/lookbook'>LookBook</Link>
+                </li>
+                <li className={`${styles.link} link`}>
                     <Link href='/poshiv'>Пошив на заказ</Link>
-                </li>
-                <li className={`${styles.link} link`}>
-                    <Link href='/opt'>Опт</Link>
-                </li>
-                <li className={`${styles.link} link`}>
-                    <Link href='/contact'>Контакты</Link>
                 </li>
             </ul>
           </nav>

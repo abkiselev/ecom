@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Search from '../UI/Inputs/Search';
 import axios from 'axios';
 import Loader from '../Loader';
+import { convertDate } from '../../utils/convertDate';
 
 const OrdersAdmin = () => {
   const [orders, setOrders] = useState([]);
@@ -20,11 +21,6 @@ const OrdersAdmin = () => {
   const renderOrders = async () => {
     const orders = await axios.get('/api/routes/orders');
     setOrders(orders.data.data.reverse());
-  }
-
-  const setTime = (data) => {
-    const date = new Date(data);
-    return date.toLocaleString();
   }
 
   const getGoodsNames = (data) => {
@@ -55,7 +51,7 @@ const OrdersAdmin = () => {
             
             <li key={ord._id} className={styles.order}>
               <div className={styles.head}>
-                <h2 className={styles.title}>{setTime(ord.createdAt)}</h2>
+                <h2 className={styles.title}>{convertDate(ord.createdAt)}</h2>
                 <p className={styles.title}>{ord._id}</p>
                 <p className={styles.title}>{`${ord.owner.surName} ${ord.owner.firstName} ${ord.owner.secondName}`}</p>
               </div>
