@@ -4,7 +4,7 @@ import Hleb from '../../components/Hleb'
 import Cart from '../../components/Cart'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { removeFromCart, resetCart } from '../../redux/slices/cartSlice'
+import { removeFromCart, resetCart } from '../../redux/slices/userSlice'
 import { setUser, removeUser } from '../../redux/slices/userSlice';
 import { useEffect } from 'react';
 import { checkAuth } from '../api/middlewares/checkAuth';
@@ -12,8 +12,8 @@ import { checkAuth } from '../api/middlewares/checkAuth';
 
 export default function Category({ userProps }) {  
   const user = useSelector((state) => state.user.userInfo);
-  const goodsInCart = useSelector((state) => state.cart.goods);
-  const totalGoodsCost = useSelector((state) => state.cart.totalSum);
+  const goodsInCart = useSelector((state) => state.user.userInfo.cart);
+  const totalGoodsCost = useSelector((state) => state.user.totalSumCart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,11 +28,14 @@ export default function Category({ userProps }) {
   // console.log(goodsInCart)
 
   const handleRemove = (good) => {
-    dispatch(removeFromCart(good))
+    console.log(good)
+    dispatch(removeFromCart({ userId: user?._id || false, good }))
+    // dispatch(removeFromCart(good))
   }
 
   const clearCart = () => {
-    dispatch(resetCart())
+    dispatch(resetCart({ userId: user?._id || false, goods: goodsInCart }))
+    // dispatch(resetCart())
   }
 
   return (

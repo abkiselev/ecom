@@ -6,8 +6,8 @@ import Hleb from '../../components/Hleb'
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../../redux/slices/cartSlice';
-import { setLike, removeLike } from '../../redux/slices/likeSlice';
+import { addToCart, removeFromCart } from '../../redux/slices/userSlice';
+import { setLike, removeLike } from '../../redux/slices/userSlice';
 import { checkAuth } from '../api/middlewares/checkAuth';
 import { setUser, removeUser } from '../../redux/slices/userSlice';
 
@@ -21,7 +21,7 @@ export default function Category({ category, goods, colors, userProps }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  console.log(userProps)
+  // console.log(userProps)
 
   useEffect(() => {
     if(userProps && !user.loggedIn){
@@ -32,19 +32,21 @@ export default function Category({ category, goods, colors, userProps }) {
   }, []);
 
   const handleAdd = (good) => {
-    dispatch(addToCart(good))
+    // dispatch(addToCart(good))
+    dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
-    dispatch(removeFromCart(good))
+    dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
+    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {
-    dispatch(setLike(good))
+    dispatch(setLike({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemoveLike = (good) => {
-    dispatch(removeLike(good))
+    dispatch(removeLike({ userId: user.userInfo?._id || false, good }))
   }
 
   useEffect(() => {

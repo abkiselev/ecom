@@ -58,23 +58,25 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       headers: { 'content-type': 'application/json' }
     };
     
-    if(user !== null){
-      const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, tel, email }, configData);
-      const orderData = { dostavka, oplata, owner: user._id, goods: goodsIds, total: totalOrderCost };
-      const order = await axios.post('/api/routes/orders', orderData, configData);
-    } else {
-      const userCreated = await axios.post('/api/routes/users', userData, configData);
-      console.log('userCreated', userCreated)
-      const orderData = { dostavka, oplata, owner: userCreated.data.data._id, goods: goodsIds, total: totalOrderCost };
-      console.log('orderData', orderData)
-      const order = await axios.post('/api/routes/orders', orderData, configData);
-    }
 
-
-    setIsloading(false)
-    setOrderConfirmed(true)
-    clearCart()
+    try {
+      if(user !== null){
+        const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, address, tel, email }, configData);
+        const orderData = { dostavka, oplata, owner: user._id, goods: goodsIds, total: totalOrderCost };
+        const order = await axios.post('/api/routes/orders', orderData, configData);
+      } else {
+        const userCreated = await axios.post('/api/routes/users', userData, configData);
+        const orderData = { dostavka, oplata, owner: userCreated.data.data._id, goods: goodsIds, total: totalOrderCost };
+        const order = await axios.post('/api/routes/orders', orderData, configData);
+      }
+      setIsloading(false)
+      setOrderConfirmed(true)
+      clearCart()
+    } catch (error) {
+      setIsloading(false)
+    }    
   }
+  
 
   return (
       <section className={styles.cart}>

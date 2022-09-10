@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-console.log('mongodb', process.env.MONGODB_URI);
+// console.log('mongodb', process.env.MONGODB_URI);
 // console.log('mongodb', process.env);
-const MONGODB_URI = "mongodb+srv://leton:Sy0sx1cN7GTadXUP@cluster0.ulbz8nl.mongodb.net/?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error(

@@ -26,21 +26,26 @@ function UseValidation() {
                 validateAddress(e.target.value)
                 break;      
             default:
+                setErrors({...errors, [e.target.name]: e.target.validationMessage})
                 setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
                 break;
         }
-        
-        // setErrors({...errors, [e.target.name]: e.target.validationMessage})
-        // setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
         
     }
 
     function setInitialValues(initialInputs) {
         setValues(initialInputs)
-        Object.keys(initialInputs).forEach((key) => {
-            setErrors( { ...initialInputs, [key]: '' } );
-            setIsValuesValid( { ...initialInputs, [key]: initialInputs[key] !== '' } );
+
+        const errs = {}
+        const valids = {}
+
+        Object.entries(initialInputs).forEach(([key, value]) => {
+            errs[key] = '';
+            valids[key] = initialInputs[key].length > 0;
         })
+
+        setErrors(errs);
+        setIsValuesValid(valids);
     }
     
     useEffect(() => {

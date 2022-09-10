@@ -1,8 +1,14 @@
 .ordersList {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.order {
     padding: 20px;
     border: 1px solid grey;
     border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 .heading {

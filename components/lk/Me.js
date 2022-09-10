@@ -9,58 +9,39 @@ import axios from 'axios';
 
 
 
-function Me({ user, updateUser }) {
+function Me({ user, pending, updateUser }) {
   const { isFormValid, values, isValuesValid, setInitialValues, handleValues, errors } = UseValidation();
   const [isEdit, setIsEdit] = useState(false);  
-  const [isloading, setIsloading] = useState(false);
+  // const [isloading, setIsloading] = useState(false);
 
 
   useEffect(() => {
     isEdit && setInitialValues({firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', tel: user?.tel || '', email: user?.email || ''});
   }, [isEdit]); 
 
-  // console.log(isEdit)
+  console.log(pending)
 
   const handleEditButton = () => {
     setIsEdit(!isEdit)
   }
 
-  // const handleSubmitUpdate = async (e) => {
-  //   e.preventDefault();
-  //   setIsloading(true)
-
-  //   const { firstName, secondName, surName, tel, email } = values;
-
-  //   const configData = {
-  //     headers: { 'content-type': 'application/json' }
-  //   };
-
-  //   const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, tel, email }, configData);
-  //   updateUser(userUpdated.data.data)
-    
-  //   setIsloading(false)
-  //   setIsEdit(false)
-  // }
-
-  const handleSubmitUpdate = async (e) => {
+  const handleSubmitUpdate = (e) => {
     e.preventDefault();
+    // setIsloading(pending)
 
     const { firstName, secondName, surName, tel, email } = values;
 
-    // const configData = {
-    //   headers: { 'content-type': 'application/json' }
-    // };
-
     updateUser({ id: user._id, firstName, secondName, surName, tel, email })
     
-    setIsEdit(false)
+    // setIsloading(pending)
+    setIsEdit(pending)
   }
 
   
   return (
         <>
         
-        {!isEdit
+        {(!isEdit && !pending)
                 ? <>
                   <ul className={styles.info}>
                     <li className={styles.info_item}>
@@ -89,7 +70,7 @@ function Me({ user, updateUser }) {
                   </>
 
                 : <>
-                  <Form onSubmit={handleSubmitUpdate} isFormValid={isFormValid} isloading={isloading} buttonText='Сохранить' >
+                  <Form onSubmit={handleSubmitUpdate} isFormValid={isFormValid} isloading={pending} buttonText='Сохранить' >
                       <div className={styles.info_item_edit}>
                         <h2 className={styles.title}>Фамилия:</h2>
                         <Input onChange={handleValues} value={values.surName} error={errors.surName} type="text" name='surName' placeholder='Фамилия*' required='true' />

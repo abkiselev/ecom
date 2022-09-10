@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 
 
 function MiniCard({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
-  const isAdded = useSelector((state) => state.cart.goods.some(item => item._id === good._id));
-  const isLiked = useSelector((state) => state.likes.likes.some(item => item._id === good._id));
+  const isAdded = useSelector((state) => state.user.userInfo.cart.some(item => item._id === good._id));
+  const isLiked = useSelector((state) => state.user.userInfo.likes.some(item => item._id === good._id));
 
   return (
         <div className={styles.slide}>

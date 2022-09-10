@@ -10,7 +10,9 @@ export const checkAuth = async (req) => {
     const userId = jwt.verify(token, 'some-secret-key')._id;
     await dbConnect()
 
-    const user = await User.findById(userId).select('-password')
+    const user = await User.findById(userId)
+    .select('-password -role -address -createdAt -updatedAt -__v')
+    .populate('cart likes')
 
     return user
   } catch (e) {

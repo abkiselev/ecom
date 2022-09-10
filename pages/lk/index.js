@@ -4,54 +4,61 @@ import { useRouter } from 'next/router'
 import { checkAuth } from '../api/middlewares/checkAuth';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser, removeUser } from '../../redux/slices/userSlice';
-import { addToCart, removeFromCart } from '../../redux/slices/cartSlice';
-import { setLike, removeLike } from '../../redux/slices/likeSlice';
+import { setUser, removeUser, syncUserCartAndLikes } from '../../redux/slices/userSlice';
+import { addToCart, removeFromCart } from '../../redux/slices/userSlice';
+import { setLike, removeLike } from '../../redux/slices/userSlice';
 import Liked from '../../components/lk/Liked';
 import Zakazy from '../../components/lk/Zakazy';
 import Me from '../../components/lk/Me';
 import axios from 'axios';
 import ButtonUnFilled from '../../components/UI/Buttons/ButtonUnFilled';
 
-import { updateUser2 } from '../../redux/slices/userSlice'
+import { updateUserInfo } from '../../redux/slices/userSlice'
 
 
 export default function Lk(props) {
   const user = useSelector((state) => state.user);
-  const likedGoods = useSelector((state) => state.likes.likes);
+  const likedGoods = useSelector((state) => state.user.userInfo.likes);
   const userOrders = props.userOrders;
   const dispatch = useDispatch();
   const router = useRouter();
   const { asPath } = router;
 
+  // const currentCartGoodsIds = useSelector((state) => state.cart.goods).map(good => good._id);
+  // const currentLikesGoodsIds = useSelector((state) => state.likes.likes).map(good => good._id);
+
   useEffect(() => {
     if(props.user && !user.loggedIn){
       dispatch(setUser(props.user))
+      // dispatch(syncUserCartAndLikes(props.user))
     } else if (!props.user && user.loggedIn){
       dispatch(removeUser())
     }
   }, []);
 
+
   const updateUser = (data) => {
     // dispatch(setUser(data))
-    dispatch(updateUser2(data))
+    dispatch(updateUserInfo(data))
     
   }
 
   const handleAdd = (good) => {
-    dispatch(addToCart(good))
+    // dispatch(addToCart(good))
+    dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
-    dispatch(removeFromCart(good))
+    dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
+    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {
-    dispatch(setLike(good))
+    dispatch(setLike({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemoveLike = (good) => {
-    dispatch(removeLike(good))
+    dispatch(removeLike({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleLogout = async (e) => {
@@ -93,7 +100,7 @@ export default function Lk(props) {
 
           {asPath === '/lk#favorites' && <Liked goods={likedGoods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} /> }
           {asPath === '/lk#zakazy' && <Zakazy orders={userOrders} /> }
-          {((asPath === '/lk#me') || (asPath === '/lk')) && <Me user={user.userInfo} updateUser={updateUser} /> }
+          {((asPath === '/lk#me') || (asPath === '/lk')) && <Me pending={user.pending} user={user.userInfo} updateUser={updateUser} /> }
        
       </section>
     </>

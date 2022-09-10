@@ -14,10 +14,6 @@ const goodSchema = new mongoose.Schema({
     ref: 'category',
     required: true,
   },
-  likes: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
-    default: [],
-  },
   price: {
     type: Number,
     required: true,

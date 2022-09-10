@@ -4,8 +4,8 @@ import GoodsSlider from '../components/GoodsSlider'
 import LookbookSlider from '../components/LookbookSlider'
 import Zakaz from '../components/Zakaz'
 import Popup from '../components/Popup'
-import { addToCart, removeFromCart } from '../redux/slices/cartSlice';
-import { setLike, removeLike } from '../redux/slices/likeSlice';
+import { addToCart, removeFromCart } from '../redux/slices/userSlice';
+import { setLike, removeLike } from '../redux/slices/userSlice';
 import axios from 'axios';
 import { checkAuth } from './api/middlewares/checkAuth';
 import { useSelector, useDispatch } from 'react-redux'
@@ -17,6 +17,11 @@ export default function Home({ goods, lookbook, userProps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
+  // const currentCart = useSelector((state) => state.user.currentCart).map(good => good._id);
+  // const currentLikes = useSelector((state) => state.user.currentLikes).map(good => good._id);
+
+
+  // console.log(currentCart)
   // console.log(userProps)
 
   useEffect(() => {
@@ -28,19 +33,21 @@ export default function Home({ goods, lookbook, userProps }) {
   }, []);
  
   const handleAdd = (good) => {
-    dispatch(addToCart(good))
+    // dispatch(addToCart(good))
+    dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
-    dispatch(removeFromCart(good))
+    dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
+    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {
-    dispatch(setLike(good))
+    dispatch(setLike({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemoveLike = (good) => {
-    dispatch(removeLike(good))
+    dispatch(removeLike({ userId: user.userInfo?._id || false, good }))
   }
   
   return (
@@ -63,10 +70,10 @@ export default function Home({ goods, lookbook, userProps }) {
 }
 
 export async function getServerSideProps(context) {
-  const goodsResponse = await axios.get(`http://localhost:3000/api/routes/goods`);
+  const goodsResponse = await axios.get(`${process.env.BASE_URL}/api/routes/goods`);
   const goods = goodsResponse.data.data;
   
-  const lookbookResponse = await axios.get(`http://localhost:3000/api/routes/lookbook`);
+  const lookbookResponse = await axios.get(`${process.env.BASE_URL}/api/routes/lookbook`);
   const lookbook = lookbookResponse.data.data;
 
   const user = await checkAuth(context.req);

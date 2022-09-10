@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import popupsReduser from "./slices/popupsSlice";
-import cartReduser from "./slices/cartSlice";
+// import cartReduser from "./slices/cartSlice";
 import userReduser from "./slices/userSlice";
-import likesReduser from "./slices/likeSlice";
+// import likesReduser from "./slices/likeSlice";
 
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
@@ -19,9 +19,9 @@ import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
   popups: popupsReduser,
-  cart: cartReduser,
+  // cart: cartReduser,
   user: userReduser,
-  likes: likesReduser,
+  // likes: likesReduser,
 });
 
 const persistConfig = {

@@ -30,6 +30,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     // select: false,
   },
+  cart: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'good' }],
+    default: [],
+  },
+  likes: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'good' }],
+    default: [],
+  },
   role: {
     type: String,
     default: 'user',

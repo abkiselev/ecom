@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 
 
 const Navbar = () => {
-    const totalInCart = useSelector((state) => state.cart.quantity)
-    const totalLikes = useSelector((state) => state.likes.quantity)
+    const totalInCart = useSelector((state) => state.user.quantityCart)
+    const totalLikes = useSelector((state) => state.user.quantityLikes)
     const [isMenuChecked, setIsMenuChecked] = useState(false);
 
     return (
