@@ -19,17 +19,14 @@ const Navbar = () => {
 
           <nav>
             <ul className={`${styles.links} ${isMenuChecked ? styles.nav_place_header_active : ''}`}>
-                <li className={`${styles.link} link`}>
+                <li onClick={() => setIsMenuChecked(false)} className={`${styles.link} link`}>
                     <Link href='/sumki'>Сумки</Link>
                 </li>
-                <li className={`${styles.link} link`}>
+                <li onClick={() => setIsMenuChecked(false)} className={`${styles.link} link`}>
                     <Link href='/remni'>Ремни</Link>
                 </li>
-                <li className={`${styles.link} link`}>
+                <li onClick={() => setIsMenuChecked(false)} className={`${styles.link} link`}>
                     <Link href='/lookbook'>LookBook</Link>
-                </li>
-                <li className={`${styles.link} link`}>
-                    <Link href='/poshiv'>Пошив на заказ</Link>
                 </li>
             </ul>
           </nav>
@@ -58,7 +55,7 @@ const Navbar = () => {
           
             <div className={styles.hamburger_menu}>
                 <input id={styles.menu__toggle} type="checkbox" onChange={() => setIsMenuChecked(!isMenuChecked)}/>
-                <label className={styles.menu__btn} htmlFor={styles.menu__toggle}>
+                <label className={`${styles.menu__btn} ${isMenuChecked &&`${styles._checked}`}`} htmlFor={styles.menu__toggle}>
                     <span></span>
                 </label>
             </div>

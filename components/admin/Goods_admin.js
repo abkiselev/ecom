@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react';
 import Select from '../UI/Inputs/Select';
 import Input from '../UI/Inputs/Input';
+import Textarea from '../UI/Inputs/Textarea';
 import axios from 'axios';
 import Loader from '../Loader';
 import { transliterate } from '../../utils/transliterate'
@@ -16,7 +17,7 @@ const GoodsAdmin = () => {
   const [imagesToEdit, setImagesToEdit] = useState([]);
   const [isOkShown, setIsOkShown] = useState(false);
   const [textOk, setTextOk] = useState('');
-  const [inputsData, setInputsData] = useState({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
+  const [inputsData, setInputsData] = useState({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', text: '', images: []});
   const [files, setFiles] = useState([]);
   const [previewFiles, setPreviewFiles] = useState([]);
   const [previewURLs, setPreviewURLs] = useState([]);
@@ -86,8 +87,11 @@ const GoodsAdmin = () => {
       glubina: Number(inputsData.glubina), 
       price: Number(inputsData.price), 
       images: inputsData.images,
+      text: inputsData.text,
       link 
     };
+
+    console.log(outData)
 
     const configFiles = {
         headers: { 'content-type': 'multipart/form-data' },
@@ -118,7 +122,7 @@ const GoodsAdmin = () => {
     setPreviewURLs([])
     setPreviewFiles([])
     setImagesToEdit([])
-    setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', images: []});
+    setInputsData({category: '', title: '', color: '', visota: '', shirina: '', glubina: '', price: '', text: '', images: []});
     e.target.reset();
 
     setIsEdit(false)
@@ -166,7 +170,7 @@ const GoodsAdmin = () => {
 
   return (
     <>
-      {isOkShown && <div className={styles.ok}>{`Товар ${textOk}`}</div>}
+      {isOkShown && <div className={styles.ok}>`{`Товар ${textOk}`}`</div>}
       { !isEdit
         ? <form id='add' className={styles.addgood} action="submit" encType="multipart/form-data" onSubmit={handleSubmit}>
           <p className={styles.addgood_title}>Загрузить новый товар</p>
@@ -184,6 +188,8 @@ const GoodsAdmin = () => {
             <Input onChange={(e) => handleInput(e)} value={inputsData.glubina || ''} type="number" name='glubina' placeholder='Глубина*' required='true' />
             <Input onChange={(e) => handleInput(e)} value={inputsData.price || ''} type="number" name='price' placeholder='Цена*' required='true' />
           </div>
+
+          <Textarea onChange={(e) => handleInput(e)} value={inputsData.text || ''} type="text" name='text' placeholder='Описание*' required='true'  />
 
           <div className={styles.actions}>
             <input type="file" onChange={handleLoad} multiple />
@@ -228,6 +234,8 @@ const GoodsAdmin = () => {
             <Input onChange={(e) => handleInput(e)} value={inputsData.glubina} type="number" name='glubina' placeholder='Глубина*' required='true' />
             <Input onChange={(e) => handleInput(e)} value={inputsData.price} type="number" name='price' placeholder='Цена*' required='true' />
           </div>
+
+          <Textarea onChange={(e) => handleInput(e)} value={inputsData.text || ''} type="text" name='text' placeholder='Описание*' required='true'  />
 
           <div className={styles.actions}>
             <input type="file" onChange={handleLoad} multiple />

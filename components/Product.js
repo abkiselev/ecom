@@ -16,6 +16,8 @@ function Product({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLik
   const isLiked = useSelector((state) => state.user.userInfo.likes.some(item => item._id === good._id));
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   
+  console.log(good)
+
   return (
       <section className={styles.good}>
 
@@ -63,7 +65,7 @@ function Product({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLik
 
         <div className={styles.info}>
           <h1 className={styles.name}>{good.title.toUpperCase()}</h1>
-          <p className={styles.desc}>описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание описание </p>
+          <p className={styles.desc}>{good.text}</p>
           <div className={styles.spec}>
             <p className={styles.specItem}><strong>Артикул: </strong>{good._id}</p>
             <p className={styles.specItem}><strong>Цвет: </strong>{good.color}</p>

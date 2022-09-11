@@ -11,6 +11,8 @@ function Register() {
   const router = useRouter();
   const { isFormValid, values, isValuesValid, handleValues, errors, setInitialValues } = UseValidation();
   const [isloading, setIsloading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   useEffect(() => {
     setInitialValues({ email: '', password: '', passwordRepeat: '', })
@@ -25,13 +27,15 @@ function Register() {
       headers: { 'content-type': 'application/json' }
     };
 
-    const user = await axios.post('/api/routes/users/register', { email, password }, configData);
-    console.log(user.data.data)
-    
-    const login = await axios.post('/api/routes/users/login', { email, password }, configData);
-    console.log(login)
-
-    login && router.push("/lk")
+    try {
+      const user = await axios.post('/api/routes/users/register', { email, password }, configData);    
+      const login = await axios.post('/api/routes/users/login', { email, password }, configData);
+      router.push("/lk")
+    } catch (error) {
+      setIsError(true)
+      setErrorText(error.response.data.message)
+      setIsloading(false)
+    }
   }
 
   
@@ -41,6 +45,8 @@ function Register() {
       <div className={styles.login_container}>
 
         <h1>РЕГИСТРАЦИЯ</h1>
+
+        {isError && <p className={styles.servererror}>{errorText || 'Что-то пошло не так'}</p>}
 
         <Form isFormValid={isFormValid} onSubmit={handleRegister} isloading={isloading} buttonText="Зарегистрироваться">
           <Input value={values.email} error={errors.email} isValuesValid={isValuesValid.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />

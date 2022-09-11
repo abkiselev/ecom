@@ -16,6 +16,8 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
   const [totalOrderCost, setTotalOrderCost] = useState(0);
   const [isloading, setIsloading] = useState(false);
   const [isOrderConfirmed, setOrderConfirmed] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState('');
   
   useEffect(() => {
     if(user === null){
@@ -24,9 +26,6 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       setInitialValues({dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
     }
   }, []);  
-
-  // console.log(isValuesValid)
-  // console.log(Boolean(user === null))
  
   useEffect(() => {    
     if(values.dostavka === 'pochta'){
@@ -73,7 +72,10 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       setOrderConfirmed(true)
       clearCart()
     } catch (error) {
+      console.log(error)
+      setIsError(true)
       setIsloading(false)
+      setErrorText(error.response.data.message)
     }    
   }
   
@@ -94,7 +96,7 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
                 {goodsInCart.map(item => (
                   <li key={item._id} className={styles.good}>
                     
-                    <Image className={styles.img} src={`/images/uploads/${item.images[0]}`} width="100" height="80" alt={item.title}/>
+                    <Image className={styles.img} src={`/images/uploads/${item.images[0]}`} width="100" height="100" alt={item.title}/>
               
                     <div className={styles.spec}>
                       <h2 className={styles.name}>{item.title.toUpperCase()}</h2>
@@ -116,11 +118,13 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
               <div className={styles.checkout}>
                 <h2 className={styles.name}>Оформление заказа</h2>
 
+                {isError && <p className={styles.servererror}>{errorText || 'Что-то пошло не так'}</p>}
+
                 <div className={styles.data}>
-                    <p className={styles.total}>Итого: </p> <p>{`${totalOrderCost.toLocaleString()} р.`}</p>
-                    <p>Товары: </p> <p>{`${totalGoodsCost.toLocaleString()} р.`}</p>
-                    <p>Доставка: </p> <p>{deliveryCost} р.</p>
-                  </div>
+                    <span className={styles.total}>Итого:  <span>{`${totalOrderCost.toLocaleString()} р.`}</span></span>
+                    <span>Товары:  <span>{`${totalGoodsCost.toLocaleString()} р.`}</span></span>
+                    <span>Доставка:  <span>{deliveryCost} р.</span></span>
+                </div>
                 
                 <Form onSubmit={(e)=>handleSubmit(e)} isFormValid={isFormValid} isloading={isloading} buttonText="Отправить заказ" >
 
@@ -146,7 +150,7 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
                   <Input onChange={handleValues} value={values.tel} isValuesValid={isValuesValid.tel} error={errors.tel} type="tel" name='tel' placeholder='Контактный телефон*' required='true' />
                   <Input onChange={handleValues} value={values.email} isValuesValid={isValuesValid.email} error={errors.email} type="email" name='email' placeholder='E-mail*' required='true' />
 
-                  {user === null &&
+                  {!user.loggedIn &&
                     <Input onChange={handleValues} value={values.password} isValuesValid={isValuesValid.password} error={errors.password} type="password" name='password' placeholder='Придумайте пароль для личного кабинета*' required='true' />
                   }
 

@@ -32,13 +32,11 @@ export default function Category({ category, goods, colors, userProps }) {
   }, []);
 
   const handleAdd = (good) => {
-    // dispatch(addToCart(good))
     dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
     dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
-    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {
@@ -102,7 +100,7 @@ export default function Category({ category, goods, colors, userProps }) {
 export async function getServerSideProps(context) {
   const { category } = context.params;
   const response = await axios.get(`http://localhost:3000/api/routes/goods`);
-  const goods = response.data.data.filter(item => item.category.link === category);
+  const goods = response.data.data.filter(item => item.category.link === category).reverse();
 
   if (goods.length === 0) {
     return {

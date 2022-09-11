@@ -29,7 +29,7 @@
 
 .filters_wrapper {
     border-radius: 5px;
-    padding: 10px 30px;
+    padding: 15px 30px;
     margin-bottom: 40px;
     background-color: rgba(173, 144, 144, 0.1);
     display: flex;
@@ -47,4 +47,35 @@
 .sort {
     display: flex;
     gap: 50px;
+}
+
+@media (max-width: 1095px) {
+    .imageList {
+        grid-template: auto / repeat(3,minmax(120px, 1fr));
+    }
+}
+@media (max-width: 770px) {
+    .imageList {
+        grid-template: auto / repeat(2,minmax(120px, 1fr));
+        gap: 15px;
+    }
+}
+@media (max-width: 425px) {
+    .lookbook {
+        padding: 0 10px;
+    }
+
+    .filter {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .sort {
+        width: 100%;
+    }
+
+    .imageList {
+        grid-template: auto / repeat(2,minmax(120px, 1fr));
+        gap: 10px;
+    }
 }

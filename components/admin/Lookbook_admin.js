@@ -5,7 +5,7 @@ import Fancybox from '../../components/Fancybox';
 import Select from '../../components/UI/Inputs/Select';
 import axios from 'axios';
 import Loader from '../Loader';
-import { transliterate } from '../../utils/transliterate'
+import { transliterate } from '../../utils/transliterate.js'
 
 const LookbookAdmin = () => {
     const [lookbookImages, setLookbookImages] = useState([]);
@@ -15,6 +15,7 @@ const LookbookAdmin = () => {
     const [data, setData] = useState([]);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
       renderImages()

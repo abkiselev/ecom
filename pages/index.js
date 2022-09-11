@@ -16,7 +16,6 @@ import { useEffect } from 'react';
 export default function Home({ goods, lookbook, userProps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const pending = useSelector((state) => state.user.pending);
 
   useEffect(() => {
     if(userProps && !user.loggedIn){
@@ -51,7 +50,7 @@ export default function Home({ goods, lookbook, userProps }) {
       />
 
       <MainSlider slidesPerView='1' auto={true} />
-      <GoodsSlider pending={pending} goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="НОВИНКИ" slidesPerView='4.6' className="swiper_overflow"/>
+      <GoodsSlider goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="НОВИНКИ" slidesPerView='4.6' className="swiper_overflow"/>
       <LookbookSlider lookbook={lookbook} slidesPerView='3.6' className="swiper_overflow" />
       <Zakaz />
 
@@ -63,10 +62,10 @@ export default function Home({ goods, lookbook, userProps }) {
 
 export async function getServerSideProps(context) {
   const goodsResponse = await axios.get(`${process.env.BASE_URL}/api/routes/goods`);
-  const goods = goodsResponse.data.data;
+  const goods = goodsResponse.data.data.reverse();
   
   const lookbookResponse = await axios.get(`${process.env.BASE_URL}/api/routes/lookbook`);
-  const lookbook = lookbookResponse.data.data;
+  const lookbook = lookbookResponse.data.data.reverse();
 
   const user = await checkAuth(context.req);
 

@@ -1,4 +1,4 @@
-const transliterate = (word) => {
+export const transliterate = (word) => {
     const keys = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
         'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i', 'й': 'y',

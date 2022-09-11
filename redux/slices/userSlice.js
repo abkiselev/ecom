@@ -13,10 +13,8 @@ const initialState = {
     cart: [],
     likes: [],
   },
-  // currentCart: [],
   quantityCart: null,
   totalSumCart: 0,
-  // currentLikes: [],  
   quantityLikes: null,
   loggedIn: false,
   pending: false,
@@ -63,7 +61,7 @@ export const removeFromCart = createAsyncThunk('users/removecart', async ({ user
     return good
   } else {
     const { _id } = good;
-    const resCart = await axios.delete(`/api/routes/users/${userId}/cart`, { data: { likes: [_id] } });
+    const resCart = await axios.delete(`/api/routes/users/${userId}/cart`, { data: { cart: [_id] } });
     return good
   }
 }) 
@@ -94,39 +92,23 @@ const userSlice = createSlice({
   },
 
   extraReducers: {
-    [setLike.pending]: (state) => {
-      state.pending = true
-    },
     [setLike.fulfilled]: (state, action) => {
       state.userInfo.likes.push(action.payload),
-      state.quantityLikes = state.userInfo.likes.length,
-      state.pending = false
-    },
-    [removeLike.pending]: (state) => {
-      state.pending = true
+      state.quantityLikes = state.userInfo.likes.length
     },
     [removeLike.fulfilled]: (state, action) => {
       state.userInfo.likes = state.userInfo.likes.filter(item => item._id !== action.payload._id),
-      state.quantityLikes = state.userInfo.likes.length === 0 ? null : state.userInfo.likes.length,
-      state.pending = false
-    },
-    [addToCart.pending]: (state) => {
-      state.pending = true
+      state.quantityLikes = state.userInfo.likes.length === 0 ? null : state.userInfo.likes.length
     },
     [addToCart.fulfilled]: (state, action) => {
       state.userInfo.cart.push(action.payload),
       state.quantityCart = state.userInfo.cart.length,
-      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0),
-      state.pending = false
-    },
-    [removeFromCart.pending]: (state) => {
-      state.pending = true
+      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0)
     },
     [removeFromCart.fulfilled]: (state, action) => {
       state.userInfo.cart = state.userInfo.cart.filter(item => item._id !== action.payload._id),
       state.quantityCart = state.userInfo.cart.length === 0 ? null : state.userInfo.cart.length,
-      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0),
-      state.pending = false
+      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0)
     },
     [resetCart.fulfilled]: (state, action) => {
       state.userInfo.cart = action.payload,

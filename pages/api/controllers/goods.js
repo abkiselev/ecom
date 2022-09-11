@@ -35,7 +35,7 @@ export const updateGood = async (req, res) => {
     const good = await Good.findByIdAndUpdate(
       req.query.id,
       req.body,
-      // { new: true, runValidators: true },
+      { new: true, runValidators: true },
     );
     // console.log(good)
     if (!good) {

@@ -11,8 +11,10 @@ export const checkAuth = async (req) => {
     await dbConnect()
 
     const user = await User.findById(userId)
-    .select('-password -role -address -createdAt -updatedAt -__v')
+    .select('-password -address -createdAt -updatedAt -__v')
     .populate('cart likes')
+
+    console.log(user)
 
     return user
   } catch (e) {

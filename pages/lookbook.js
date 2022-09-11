@@ -40,7 +40,7 @@ export default function Lookbook({ lookbook, userProps }) {
 
 export async function getServerSideProps(context) {
   const lookbookResponse = await axios.get(`http://localhost:3000/api/routes/lookbook`);
-  const lookbook = lookbookResponse.data.data;
+  const lookbook = lookbookResponse.data.data.reverse();
 
   const user = await checkAuth(context.req);
 

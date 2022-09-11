@@ -92,9 +92,6 @@ module.exports.login = async (req, res) => {
     return res.status(OK_CODE).send({ token });
 
   } catch (error) {
-    if (error.kind === 'ObjectId') {
-      return res.status(BAD_REQUEST_CODE).send({ message: 'Неверный формат ID пользователя' });
-    }
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные' });
     }
@@ -104,18 +101,18 @@ module.exports.login = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const { firstName, secondName, surName, address, tel, email } = req.body;
-  console.log(firstName, secondName, surName, address, tel, email)
 
   try {
     const token = req.cookies['jwt']
     const userId = jwt.verify(token, 'some-secret-key')._id;
-    console.log(userId)
 
     const user = await User.findByIdAndUpdate(
       userId,
       { firstName, secondName, surName, address, tel, email },
       { new: true, runValidators: true },
-    ).select('-password -role -address -createdAt -updatedAt -__v');
+    )
+    .select('-password -role -address -createdAt -updatedAt -__v')
+    .populate('cart likes');
 
     if (!user) {
       return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });

@@ -34,6 +34,9 @@ const goodSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  text: {
+    type: String,
+  },
   images: {
     type: [ String ],
     required: true,

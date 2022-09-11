@@ -16,7 +16,6 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    /* margin-bottom: 20px; */
     max-width: 500px;
 }
 
@@ -29,4 +28,10 @@
 
 .subtitle {
     margin: 0;
+}
+
+@media (max-width: 1095px) {
+    .info_item {
+        gap: 10px;
+    }
 }

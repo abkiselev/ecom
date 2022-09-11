@@ -28,21 +28,21 @@ function Footer() {
               <h3 className={styles.column_head}>КАТЕГОРИИ</h3>
               <Link href='/sumki'><a className="link">Сумки</a></Link>
               <Link href='/remni'><a className="link">Ремни</a></Link>
-              <Link href='/poshiv'><a className="link">Пошив на заказ</a></Link>
-              <Link href='/opt'><a className="link">Опт</a></Link>
+              <Link href='/lookbook'><a className="link">LookBook</a></Link>
             </div>
   
-            <div className={styles.column}>
+            {/* <div className={styles.column}>
               <h3 className={styles.column_head}>СЕРВИС</h3>
               <Link href='/dostavka'><a className="link">Доставка и оплата</a></Link>
               <Link href='/about'><a className="link">О бренде</a></Link>
               <Link href='/lookbook'><a className="link">LookBook</a></Link>
-            </div>
+            </div> */}
   
             <div className={styles.column}>
               <h3 className={styles.column_head}>КОНТАКТЫ</h3>
-              <Link href='/opt'><a className="link">8 800 000 0000</a></Link>
-              <Link href='/opt'><a className="link">Адрес</a></Link>
+              <Link href='tel:88000000000'><a className="link">8 800 000 0000</a></Link>
+              <span className="link">Нижний Новгород,</span>
+              <span className="link">ул. Улица, д. 12</span>
               <Link href='/opt'><a className="link" onClick={handleClick}>Написать мне</a></Link>
               
             

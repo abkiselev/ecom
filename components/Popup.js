@@ -5,12 +5,15 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { closePopup } from '../redux/slices/popupsSlice'
 import UseValidation from '../hooks/UseValidation';
+import axios from 'axios';
 
 
 function Popup({ id, title, buttonText }) {
   const isOpen = useSelector((state) => state.popups[id])
   const [isloading, setIsloading] = useState(false);
   const dispatch = useDispatch()
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const { isFormValid, values, isValuesValid, handleValues, errors, setInitialValues } = UseValidation();
 
@@ -22,10 +25,24 @@ function Popup({ id, title, buttonText }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsloading(true)
-
-    // дописать функцию ____________________________________________________________
     
-    setIsloading(false)
+    const { email, tel } = values;
+
+    const configData = {
+      headers: { 'content-type': 'application/json' }
+    };
+
+    try {
+      await axios.post('/api/routes/users/callback', { email, tel }, configData);
+      setIsError(true)
+      setErrorText('Заявка отправлена')
+      setInitialValues({ tel: '', email: '' });
+      setIsloading(false)
+    } catch (error) {
+      setIsError(true)
+      setIsloading(false)
+      setErrorText(error.response.data.message)
+    }
   }
   
   const close = (e) => {
@@ -40,6 +57,8 @@ function Popup({ id, title, buttonText }) {
       <div className={styles.popup_container}>
 
         <h1 className={styles.name}>{title}</h1>
+
+        {isError && <p className={styles.servererror}>{errorText || 'Что-то пошло не так'}</p>}
 
         <Form isFormValid={isFormValid} onSubmit={handleSubmit} isloading={isloading} buttonText={buttonText}>
           <Input value={values.tel} error={errors.tel} isValuesValid={isValuesValid.tel} type="tel" name='tel' placeholder='Телефон*' required='true' onChange={handleValues} />

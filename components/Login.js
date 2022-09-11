@@ -12,6 +12,8 @@ function Login() {
   const router = useRouter();
   const { isFormValid, values, isValuesValid, handleValues, errors, setInitialValues } = UseValidation();
   const [isloading, setIsloading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
 
   useEffect(() => {
@@ -28,9 +30,14 @@ function Login() {
       headers: { 'content-type': 'application/json' }
     };
     
-    const login = await axios.post('/api/routes/users/login', { email, password: loginPass }, configData);
-
-    login && router.push("/lk")
+    try {
+      await axios.post('/api/routes/users/login', { email, password: loginPass }, configData);
+      router.push("/lk")
+    } catch (error) {
+      setIsError(true)
+      setErrorText(error.response.data.message)
+      setIsloading(false)
+    }
   }
   
   return (
@@ -39,6 +46,8 @@ function Login() {
       <div className={styles.login_container}>
 
         <h1>ВОЙТИ</h1>
+
+        {isError && <p className={styles.servererror}>{errorText || 'Что-то пошло не так'}</p>}
 
         <Form isFormValid={isFormValid} onSubmit={handleRegister} isloading={isloading} buttonText="Войти">
           <Input value={values.email} error={errors.email} isValuesValid={isValuesValid.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />

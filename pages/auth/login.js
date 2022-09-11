@@ -36,8 +36,6 @@ export default function Log(props) {
 export async function getServerSideProps(context) {
   const user = await checkAuth(context.req)
 
-  console.log(user)
-
   if (user) {
     return {
       redirect: {

@@ -24,33 +24,26 @@ export default function Lk(props) {
   const router = useRouter();
   const { asPath } = router;
 
-  // const currentCartGoodsIds = useSelector((state) => state.cart.goods).map(good => good._id);
-  // const currentLikesGoodsIds = useSelector((state) => state.likes.likes).map(good => good._id);
-
   useEffect(() => {
     if(props.user && !user.loggedIn){
       dispatch(setUser(props.user))
-      // dispatch(syncUserCartAndLikes(props.user))
     } else if (!props.user && user.loggedIn){
       dispatch(removeUser())
     }
   }, []);
 
 
+
   const updateUser = (data) => {
-    // dispatch(setUser(data))
     dispatch(updateUserInfo(data))
-    
   }
 
   const handleAdd = (good) => {
-    // dispatch(addToCart(good))
     dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
     dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
-    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {
@@ -65,7 +58,6 @@ export default function Lk(props) {
     e.preventDefault();
     dispatch(removeUser());
     const logout = await axios.get('/api/routes/users/logout');
-    console.log(logout)
     router.push('/')
   }
 
@@ -109,7 +101,6 @@ export default function Lk(props) {
 
 export async function getServerSideProps(context) {
   const user = await checkAuth(context.req);
-  // console.log(user._id.toString())
 
   if (!user) {
     return {

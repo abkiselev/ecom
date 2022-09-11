@@ -19,3 +19,9 @@
     opacity: 0.8;
     font-size: 12px;
 }
+
+@media (max-width: 425px) {
+    .wrapper {
+        padding: 0 10px;
+    }
+}

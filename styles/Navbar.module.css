@@ -78,19 +78,18 @@
     #menu__toggle {
         opacity: 0;
     }
-    
-    #menu__toggle:checked ~ .menu__btn > span {
+
+    ._checked > span {
         transform: rotate(45deg);                
     }
-    
-    #menu__toggle:checked ~ .menu__btn > span::before {
+    ._checked > span::before {
         top: 0;
         opacity: 0;
     }
-    #menu__toggle:checked ~ .menu__btn > span::after {
-        top: 0;
+    ._checked > span::after {
+        top: 0 !important;
         transform: rotate(90deg);
-        width: 100%;
+        width: 100% !important;
     }
 
     .menu__btn {

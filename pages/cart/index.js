@@ -24,18 +24,12 @@ export default function Category({ userProps }) {
     }
   }, []);
 
-  // console.log(user)
-  // console.log(goodsInCart)
-
   const handleRemove = (good) => {
-    console.log(good)
     dispatch(removeFromCart({ userId: user?._id || false, good }))
-    // dispatch(removeFromCart(good))
   }
 
   const clearCart = () => {
     dispatch(resetCart({ userId: user?._id || false, goods: goodsInCart }))
-    // dispatch(resetCart())
   }
 
   return (

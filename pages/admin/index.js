@@ -76,6 +76,8 @@ export default function Admin(props) {
 export async function getServerSideProps(context) {
   const user = await checkAuth(context.req);
 
+  console.log(user)
+
   if (!user || user.role !== 'admin') {
     return {
       redirect: {
