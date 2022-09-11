@@ -16,13 +16,7 @@ import { useEffect } from 'react';
 export default function Home({ goods, lookbook, userProps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
-  // const currentCart = useSelector((state) => state.user.currentCart).map(good => good._id);
-  // const currentLikes = useSelector((state) => state.user.currentLikes).map(good => good._id);
-
-
-  // console.log(currentCart)
-  // console.log(userProps)
+  const pending = useSelector((state) => state.user.pending);
 
   useEffect(() => {
     if(userProps && !user.loggedIn){
@@ -33,13 +27,11 @@ export default function Home({ goods, lookbook, userProps }) {
   }, []);
  
   const handleAdd = (good) => {
-    // dispatch(addToCart(good))
     dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
     dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
-    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {
@@ -59,7 +51,7 @@ export default function Home({ goods, lookbook, userProps }) {
       />
 
       <MainSlider slidesPerView='1' auto={true} />
-      <GoodsSlider goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="НОВИНКИ" slidesPerView='4.6' className="swiper_overflow"/>
+      <GoodsSlider pending={pending} goods={goods} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike} title="НОВИНКИ" slidesPerView='4.6' className="swiper_overflow"/>
       <LookbookSlider lookbook={lookbook} slidesPerView='3.6' className="swiper_overflow" />
       <Zakaz />
 

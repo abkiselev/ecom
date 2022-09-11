@@ -31,7 +31,7 @@
 
 .likeButton {
     border: none;
-    background-image: url(/images/heart.svg);
+    /* background-image: url(/images/heart.svg); */
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
@@ -41,7 +41,15 @@
     margin: 0;
     object-fit: cover;
     opacity: .8;
-    transition: all 0.25s ease-out;
+    transition: all 0.15s ease-out;
+}
+
+.isliked {
+    background-image: url(/images/liked.svg);
+}
+
+.notliked {
+    background-image: url(/images/heart.svg);
 }
 
 
@@ -53,7 +61,6 @@
 
 .unlikeButton {
     border: none;
-    background-image: url(/images/liked.svg);
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
@@ -63,7 +70,7 @@
     margin: 0;
     object-fit: cover;
     opacity: .8;
-    transition: all 0.25s ease-out;
+    transition: all 0.15s ease-out;
 }
 
 
@@ -75,7 +82,6 @@
 
 .addButton {
     border: none;
-    background-image: url(/images/plus.svg);
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
@@ -85,30 +91,38 @@
     margin: 0;
     object-fit: cover;
     opacity: .8;
-    transition: all 0.25s ease-out;
 }
 
-.addButton:hover {
-    cursor: pointer;
-    opacity: 1;
-    transform: rotate(90deg);
-}
-
-.removeButton {
-    border: none;
+.isadded {
     background-image: url(/images/check.svg);
     background-color: rgb(139, 123, 255);
-    background-repeat: no-repeat;
     background-size: 12px;
     background-position: center;
     border-radius: 50%;
     padding: 11px;
     margin: 0;
     opacity: .9;
+    
+}
+
+.notadded {
+    background-image: url(/images/plus.svg);
+    transition: all 0.10s ease-out;
+}
+
+.addButton:hover {
     cursor: pointer;
+    opacity: 1;
+    transform: rotate(10deg);
 }
 
 .removeButton:hover {
     transition: all 0.25s ease-out;
     opacity: 1;
+}
+
+.addButton:disabled,
+.likeButton:disabled {
+    pointer-events: none;
+    cursor: none;
 }

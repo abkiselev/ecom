@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 
 
-function MiniCard({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
+function MiniCard({ pending, good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
   const isAdded = useSelector((state) => state.user.userInfo.cart.some(item => item._id === good._id));
   const isLiked = useSelector((state) => state.user.userInfo.likes.some(item => item._id === good._id));
 
@@ -21,14 +21,8 @@ function MiniCard({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLi
 
             <div className={styles.prices}>
               <p className={styles.price}>{`${good.price.toLocaleString()} р.`}</p>
-              {isLiked 
-              ? <button className={styles.unlikeButton} onClick={()=>handleRemoveLike(good)}></button>
-              : <button className={styles.likeButton} onClick={()=>handleSetLike(good)}></button>
-              }
-              {isAdded 
-              ? <button className={styles.removeButton} onClick={()=>handleRemove(good)}></button>
-              : <button className={styles.addButton} onClick={()=>handleAdd(good)}></button>
-              }
+              <button disabled={pending} className={`${styles.likeButton} ${isLiked ? `${styles.isliked}` : `${styles.notliked}`}`} onClick={isLiked ? ()=>handleRemoveLike(good) : ()=>handleSetLike(good)}></button>
+              <button disabled={pending} className={`${styles.addButton} ${isAdded ? `${styles.isadded}` : `${styles.notadded}`}`} onClick={isAdded ? ()=>handleRemove(good) : ()=>handleAdd(good)}></button>
             </div>              
           </div>
         </div>

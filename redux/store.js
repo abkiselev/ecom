@@ -19,16 +19,14 @@ import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
   popups: popupsReduser,
-  // cart: cartReduser,
-  user: userReduser,
-  // likes: likesReduser,
+  user: userReduser
 });
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['cart', 'user', 'likes'],
+  whitelist: ['user'],
   blacklist: ['popups'],
 }
 

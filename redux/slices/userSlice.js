@@ -28,51 +28,49 @@ export const updateUserInfo = createAsyncThunk('users/update', async (userData) 
   return res.data.data
 }) 
 
-export const setLike = createAsyncThunk('users/setlikes', async ({ userId, good }) => {
+export const setLike = createAsyncThunk('user/setlikes', async ({ userId, good }) => {
   if(!userId){
     return good
   } else {
     const { _id } = good;
-    const resGood = await axios.put(`/api/routes/users/${userId}/likes`, { likes: _id });
-    return resGood.data.data
+    const resLikes = await axios.put(`/api/routes/users/${userId}/likes`, { likes: _id });
+    return resLikes.data.data.find(item => item._id === good._id)
   }
 }) 
 
-export const removeLike = createAsyncThunk('users/removelikes', async ({ userId, good }) => {
+export const removeLike = createAsyncThunk('user/removelikes', async ({ userId, good }) => {
   if(!userId){
     return good
   } else {
     const { _id } = good;
-    await axios.delete(`/api/routes/users/${userId}/likes`, { data: { likes: [_id] } });
+    const resLikes = await axios.delete(`/api/routes/users/${userId}/likes`, { data: { likes: [_id] } });
     return good
   }
 }) 
 
-export const addToCart = createAsyncThunk('users/addToCart', async ({ userId, good }) => {
+export const addToCart = createAsyncThunk('users/addcart', async ({ userId, good }) => {
   if(!userId){
     return good
   } else {
     const { _id } = good;
-    const resGood = await axios.put(`/api/routes/users/${userId}/cart`, { cart: _id });
-    return resGood.data.data
+    const resCart = await axios.put(`/api/routes/users/${userId}/cart`, { cart: _id });
+    return resCart.data.data.find(item => item._id === good._id)
   }
 }) 
 
-export const removeFromCart = createAsyncThunk('users/removeFromCart', async ({ userId, good }) => {
-  console.log(userId);
+export const removeFromCart = createAsyncThunk('users/removecart', async ({ userId, good }) => {
   if(!userId){
     return good
   } else {
     const { _id } = good;
-    console.log(_id);
-    await axios.delete(`/api/routes/users/${userId}/cart`, { data: { cart: [_id] } });
+    const resCart = await axios.delete(`/api/routes/users/${userId}/cart`, { data: { likes: [_id] } });
     return good
   }
 }) 
 
 export const resetCart = createAsyncThunk('users/removeFromCart', async ({ userId, goods }) => {
   if(!userId){
-    return goods
+    return []
   } else {
     const Ids = goods.map(good => good._id);
     const cart = await axios.delete(`/api/routes/users/${userId}/cart`, { data: { cart: Ids } });
@@ -96,23 +94,39 @@ const userSlice = createSlice({
   },
 
   extraReducers: {
+    [setLike.pending]: (state) => {
+      state.pending = true
+    },
     [setLike.fulfilled]: (state, action) => {
-      state.userInfo.likes = action.payload,
-      state.quantityLikes = state.userInfo.likes.length
+      state.userInfo.likes.push(action.payload),
+      state.quantityLikes = state.userInfo.likes.length,
+      state.pending = false
+    },
+    [removeLike.pending]: (state) => {
+      state.pending = true
     },
     [removeLike.fulfilled]: (state, action) => {
       state.userInfo.likes = state.userInfo.likes.filter(item => item._id !== action.payload._id),
-      state.quantityLikes = state.userInfo.likes.length === 0 ? null : state.userInfo.likes.length
+      state.quantityLikes = state.userInfo.likes.length === 0 ? null : state.userInfo.likes.length,
+      state.pending = false
+    },
+    [addToCart.pending]: (state) => {
+      state.pending = true
     },
     [addToCart.fulfilled]: (state, action) => {
-      state.userInfo.cart = action.payload,
+      state.userInfo.cart.push(action.payload),
       state.quantityCart = state.userInfo.cart.length,
-      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0)
+      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0),
+      state.pending = false
+    },
+    [removeFromCart.pending]: (state) => {
+      state.pending = true
     },
     [removeFromCart.fulfilled]: (state, action) => {
       state.userInfo.cart = state.userInfo.cart.filter(item => item._id !== action.payload._id),
       state.quantityCart = state.userInfo.cart.length === 0 ? null : state.userInfo.cart.length,
-      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0)
+      state.totalSumCart = state.userInfo.cart.reduce((acc, obj) => acc + obj.price, 0),
+      state.pending = false
     },
     [resetCart.fulfilled]: (state, action) => {
       state.userInfo.cart = action.payload,
