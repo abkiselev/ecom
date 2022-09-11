@@ -41,8 +41,7 @@ function Footer() {
             <div className={styles.column}>
               <h3 className={styles.column_head}>КОНТАКТЫ</h3>
               <Link href='tel:88000000000'><a className="link">8 800 000 0000</a></Link>
-              <span className="link">Нижний Новгород,</span>
-              <span className="link">ул. Улица, д. 12</span>
+              <Link href='/contacts'><a className="link">Адрес</a></Link>
               <Link href='/opt'><a className="link" onClick={handleClick}>Написать мне</a></Link>
               
             

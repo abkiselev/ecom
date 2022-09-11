@@ -14,6 +14,7 @@ function Hleb(props) {
               || (props.category === 'remni' && 'Ремни')
               || (props.category === 'lookbook' && 'Lookbook')
               || (props.category === 'cart' && 'Koрзина')
+              || (props.category === 'contacts' && 'Контакты')
               }`}
           </span>
         }

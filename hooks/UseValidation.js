@@ -25,6 +25,9 @@ function UseValidation() {
             case 'address':
                 validateAddress(e.target.value)
                 break;      
+            case 'tel':
+                validateTel(e.target.value)
+                break;      
             default:
                 setErrors({...errors, [e.target.name]: e.target.validationMessage})
                 setIsValuesValid({...isValuesValid, [e.target.name]: e.target.validity.valid})
@@ -107,6 +110,18 @@ function UseValidation() {
             setErrors({...errors, address: ''})
             setIsValuesValid({...isValuesValid, address: true})
         }
+    }
+
+    function validateTel(inputText){
+        console.log(inputText)
+        if(!inputText
+            .match(/(?:\+|\d)[\d\-\(\) ]{9,}\d/g)) {
+                setErrors({...errors, tel: 'Пока не похоже на телефон...'})
+                setIsValuesValid({...isValuesValid, tel: false})
+            } else {
+                setErrors({...errors, tel: ''})
+                setIsValuesValid({...isValuesValid, tel: true})
+            }
     }
 
     // console.log(values)

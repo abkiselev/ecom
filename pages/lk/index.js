@@ -111,7 +111,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const orders = await axios.get(`http://localhost:3000/api/routes/orders/${user._id.toString()}`);
+  const orders = await axios.get(`${process.env.BASE_URL}/api/routes/orders/${user._id.toString()}`);
 
   return {
     props: { userOrders: orders.data.data, user: JSON.parse(JSON.stringify(user)) }

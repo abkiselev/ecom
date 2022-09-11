@@ -67,7 +67,7 @@ export default function ProductPage({ category, good, goodsToRecommend, userProp
 export async function getServerSideProps(context) {
   const { category } = context.params;
   const { slug } = context.params;
-  const response = await axios.get(`http://localhost:3000/api/routes/goods`);
+  const response = await axios.get(`${process.env.BASE_URL}/api/routes/goods`);
   const goodsToRecommend = response.data.data.slice(0,10);
   const good = response.data.data.find(item => item.link === slug);
 

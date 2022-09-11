@@ -28,6 +28,9 @@ const Navbar = () => {
                 <li onClick={() => setIsMenuChecked(false)} className={`${styles.link} link`}>
                     <Link href='/lookbook'>LookBook</Link>
                 </li>
+                <li onClick={() => setIsMenuChecked(false)} className={`${styles.link} link`}>
+                    <Link href='/contacts'>Контакты</Link>
+                </li>
             </ul>
           </nav>
 

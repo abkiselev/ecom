@@ -1,12 +1,12 @@
-import Meta from '../components/Meta'
-import Hleb from '../components/Hleb';
-import LookbookList from '../components/LookbookList';
-import Zakaz from '../components/Zakaz';
+import Meta from '../../components/Meta'
+import Hleb from '../../components/Hleb';
+import LookbookList from '../../components/LookbookList';
+import Zakaz from '../../components/Zakaz';
 import axios from 'axios';
-import { checkAuth } from './api/middlewares/checkAuth';
+import { checkAuth } from '../api/middlewares/checkAuth';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from '../redux/slices/userSlice';
+import { setUser } from '../../redux/slices/userSlice';
 
 export default function Lookbook({ lookbook, userProps }) {
   const user = useSelector((state) => state.user);
@@ -39,7 +39,7 @@ export default function Lookbook({ lookbook, userProps }) {
 }
 
 export async function getServerSideProps(context) {
-  const lookbookResponse = await axios.get(`http://localhost:3000/api/routes/lookbook`);
+  const lookbookResponse = await axios.get(`${process.env.BASE_URL}/api/routes/lookbook`);
   const lookbook = lookbookResponse.data.data.reverse();
 
   const user = await checkAuth(context.req);

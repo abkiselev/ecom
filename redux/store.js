@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import popupsReduser from "./slices/popupsSlice";
-// import cartReduser from "./slices/cartSlice";
 import userReduser from "./slices/userSlice";
-// import likesReduser from "./slices/likeSlice";
 
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
