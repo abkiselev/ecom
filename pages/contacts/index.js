@@ -69,13 +69,16 @@ export default function Contacts({ userProps }) {
           <h1 className={styles.name}>КОНТАКТЫ</h1>
 
           <div className={styles.wrapper}>
+
             <div className={styles.info}>
-              <h2 className={styles.address}>Нижний Новгород,<br/>ул. Панина, дом 3, офис 12</h2>
-              <p className={styles.text}>8 000 000 0000</p>
-              <p className={styles.text}>hello@leton-shop.ru</p>
+
+              <div className={styles.info_data}>
+                <h2 className={styles.address}>Нижний Новгород,<br/>ул. Панина, дом 3, офис 12</h2>
+                <p className={styles.text}>8 000 000 0000</p>
+                <p className={styles.text}>hello@leton-shop.ru</p>
+              </div>
 
               <div className={styles.callback}>
-
                 <h2 className={styles.address}>Заказать звонок</h2>
 
                 {isError && <p className={styles.servererror}>{errorText || 'Что-то пошло не так'}</p>}
@@ -84,12 +87,12 @@ export default function Contacts({ userProps }) {
                   <Input value={values.tel} error={errors.tel} isValuesValid={isValuesValid.tel} type="tel" name='tel' placeholder='Телефон*' required='true' onChange={handleValues} />
                   <Input value={values.email} error={errors.email} isValuesValid={isValuesValid.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />
                 </Form>
-
               </div>
 
             </div>
-            <div className={styles.map}>
-              asd
+
+            <div className={styles.map_wrapper}>
+              <iframe className={styles.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Abb564da5a491b401939b2add679e3345d84c2f13655a898389e0d0eb9e3ec525&amp;source=constructor" width="100%" height="500" frameBorder="0"></iframe>
             </div>
 
           </div>

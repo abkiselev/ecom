@@ -40,14 +40,8 @@
 }
 
 
-@media (max-width: 425px) {
-    .cart {
-        padding: 0 10px;
-    }
-
-    .addings {
-        margin-top: 20px;
-        flex-direction: column;
-        gap: 15px;
+@media (max-width: 1024px) {
+    .p1475 {
+        padding: 14px 35px;
     }
 }

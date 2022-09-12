@@ -36,8 +36,13 @@
     background-color: rgba(173, 144, 144, 0.1);
 }
 
-.map {
+.map_wrapper {
+    width: 75%;
+    border-radius: 5px;
+}
 
+.map {
+    border-radius: 5px;
 }
 
 .servererror {
@@ -48,7 +53,82 @@
     color: white;
 }
 
+@media (max-width: 1024px) {
+    .wrapper {
+        gap: 30px;
+    }
 
+    .info {
+        width: 45%;
+    }
+
+    .map_wrapper {
+        width: 65%;
+    }
+}
+
+@media (max-width: 770px) {
+    .wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .info {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .info_data {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .callback {
+        margin-top: 0;
+        width: 50%;
+    }
+
+    .map_wrapper {
+        width: 100%;
+    }
+
+    .map {
+        height: 300px;
+    }
+}
+
+@media (max-width: 600px) {
+    .address {
+        font-size: 16px;
+    }
+
+    .info_data {
+        width: 40%;
+    }
+
+    .callback {
+        padding: 20px;
+        width: 60%;
+    }
+}
+
+@media (max-width: 520px) {
+    .info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info_data {
+        width: 100%;
+    }
+
+    .callback {
+        width: 100%;
+    }
+}
 
 @media (max-width: 425px) {
     .contacts {
