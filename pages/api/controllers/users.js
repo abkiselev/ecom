@@ -15,6 +15,20 @@ module.exports.getUsers = async (req, res) => {
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
 };
 
+// module.exports.checkUser = async (req, res) => {
+//   // await dbConnect()
+
+//   try {
+//     const userId = await User.findOne(req.body).select('_id');
+//     if (!userId) {
+//       return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });
+//     }
+//     return res.status(OK_CODE).send({ data: userId });
+//   } catch (error) {
+//     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
+//   }
+// };
+
 module.exports.getUser = async (req, res) => {
   // await dbConnect()
   // console.log(req.query.id)
@@ -48,6 +62,9 @@ module.exports.createUser = async (req, res) => {
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания пользователя' });
     }
+    if (error.code === 11000) {
+      return res.status(CONFLICT_ERROR_CODE).send({ message: 'Пользователь с таким E-mail или телефоном уже есть. Пожалуйста, войдите в личный кабинет', err: error.message });
+    }
     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
   }
 };
@@ -57,17 +74,20 @@ module.exports.register = async (req, res) => {
     const { email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
   
-    await dbConnect()
+    // await dbConnect()
+
+    // await User.init()
+
     const user = await User.create({ email, password: hash });
     return res.status(CREATED_CODE).send({ 
       data: { _id: user._id, email: user.email } 
     });
   } catch (error) {
     if (error.name === 'ValidationError') {
-      return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания пользователя' });
+      return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания пользователя', err: error.message });
     }
     if (error.code === 11000) {
-      return res.status(CONFLICT_ERROR_CODE).send({ message: 'Пользователь с таким E-mail или телефоном уже есть' });
+      return res.status(CONFLICT_ERROR_CODE).send({ message: 'Пользователь с таким E-mail или телефоном уже есть', err: error.message });
     }
     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
   }
@@ -128,7 +148,7 @@ module.exports.updateUser = async (req, res) => {
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для обновления пользователя' });
     }
-    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' });
+    return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
   }
 };
 

@@ -8,7 +8,7 @@ import Select from './UI/Inputs/Select';
 import UseValidation from '../hooks/UseValidation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { checkUserExist } from "../pages/api/middlewares/checkUserExist";
+
 
 
 function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) {
@@ -21,10 +21,10 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
   const [errorText, setErrorText] = useState('');
 
   useEffect(() => {
-    if(user === null){
-      setInitialValues({password: '', dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
+    if(user.loggedIn){
+      setInitialValues({dostavka: '', oplata: '', firstName: user?.userInfo.firstName || '', secondName: user?.userInfo.secondName || '', surName: user?.userInfo.surName || '', address: user?.address || '', tel: user?.userInfo.tel || '', email: user?.userInfo.email || ''});
     } else {
-      setInitialValues({dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
+      setInitialValues({password: '', dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
     }
   }, []);  
  
@@ -58,15 +58,11 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       headers: { 'content-type': 'application/json' }
     };
     
-    const userExist = await checkUserExist(email);
-    console.log('cart userExist', userExist)
 
     try {
-      if(userExist !== false){
-        // const id = user._id || userExist;
-        const userUpdated = await axios.post(`/api/routes/users/${userExist}`, { firstName, secondName, surName, address, tel, email }, configData);
-        console.log('cart userUpdated', userUpdated)
-        const orderData = { dostavka, oplata, owner: userExist, goods: goodsIds, total: totalOrderCost };
+      if(user.loggedIn){
+        const userUpdated = await axios.post(`/api/routes/users/${user.userInfo._id}`, { firstName, secondName, surName, address, tel, email }, configData);
+        const orderData = { dostavka, oplata, owner: user.userInfo._id, goods: goodsIds, total: totalOrderCost };
         const order = await axios.post('/api/routes/orders', orderData, configData);
       } else {        
         const userCreated = await axios.post('/api/routes/users', userData, configData);
@@ -75,7 +71,7 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       }
       setIsloading(false)
       setOrderConfirmed(true)
-      clearCart()
+      clearCart(user.userInfo._id, user.userInfo.cart)
     } catch (error) {
       console.log(error)
       setIsError(true)

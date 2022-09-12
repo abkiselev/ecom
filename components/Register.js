@@ -32,6 +32,7 @@ function Register() {
       const login = await axios.post('/api/routes/users/login', { email, password }, configData);
       router.push("/lk")
     } catch (error) {
+      console.log(error)
       setIsError(true)
       setErrorText(error.response.data.message)
       setIsloading(false)

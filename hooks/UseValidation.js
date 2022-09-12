@@ -71,9 +71,7 @@ function UseValidation() {
     },  [isValuesValid])
 
     function validateEmail(inputText){
-        if(!String(inputText)
-            .toLowerCase()
-            .match(emailRegexp)) {
+        if(!String(inputText).toLowerCase().match(emailRegexp)) {
                 setErrors({...errors, email: 'Пока это не похоже на e-mail...'})
                 setIsValuesValid({...isValuesValid, email: false})
             } else {
@@ -83,8 +81,7 @@ function UseValidation() {
     }
 
     function validatePass(inputText){
-        if(!String(inputText)
-            .match(passwordRegexp)) {
+        if(!String(inputText).match(passwordRegexp)) {
                 setErrors({...errors, password: 'Минимум 5 символов. Из них одна большая буква и 1 цифра'})
                 setIsValuesValid({...isValuesValid, password: false})
             } else {
@@ -123,8 +120,7 @@ function UseValidation() {
     }
 
     function validateTel(inputText){
-        if(!inputText
-            .match(telRegexp)) {
+        if(!inputText.match(telRegexp)) {
                 setErrors({...errors, tel: 'Пока это не похоже на телефон...'})
                 setIsValuesValid({...isValuesValid, tel: false})
             } else {
@@ -134,8 +130,7 @@ function UseValidation() {
     }
 
     function validateNames(inputName, inputText){
-        if(!inputText
-            .match(namesRegexp)) {
+        if(!inputText.match(namesRegexp)) {
                 setErrors({...errors, [inputName]: 'Минимум 2 символа на русском языке'})
                 setIsValuesValid({...isValuesValid, [inputName]: false})
             } else {

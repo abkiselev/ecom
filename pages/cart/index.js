@@ -11,7 +11,7 @@ import { checkAuth } from '../api/middlewares/checkAuth';
 
 
 export default function Category({ userProps }) {  
-  const user = useSelector((state) => state.user.userInfo);
+  const user = useSelector((state) => state.user);
   const goodsInCart = useSelector((state) => state.user.userInfo.cart);
   const totalGoodsCost = useSelector((state) => state.user.totalSumCart);
   const dispatch = useDispatch();
@@ -28,8 +28,8 @@ export default function Category({ userProps }) {
     dispatch(removeFromCart({ userId: user?._id || false, good }))
   }
 
-  const clearCart = () => {
-    dispatch(resetCart({ userId: user?._id || false, goods: goodsInCart }))
+  const clearCart = (id, goods) => {
+    dispatch(resetCart({ userId: id || false, goods }))
   }
 
   return (

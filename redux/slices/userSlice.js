@@ -66,7 +66,7 @@ export const removeFromCart = createAsyncThunk('users/removecart', async ({ user
   }
 }) 
 
-export const resetCart = createAsyncThunk('users/removeFromCart', async ({ userId, goods }) => {
+export const resetCart = createAsyncThunk('users/clearcart', async ({ userId, goods }) => {
   if(!userId){
     return []
   } else {

@@ -42,7 +42,6 @@ const userSchema = new mongoose.Schema({
   },
   tel: {
     type: String,
-    unique : true,
     validate: {
       validator(v) {
         return telRegexp.test(v);
@@ -55,12 +54,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    validate: {
-      validator(v) {
-        return passwordRegexp.test(v);
-      },
-      message: (props) => `${props.value} - не верный формат`,
-    },
   },
   cart: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'good' }],
