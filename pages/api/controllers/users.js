@@ -15,19 +15,6 @@ module.exports.getUsers = async (req, res) => {
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }));
 };
 
-// module.exports.checkUser = async (req, res) => {
-//   // await dbConnect()
-
-//   try {
-//     const userId = await User.findOne(req.body).select('_id');
-//     if (!userId) {
-//       return res.status(NOT_FOUND_CODE).send({ message: 'Пользователь по указанному _id не найден' });
-//     }
-//     return res.status(OK_CODE).send({ data: userId });
-//   } catch (error) {
-//     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
-//   }
-// };
 
 module.exports.getUser = async (req, res) => {
   // await dbConnect()

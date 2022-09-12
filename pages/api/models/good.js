@@ -8,6 +8,7 @@ const goodSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    unique : true,
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
