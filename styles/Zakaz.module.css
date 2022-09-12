@@ -15,7 +15,7 @@
 
 .zakaz__img {
     position: relative;
-    width: 1200px;
+    width: 700px;
     height: 270px;
 }
 
@@ -29,6 +29,7 @@
     align-items: flex-start;
     gap: 20px;
     padding: 10px 0;
+    width: 100%;
 }
 
 .zakaz_title {
@@ -38,7 +39,7 @@
 
 .zakaz_text {
     margin: 0;
-    font-size: 14px;
+    font-size: 15px;
     opacity: 0.8;
     line-height: 1.5;
 }
@@ -51,7 +52,7 @@
     }
 
     .zakaz__img {
-        width: 1200px;
+        width: 500px;
         height: 330px;
     }
 }
