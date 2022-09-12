@@ -8,6 +8,7 @@ import Select from './UI/Inputs/Select';
 import UseValidation from '../hooks/UseValidation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { checkUserExist } from "../pages/api/middlewares/checkUserExist";
 
 
 function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) {
@@ -18,7 +19,7 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
   const [isOrderConfirmed, setOrderConfirmed] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
-  
+
   useEffect(() => {
     if(user === null){
       setInitialValues({password: '', dostavka: '', oplata: '', firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', address: user?.address || '', tel: user?.tel || '', email: user?.email || ''});
@@ -57,13 +58,17 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       headers: { 'content-type': 'application/json' }
     };
     
+    const userExist = await checkUserExist(email);
+    console.log('cart userExist', userExist)
 
     try {
-      if(user !== null){
-        const userUpdated = await axios.post(`/api/routes/users/${user._id}`, { firstName, secondName, surName, address, tel, email }, configData);
-        const orderData = { dostavka, oplata, owner: user._id, goods: goodsIds, total: totalOrderCost };
+      if(userExist !== false){
+        // const id = user._id || userExist;
+        const userUpdated = await axios.post(`/api/routes/users/${userExist}`, { firstName, secondName, surName, address, tel, email }, configData);
+        console.log('cart userUpdated', userUpdated)
+        const orderData = { dostavka, oplata, owner: userExist, goods: goodsIds, total: totalOrderCost };
         const order = await axios.post('/api/routes/orders', orderData, configData);
-      } else {
+      } else {        
         const userCreated = await axios.post('/api/routes/users', userData, configData);
         const orderData = { dostavka, oplata, owner: userCreated.data.data._id, goods: goodsIds, total: totalOrderCost };
         const order = await axios.post('/api/routes/orders', orderData, configData);

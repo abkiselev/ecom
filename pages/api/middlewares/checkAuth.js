@@ -14,8 +14,6 @@ export const checkAuth = async (req) => {
     .select('-password -address -createdAt -updatedAt -__v')
     .populate('cart likes')
 
-    console.log(user)
-
     return user
   } catch (e) {
     return null

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { namesRegexp, telRegexp, addressRegexp, passwordRegexp, emailRegexp } from '../utils/regexp';
 
 function UseValidation() {
     const [values, setValues] = useState({});
@@ -27,6 +28,15 @@ function UseValidation() {
                 break;      
             case 'tel':
                 validateTel(e.target.value)
+                break;      
+            case 'firstName':
+                validateNames(e.target.name, e.target.value)
+                break;      
+            case 'secondName':
+                validateNames(e.target.name, e.target.value)
+                break;      
+            case 'surName':
+                validateNames(e.target.name, e.target.value)
                 break;      
             default:
                 setErrors({...errors, [e.target.name]: e.target.validationMessage})
@@ -63,7 +73,7 @@ function UseValidation() {
     function validateEmail(inputText){
         if(!String(inputText)
             .toLowerCase()
-            .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+            .match(emailRegexp)) {
                 setErrors({...errors, email: 'Пока это не похоже на e-mail...'})
                 setIsValuesValid({...isValuesValid, email: false})
             } else {
@@ -74,7 +84,7 @@ function UseValidation() {
 
     function validatePass(inputText){
         if(!String(inputText)
-            .match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/)) {
+            .match(passwordRegexp)) {
                 setErrors({...errors, password: 'Минимум 5 символов. Из них одна большая буква и 1 цифра'})
                 setIsValuesValid({...isValuesValid, password: false})
             } else {
@@ -100,23 +110,22 @@ function UseValidation() {
     }
 
     function validateAddress(inputText){
-        if((inputText.length < 5) && (!inputText.match(/^\d{6,}/)) ) {
+        if((inputText.length < 5) && (!inputText.match(addressRegexp)) ) {
             setErrors({...errors, address: 'Начните с индекса, он состоит из 6 цифр'})
             setIsValuesValid({...isValuesValid, address: false})
-        } else if((inputText.length < 33) && (inputText.match(/^\d{6,}/)) ){
+        } else if((inputText.length < 33) && (inputText.match(addressRegexp)) ){
             setErrors({...errors, address: 'Указывайте полный адрес, чтобы доставка не потерялась'})
             setIsValuesValid({...isValuesValid, address: false})
-        } else if((inputText.length < 34) && (inputText.match(/^\d{6,}/)) ){
+        } else if((inputText.length < 34) && (inputText.match(addressRegexp)) ){
             setErrors({...errors, address: ''})
             setIsValuesValid({...isValuesValid, address: true})
         }
     }
 
     function validateTel(inputText){
-        console.log(inputText)
         if(!inputText
-            .match(/(?:\+|\d)[\d\-\(\) ]{9,}\d/g)) {
-                setErrors({...errors, tel: 'Пока не похоже на телефон...'})
+            .match(telRegexp)) {
+                setErrors({...errors, tel: 'Пока это не похоже на телефон...'})
                 setIsValuesValid({...isValuesValid, tel: false})
             } else {
                 setErrors({...errors, tel: ''})
@@ -124,7 +133,17 @@ function UseValidation() {
             }
     }
 
-    // console.log(values)
+    function validateNames(inputName, inputText){
+        if(!inputText
+            .match(namesRegexp)) {
+                setErrors({...errors, [inputName]: 'Минимум 2 символа на русском языке'})
+                setIsValuesValid({...isValuesValid, [inputName]: false})
+            } else {
+                setErrors({...errors, [inputName]: ''})
+                setIsValuesValid({...isValuesValid, [inputName]: true})
+            }
+    }
+
 
     return ({
         isFormValid,

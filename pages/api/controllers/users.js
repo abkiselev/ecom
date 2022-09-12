@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import Good from '../models/good.js';
-import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
+import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE, CONFLICT_ERROR_CODE } from '../constants/errors';
 
 
 module.exports.getUsers = async (req, res) => {
@@ -65,6 +65,9 @@ module.exports.register = async (req, res) => {
   } catch (error) {
     if (error.name === 'ValidationError') {
       return res.status(BAD_REQUEST_CODE).send({ message: 'Некорректные данные для создания пользователя' });
+    }
+    if (error.code === 11000) {
+      return res.status(CONFLICT_ERROR_CODE).send({ message: 'Пользователь с таким E-mail или телефоном уже есть' });
     }
     return res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка', err: error.message });
   }
