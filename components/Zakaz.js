@@ -19,7 +19,7 @@ function Zakaz() {
 
       <div className={styles.zakaz_container}>
           <div className={styles.zakaz__img}>
-            <Image  className={styles.img}src="/images/test.jpg" layout='fill' objectFit='cover' alt="Товар" /> 
+            <Image  className={styles.img}src="/images/zakaz.jpg" layout='fill' objectFit='cover' alt="Товар" /> 
           </div>
 
           <div className={styles.zakaz_descr}>

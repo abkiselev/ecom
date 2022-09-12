@@ -42,7 +42,7 @@ function ProductsList({ category, mainGoods, colors, filters, filterValues, setF
           <ul className={styles.productList}>
 
             {mainGoods
-              .filter((item) => Object.entries(filterValues).every(([key, value]) => item[key].includes(value)))
+              .filter((item) => Object.entries(filterValues).every(([key, value]) => item[key].toLowerCase().includes(value.toLowerCase())))
               .map(good => (
                 <li key={good._id} className={styles.good}>
                   <MiniCard good={good} handleAdd={handleAdd} handleRemove={handleRemove} handleSetLike={handleSetLike} handleRemoveLike={handleRemoveLike}/>

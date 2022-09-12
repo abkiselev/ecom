@@ -69,7 +69,7 @@ export default function Category({ category, goods, colors, userProps }) {
   return (
     <>
       <Meta
-        title="Кожаные сумки ручной работы из итальянской кожи"
+        title={`Кожаные ${category === 'sumki' ? 'сумки' : 'ремни'} ручной работы из итальянской кожи`}
         description="Интернет-магазин кожаных сумок и ремней ручной работы с доставкой по всей России"
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
