@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import styles from '../styles/CartEmpty.module.css'
+import Link from 'next/link';
+import styles from '../styles/CartEmpty.module.css';
 
 
 function CartEmpty() {

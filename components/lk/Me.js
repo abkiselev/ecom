@@ -1,25 +1,20 @@
-import styles from '../../styles/Lk/Me.module.css'
+import styles from '../../styles/Lk/Me.module.css';
 import { useEffect, useState } from 'react';
-import Button from '../../components/UI/Buttons/Button'
+import Button from '../../components/UI/Buttons/Button';
 import ButtonUnFilled from '../UI/Buttons/ButtonUnFilled';
 import Form from '../Form';
 import Input from '../UI/Inputs/Input';
 import UseValidation from '../../hooks/UseValidation';
-import axios from 'axios';
-
 
 
 function Me({ user, pending, updateUser }) {
   const { isFormValid, values, isValuesValid, setInitialValues, handleValues, errors } = UseValidation();
   const [isEdit, setIsEdit] = useState(false);  
-  // const [isloading, setIsloading] = useState(false);
-
 
   useEffect(() => {
     isEdit && setInitialValues({firstName: user?.firstName || '', secondName: user?.secondName || '', surName: user?.surName || '', tel: user?.tel || '', email: user?.email || ''});
   }, [isEdit]); 
 
-  console.log(pending)
 
   const handleEditButton = () => {
     setIsEdit(!isEdit)
@@ -27,13 +22,11 @@ function Me({ user, pending, updateUser }) {
 
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
-    // setIsloading(pending)
 
     const { firstName, secondName, surName, tel, email } = values;
 
     updateUser({ id: user._id, firstName, secondName, surName, tel, email })
     
-    // setIsloading(pending)
     setIsEdit(pending)
   }
 

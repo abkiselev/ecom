@@ -1,4 +1,4 @@
-import styles from '../../styles/Categories_admin.module.css'
+import styles from '../../styles/Categories_admin.module.css';
 import { useState, useEffect } from 'react';
 import Input from '../UI/Inputs/Input';
 import axios from 'axios';
@@ -41,8 +41,6 @@ const CategoriesAdmin = () => {
     };
 
     const response = await axios.post('/api/routes/categories', inputsData, config);
-
-    console.log(response);
 
     setIsLoading(false);
     setInputsData({title: '', link: ''});

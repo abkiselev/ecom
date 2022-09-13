@@ -8,7 +8,6 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE, 
 
 
 module.exports.getUsers = async (req, res) => {
-  // await dbConnect()
 
   User.find({}).select('-password -role -address -createdAt -updatedAt -__v')
     .then((users) => res.status(OK_CODE).send({ data: users }))
@@ -17,8 +16,6 @@ module.exports.getUsers = async (req, res) => {
 
 
 module.exports.getUser = async (req, res) => {
-  // await dbConnect()
-  // console.log(req.query.id)
 
   try {
     const user = await User.findById(req.query.id).select('-password -role -address -createdAt -updatedAt -__v');
@@ -40,7 +37,6 @@ module.exports.createUser = async (req, res) => {
     const { firstName, secondName, surName, email, tel, address, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
   
-    await dbConnect()
     const user = await User.create({ firstName, secondName, surName, email, tel, address, password: hash });
     return res.status(CREATED_CODE).send({ 
       data: { _id: user._id, firstName: user.firstName, secondName: user.secondName, surName: user.surName, email: user.email, tel: user.tel, address: address.tel } 
@@ -61,10 +57,6 @@ module.exports.register = async (req, res) => {
     const { email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
   
-    // await dbConnect()
-
-    // await User.init()
-
     const user = await User.create({ email, password: hash });
     return res.status(CREATED_CODE).send({ 
       data: { _id: user._id, email: user.email } 
@@ -84,7 +76,6 @@ module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    await dbConnect()
     const user = await User.findOne({ email })
     if (!user) {
       return res.status(401).send({ message: 'Неправильные почта или пароль' });
@@ -158,7 +149,6 @@ module.exports.setLikes = async (req, res) => {
       { $addToSet: req.body },
       { new: true },
     )
-    // .select('-password -role -address -createdAt -updatedAt -__v')
     .populate('likes');
 
     if (!user) {
@@ -180,7 +170,6 @@ module.exports.deleteLikes = async (req, res) => {
       { $pullAll: req.body },
       { new: true },
     )
-    // .select('-password -role -address -createdAt -updatedAt -__v')
     .populate('likes');
 
     if (!user) {
@@ -203,7 +192,6 @@ module.exports.setCart = async (req, res) => {
       { $addToSet: req.body },
       { new: true },
     )
-    // .select('-password -role -address -createdAt -updatedAt -__v')
     .populate('cart');
 
     if (!user) {
@@ -225,7 +213,6 @@ module.exports.deleteCart = async (req, res) => {
       { $pullAll: req.body },
       { new: true },
     )
-    // .select('-password -role -address -createdAt -updatedAt -__v')
     .populate('cart');
 
     if (!user) {

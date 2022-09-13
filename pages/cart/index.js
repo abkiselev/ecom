@@ -1,11 +1,8 @@
-import Image from 'next/image'
-import Meta from '../../components/Meta'
-import Hleb from '../../components/Hleb'
-import Cart from '../../components/Cart'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { removeFromCart, resetCart } from '../../redux/slices/userSlice'
-import { setUser, removeUser } from '../../redux/slices/userSlice';
+import Meta from '../../components/Meta';
+import Hleb from '../../components/Hleb';
+import Cart from '../../components/Cart';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart, resetCart, setUser, removeUser } from '../../redux/slices/userSlice';
 import { useEffect } from 'react';
 import { checkAuth } from '../api/middlewares/checkAuth';
 

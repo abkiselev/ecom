@@ -10,7 +10,6 @@ export default async function handler(req, res) {
         } else {
           updateGood(req, res)
         }
-        // updateGood(req, res)
         break;
     case 'DELETE':      
         user = await checkAuth(req, res);
@@ -19,7 +18,6 @@ export default async function handler(req, res) {
         } else {
           deleteGood(req, res)
         }
-        // deleteGood(req, res)
         break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });

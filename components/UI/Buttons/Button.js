@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from './Button.module.css'
+import styles from './Button.module.css';
 
 const Button = ({ disabled, text, font, padd, type, onClick }) => {
     return (

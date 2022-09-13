@@ -1,4 +1,4 @@
-import Meta from '../../components/Meta'
+import Meta from '../../components/Meta';
 import Register from '../../components/Register';
 import { checkAuth } from '../api/middlewares/checkAuth';
 

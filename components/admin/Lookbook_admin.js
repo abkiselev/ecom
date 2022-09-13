@@ -1,11 +1,11 @@
-import styles from '../../styles/Lookbook_admin.module.css'
-import Image from 'next/image'
+import styles from '../../styles/Lookbook_admin.module.css';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Fancybox from '../../components/Fancybox';
 import Select from '../../components/UI/Inputs/Select';
 import axios from 'axios';
 import Loader from '../Loader';
-import { transliterate } from '../../utils/transliterate.js'
+import { transliterate } from '../../utils/transliterate.js';
 
 const LookbookAdmin = () => {
     const [lookbookImages, setLookbookImages] = useState([]);

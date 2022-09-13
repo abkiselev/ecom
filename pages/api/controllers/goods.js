@@ -1,13 +1,9 @@
-import dbConnect from '../../../utils/mongodb'
+import dbConnect from '../../../utils/mongodb';
 import Category from '../models/category.js';
 import Good from '../models/good.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
 export const getGoods = async (req, res) => {
-  await dbConnect()
-
-  Category.find();
-
   Good.find({})
     .populate('category')
     .then((goods) => res.status(OK_CODE).send({ data: goods }))
@@ -15,7 +11,6 @@ export const getGoods = async (req, res) => {
 };
 
 export const createGood = async (req, res) => {
-  await dbConnect()
 
   try {
     const good = await Good.create(req.body);
@@ -29,7 +24,6 @@ export const createGood = async (req, res) => {
 };
 
 export const updateGood = async (req, res) => {
-  await dbConnect()
 
   try {
     const good = await Good.findByIdAndUpdate(
@@ -37,7 +31,7 @@ export const updateGood = async (req, res) => {
       req.body,
       { new: true, runValidators: true },
     );
-    // console.log(good)
+
     if (!good) {
       return res.status(NOT_FOUND_CODE).send({ message: 'Указанный _id не найден' });
     }
@@ -54,7 +48,6 @@ export const updateGood = async (req, res) => {
 };
 
 module.exports.deleteGood = async (req, res) => {
-  await dbConnect()
 
   try {
     const good = await Good.findByIdAndRemove(req.query.id);

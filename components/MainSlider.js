@@ -1,5 +1,5 @@
-import styles from '../styles/MainSlider.module.css'
-import Image from 'next/image'
+import styles from '../styles/MainSlider.module.css';
+import Image from 'next/image';
 import Slider from './Slider';
 import ButtonFilled from './UI/Buttons/ButtonFilled';
 

@@ -1,9 +1,8 @@
-import dbConnect from '../../../utils/mongodb'
+import dbConnect from '../../../utils/mongodb';
 import Category from '../models/category.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
 export const getCategories = async (req, res) => {
-  await dbConnect()
 
   Category.find({})
     .then((cats) => res.status(OK_CODE).send({ data: cats }))
@@ -11,7 +10,6 @@ export const getCategories = async (req, res) => {
 };
 
 export const createCategory = async (req, res) => {
-  await dbConnect()
 
   try {
     const cat = await Category.create(req.body);
@@ -25,7 +23,6 @@ export const createCategory = async (req, res) => {
 };
 
 module.exports.deleteCategory = async (req, res) => {
-  await dbConnect()
 
   try {
     const cat = await Category.findByIdAndRemove(req.query.id);

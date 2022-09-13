@@ -1,12 +1,12 @@
-import styles from '../../styles/Goods_admin.module.css'
-import Image from 'next/image'
+import styles from '../../styles/Goods_admin.module.css';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Select from '../UI/Inputs/Select';
 import Input from '../UI/Inputs/Input';
 import Textarea from '../UI/Inputs/Textarea';
 import axios from 'axios';
 import Loader from '../Loader';
-import { transliterate } from '../../utils/transliterate'
+import { transliterate } from '../../utils/transliterate';
 
 const GoodsAdmin = () => {
   const [goods, setGoods] = useState([]);
@@ -91,7 +91,6 @@ const GoodsAdmin = () => {
       link 
     };
 
-    console.log(outData)
 
     const configFiles = {
         headers: { 'content-type': 'multipart/form-data' },

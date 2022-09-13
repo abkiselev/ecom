@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import styles from '../styles/Cart.module.css'
+import Image from 'next/image';
+import styles from '../styles/Cart.module.css';
 import Form from './Form';
 import CartEmpty from './CartEmpty';
 import ConfirmationOrder from './ConfirmationOrder';
@@ -73,7 +73,6 @@ function Cart({ removeFromCart, clearCart, user, goodsInCart, totalGoodsCost }) 
       setOrderConfirmed(true)
       clearCart(user.userInfo._id, user.userInfo.cart)
     } catch (error) {
-      console.log(error)
       setIsError(true)
       setIsloading(false)
       setErrorText(error.response.data.message)

@@ -1,17 +1,13 @@
-import Image from 'next/image'
-import Meta from '../../../components/Meta'
-import MainSlider from '../../../components/MainSlider'
-import GoodsSlider from '../../../components/GoodsSlider'
-import Zakaz from '../../../components/Zakaz'
-import Product from '../../../components/Product'
-import Hleb from '../../../components/Hleb'
+import Meta from '../../../components/Meta';
+import GoodsSlider from '../../../components/GoodsSlider';
+import Zakaz from '../../../components/Zakaz';
+import Product from '../../../components/Product';
+import Hleb from '../../../components/Hleb';
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../../../redux/slices/userSlice'
-import { setLike, removeLike } from '../../../redux/slices/userSlice';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, removeFromCart, setLike, removeLike, setUser, removeUser } from '../../../redux/slices/userSlice';
 import { checkAuth } from '../../api/middlewares/checkAuth';
-import { setUser, removeUser } from '../../../redux/slices/userSlice';
 
 
 export default function ProductPage({ category, good, goodsToRecommend, userProps }) {
@@ -27,13 +23,11 @@ export default function ProductPage({ category, good, goodsToRecommend, userProp
   }, []);
  
   const handleAdd = (good) => {
-    // dispatch(addToCart(good))
     dispatch(addToCart({ userId: user.userInfo?._id || false, good }))
   }
 
   const handleRemove = (good) => {
     dispatch(removeFromCart({ userId: user.userInfo?._id || false, good }))
-    // dispatch(removeFromCart(good))
   }
 
   const handleSetLike = (good) => {

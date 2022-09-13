@@ -13,7 +13,6 @@ export default async function handler(req, res) {
         } else {
           createCategory(req, res)
         }
-        // createCategory(req, res)
         break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });

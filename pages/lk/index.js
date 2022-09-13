@@ -1,19 +1,15 @@
-import styles from '../../styles/Lk/Lk.module.css'
-import Meta from '../../components/Meta'
-import { useRouter } from 'next/router'
+import styles from '../../styles/Lk/Lk.module.css';
+import Meta from '../../components/Meta';
+import { useRouter } from 'next/router';
 import { checkAuth } from '../api/middlewares/checkAuth';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { setUser, removeUser, syncUserCartAndLikes } from '../../redux/slices/userSlice';
-import { addToCart, removeFromCart } from '../../redux/slices/userSlice';
-import { setLike, removeLike } from '../../redux/slices/userSlice';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser, removeUser, addToCart, removeFromCart, setLike, removeLike, updateUserInfo } from '../../redux/slices/userSlice';
 import Liked from '../../components/lk/Liked';
 import Zakazy from '../../components/lk/Zakazy';
 import Me from '../../components/lk/Me';
 import axios from 'axios';
 import ButtonUnFilled from '../../components/UI/Buttons/ButtonUnFilled';
-
-import { updateUserInfo } from '../../redux/slices/userSlice'
 
 
 export default function Lk(props) {

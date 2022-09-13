@@ -1,4 +1,4 @@
-import styles from '../styles/ProductsList.module.css'
+import styles from '../styles/ProductsList.module.css';
 import MiniCard from './MiniCard';
 import Select from './UI/Inputs/Select';
 import Search from './UI/Inputs/Search';

@@ -1,5 +1,5 @@
-import styles from '../../styles/Lk/Zakazy.module.css'
-import Image from 'next/image'
+import styles from '../../styles/Lk/Zakazy.module.css';
+import Image from 'next/image';
 import { convertDate } from '../../utils/convertDate';
 
 function Zakazy({ orders }) {  

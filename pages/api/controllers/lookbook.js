@@ -1,9 +1,8 @@
-import dbConnect from '../../../utils/mongodb'
+import dbConnect from '../../../utils/mongodb';
 import Lookbook from '../models/lookbook.js';
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
 
 export const getImages = async (req, res) => {
-  await dbConnect()
 
   Lookbook.find({})
     .then((images) => res.status(OK_CODE).send({ data: images }))
@@ -11,7 +10,6 @@ export const getImages = async (req, res) => {
 };
 
 export const createImages = async (req, res) => {
-  await dbConnect()
 
   try {
     const images = await Lookbook.insertMany(req.body);
@@ -25,7 +23,6 @@ export const createImages = async (req, res) => {
 };
 
 module.exports.deleteImage = async (req, res) => {
-  await dbConnect()
 
   try {
     const image = await Lookbook.findByIdAndRemove(req.query.id);

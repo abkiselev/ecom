@@ -1,4 +1,4 @@
-import styles from '../../styles/Lk/Liked.module.css'
+import styles from '../../styles/Lk/Liked.module.css';
 import MiniCard from '../MiniCard';
 
 function Liked({ goods, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
