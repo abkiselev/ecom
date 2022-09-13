@@ -1,10 +1,10 @@
-import styles from '../styles/Login.module.css'
-import Form from './Form'
+import styles from '../styles/Login.module.css';
+import Form from './Form';
 import Input from './UI/Inputs/Input';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import UseValidation from '../hooks/UseValidation';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 function Register() {
@@ -32,7 +32,6 @@ function Register() {
       const login = await axios.post('/api/routes/users/login', { email, password }, configData);
       router.push("/lk")
     } catch (error) {
-      console.log(error)
       setIsError(true)
       setErrorText(error.response.data.message)
       setIsloading(false)

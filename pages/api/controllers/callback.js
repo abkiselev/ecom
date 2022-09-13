@@ -1,10 +1,10 @@
 import dbConnect from '../../../utils/mongodb';
 import Callback from '../models/callback.js';
-import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors';
+import { CREATED_CODE, BAD_REQUEST_CODE, DEFAULT_CODE } from '../constants/errors';
 
 module.exports.createCallback = async (req, res) => {
   const { email, tel } = req.body;
-  console.log(req.body)
+
   try {  
     const userData = await Callback.create({ email, tel });
     return res.status(CREATED_CODE).send({ data: { userData } });

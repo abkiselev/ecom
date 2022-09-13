@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import styles from '../styles/Footer.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { openPopup } from '../redux/slices/popupsSlice'
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from '../styles/Footer.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { openPopup } from '../redux/slices/popupsSlice';
 
 function Footer() {
   const isOpen = useSelector((state) => state.popups.zakazPopup)

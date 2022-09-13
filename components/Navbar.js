@@ -1,8 +1,8 @@
-import styles from '../styles/Navbar.module.css'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import styles from '../styles/Navbar.module.css';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 
 const Navbar = () => {

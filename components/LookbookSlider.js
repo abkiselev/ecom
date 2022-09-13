@@ -1,7 +1,7 @@
-import styles from '../styles/LookbookSlider.module.css'
+import styles from '../styles/LookbookSlider.module.css';
 import Slider from './Slider';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
-import Image from 'next/image'
+import Image from 'next/image';
 
 
 function LookbookSlider({ lookbook, slidesPerView, className }) {

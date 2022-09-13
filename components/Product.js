@@ -1,14 +1,14 @@
 import { Navigation, Thumbs  } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState } from "react";
-import Image from 'next/image'
+import Image from 'next/image';
 import Button from './UI/Buttons/Button';
-import styles from '../styles/Product.module.css'
+import styles from '../styles/Product.module.css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Fancybox from './Fancybox';
 import ButtonUnFilled from './UI/Buttons/ButtonUnFilled';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
 
 function Product({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {
@@ -16,7 +16,6 @@ function Product({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLik
   const isLiked = useSelector((state) => state.user.userInfo.likes.some(item => item._id === good._id));
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   
-  console.log(good)
 
   return (
       <section className={styles.good}>

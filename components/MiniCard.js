@@ -1,7 +1,7 @@
-import styles from '../styles/MiniCard.module.css'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useSelector } from 'react-redux'
+import styles from '../styles/MiniCard.module.css';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 
 function MiniCard({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLike }) {

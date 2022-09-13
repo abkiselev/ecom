@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import styles from '../styles/ConfirmationOrder.module.css'
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from '../styles/ConfirmationOrder.module.css';
 
 
 function ConfirmationOrder({ email }) {

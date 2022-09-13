@@ -10,7 +10,6 @@ export default async function handler(req, res) {
         } else {
           deleteCategory(req, res)
         }
-        // deleteCategory(req, res)
         break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });

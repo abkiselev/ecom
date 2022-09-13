@@ -1,12 +1,12 @@
-import styles from '../../styles/Admin.module.css'
-import Meta from '../../components/Meta'
+import styles from '../../styles/Admin.module.css';
+import Meta from '../../components/Meta';
 import { useState, useEffect } from 'react';
 import LookbookAdmin from '../../components/admin/Lookbook_admin';
 import GoodsAdmin from '../../components/admin/Goods_admin';
 import OrdersAdmin from '../../components/admin/Orders_admin';
 import UsersAdmin from '../../components/admin/Users_admin';
 import CategoriesAdmin from '../../components/admin/Categories_admin';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { checkAuth } from '../api/middlewares/checkAuth';
 import { setUser, removeUser } from '../../redux/slices/userSlice';
 import ButtonUnFilled from '../../components/UI/Buttons/ButtonUnFilled';
@@ -29,7 +29,6 @@ export default function Admin(props) {
     e.preventDefault();
     dispatch(removeUser());
     const logout = await axios.get('/api/routes/users/logout');
-    console.log(logout)
     router.push('/')
   }
 
@@ -75,8 +74,6 @@ export default function Admin(props) {
 
 export async function getServerSideProps(context) {
   const user = await checkAuth(context.req);
-
-  console.log(user)
 
   if (!user || user.role !== 'admin') {
     return {

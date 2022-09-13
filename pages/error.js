@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import Meta from '../components/Meta'
-import styles from '../styles/NotFound.module.css'
+import Link from 'next/link';
+import Meta from '../components/Meta';
+import styles from '../styles/NotFound.module.css';
 
 export default function Error() {
   return (

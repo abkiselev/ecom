@@ -10,7 +10,6 @@ export default async function handler(req, res) {
         } else {
           deleteImage(req, res)
         }
-        // deleteImage(req, res)
         break;
     default:
         res.status(405).json({ error: `Недопустимый метод` });

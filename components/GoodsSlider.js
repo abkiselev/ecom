@@ -1,4 +1,4 @@
-import styles from '../styles/GoodsSlider.module.css'
+import styles from '../styles/GoodsSlider.module.css';
 import Slider from './Slider';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import MiniCard from './MiniCard';

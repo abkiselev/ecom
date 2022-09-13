@@ -1,10 +1,10 @@
-import styles from '../styles/Login.module.css'
-import Form from './Form'
+import styles from '../styles/Login.module.css';
+import Form from './Form';
 import Input from './UI/Inputs/Input';
 import ButtonArrow from './UI/Buttons/ButtonArrow';
 import UseValidation from '../hooks/UseValidation';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 

@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@fancyapps/ui": "^4.0.31",
@@ -29,10 +28,6 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "swiper": "^8.3.2"
-  },
-  "devDependencies": {
-    "eslint": "8.22.0",
-    "eslint-config-next": "12.2.5"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "next.config.js",

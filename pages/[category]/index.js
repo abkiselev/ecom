@@ -1,15 +1,12 @@
-import Image from 'next/image'
-import Meta from '../../components/Meta'
-import Zakaz from '../../components/Zakaz'
-import ProductsList from '../../components/ProductsList'
-import Hleb from '../../components/Hleb'
+import Meta from '../../components/Meta';
+import Zakaz from '../../components/Zakaz';
+import ProductsList from '../../components/ProductsList';
+import Hleb from '../../components/Hleb';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../../redux/slices/userSlice';
-import { setLike, removeLike } from '../../redux/slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, removeFromCart, setLike, removeLike, setUser, removeUser } from '../../redux/slices/userSlice';
 import { checkAuth } from '../api/middlewares/checkAuth';
-import { setUser, removeUser } from '../../redux/slices/userSlice';
 
 
 export default function Category({ category, goods, colors, userProps }) {
@@ -21,7 +18,6 @@ export default function Category({ category, goods, colors, userProps }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // console.log(userProps)
 
   useEffect(() => {
     if(userProps && !user.loggedIn){

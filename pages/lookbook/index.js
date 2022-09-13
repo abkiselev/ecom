@@ -1,11 +1,11 @@
-import Meta from '../../components/Meta'
+import Meta from '../../components/Meta';
 import Hleb from '../../components/Hleb';
 import LookbookList from '../../components/LookbookList';
 import Zakaz from '../../components/Zakaz';
 import axios from 'axios';
 import { checkAuth } from '../api/middlewares/checkAuth';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
 
 

@@ -1,9 +1,9 @@
-import Login from '../../components/Login'
-import Meta from '../../components/Meta'
+import Login from '../../components/Login';
+import Meta from '../../components/Meta';
 import { checkAuth } from '../api/middlewares/checkAuth';
 import { useEffect, useState } from 'react';
 import { setUser, removeUser } from '../../redux/slices/userSlice';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function Log(props) {

@@ -1,8 +1,8 @@
-import '../styles/globals.css'
-import Layout from '../components/Layout'
+import '../styles/globals.css';
+import Layout from '../components/Layout';
 import NextNProgress from "nextjs-progressbar";
-import store from '../redux/store'
-import { Provider } from 'react-redux'
+import store from '../redux/store';
+import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 

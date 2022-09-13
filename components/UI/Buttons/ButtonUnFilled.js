@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from './ButtonUnFilled.module.css'
+import styles from './ButtonUnFilled.module.css';
 
 const ButtonUnFilled = ({ disabled, text, font, padd, type, onClick }) => {
     return (

@@ -1,10 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-
 const withTM = require('next-transpile-modules')(['@fancyapps/ui']);
 
 const nextConfig = {
-  // reactStrictMode: true,
   swcMinify: true,
 };
 

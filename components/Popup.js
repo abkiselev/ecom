@@ -1,9 +1,9 @@
-import styles from '../styles/Popup.module.css'
-import Form from './Form'
+import styles from '../styles/Popup.module.css';
+import Form from './Form';
 import Input from './UI/Inputs/Input';
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { closePopup } from '../redux/slices/popupsSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { closePopup } from '../redux/slices/popupsSlice';
 import UseValidation from '../hooks/UseValidation';
 import axios from 'axios';
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from './ButtonFilled.module.css'
+import styles from './ButtonFilled.module.css';
 
 const ButtonFilled = ({ text, url, font, padd }) => {
     return (

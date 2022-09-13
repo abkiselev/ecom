@@ -1,4 +1,4 @@
-import styles from '../../styles/Users_admin.module.css'
+import styles from '../../styles/Users_admin.module.css';
 import { useState, useEffect } from 'react';
 import Search from '../UI/Inputs/Search';
 import axios from 'axios';
@@ -8,7 +8,6 @@ const UsersAdmin = () => {
   const [users, setUsers] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
-  console.log(users)
   useEffect(() => {
     renderUsers()
   }, []);

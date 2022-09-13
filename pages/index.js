@@ -1,15 +1,13 @@
-import Meta from '../components/Meta'
-import MainSlider from '../components/MainSlider'
-import GoodsSlider from '../components/GoodsSlider'
-import LookbookSlider from '../components/LookbookSlider'
-import Zakaz from '../components/Zakaz'
-import Popup from '../components/Popup'
-import { addToCart, removeFromCart } from '../redux/slices/userSlice';
-import { setLike, removeLike } from '../redux/slices/userSlice';
+import Meta from '../components/Meta';
+import MainSlider from '../components/MainSlider';
+import GoodsSlider from '../components/GoodsSlider';
+import LookbookSlider from '../components/LookbookSlider';
+import Zakaz from '../components/Zakaz';
+import Popup from '../components/Popup';
+import { addToCart, removeFromCart, setLike, removeLike, setUser, removeUser } from '../redux/slices/userSlice';
 import axios from 'axios';
 import { checkAuth } from './api/middlewares/checkAuth';
-import { useSelector, useDispatch } from 'react-redux'
-import { setUser, removeUser } from '../redux/slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 

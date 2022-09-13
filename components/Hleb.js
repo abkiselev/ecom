@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '../styles/Hleb.module.css'
+import styles from '../styles/Hleb.module.css';
 
 
 function Hleb(props) {

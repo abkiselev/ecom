@@ -1,4 +1,4 @@
-import styles from '../../styles/Orders_admin.module.css'
+import styles from '../../styles/Orders_admin.module.css';
 import { useState, useEffect } from 'react';
 import Search from '../UI/Inputs/Search';
 import axios from 'axios';

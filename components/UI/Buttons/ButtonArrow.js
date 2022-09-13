@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from './ButtonArrow.module.css'
+import styles from './ButtonArrow.module.css';
 
 const ButtonArrow = ({ text, url, onClick }) => {
     return (
