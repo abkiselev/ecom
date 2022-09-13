@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../../redux/slices/userSlice';
 
+
 export default function Lookbook({ lookbook, userProps }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function Lookbook({ lookbook, userProps }) {
   return (
     <>
       <Meta
-        title="Интернет-магазин кожаных сумок и ремней"
+        title="Lookbook кожаных сумок и ремней"
         description="Интернет-магазин кожаных сумок и ремней ручной работы с доставкой по всей России"
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />

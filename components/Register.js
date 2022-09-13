@@ -49,7 +49,7 @@ function Register() {
 
         {isError && <p className={styles.servererror}>{errorText || 'Что-то пошло не так'}</p>}
 
-        <Form isFormValid={isFormValid} onSubmit={handleRegister} isloading={isloading} buttonText="Зарегистрироваться">
+        <Form isFormValid={isFormValid} onSubmit={handleRegister} isloading={isloading} buttonText="Отправить">
           <Input value={values.email} error={errors.email} isValuesValid={isValuesValid.email} type="email" name='email' placeholder='E-mail*' required='true' onChange={handleValues} />
           <Input value={values.password} error={errors.password} isValuesValid={isValuesValid.password} type="password" name='password' placeholder='Пароль*' required='true' onChange={handleValues} />
           <Input value={values.passwordRepeat} error={errors.passwordRepeat} isValuesValid={isValuesValid.passwordRepeat} type="password" name='passwordRepeat' placeholder='Повторите пароль*' required='true' onChange={handleValues} />

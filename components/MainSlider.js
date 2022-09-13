@@ -9,7 +9,7 @@ function MainSlider({slidesPerView, auto}) {
       <section className={styles.slider}>
         <Slider slidesPerView={slidesPerView} auto={auto}>
           <div className={styles.slider__slide}>
-            <Image className={styles.slider__img} src="/images/main0.jpg" layout='fill' objectFit='cover' alt="Логотип" />
+            <Image className={styles.slider__img} src="/images/main0.jpg" layout='fill' objectFit='cover' priority='true' alt="Логотип" />
             <div className={styles.slider__headers}>
               <div>
                 <h2 className={styles.slider__title}>New collection 2022</h2>
@@ -21,7 +21,7 @@ function MainSlider({slidesPerView, auto}) {
           </div>
           
           <div className={styles.slider__slide}>
-            <Image className={styles.slider__img} src="/images/main2.jpg" layout='fill' objectFit='cover' alt="Логотип" />
+            <Image className={styles.slider__img} src="/images/main2.jpg" layout='fill' objectFit='cover' priority='true' alt="Логотип" />
             <div className={styles.slider__headers}>
               <div>
                 <h2 className={styles.slider__title}>New collection 2022</h2>

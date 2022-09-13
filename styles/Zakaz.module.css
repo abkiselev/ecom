@@ -75,4 +75,8 @@
         padding: 0 10px;
         margin: 80px auto;
     }
+
+    .zakaz_text {
+        font-size: 12px;
+    }
 }

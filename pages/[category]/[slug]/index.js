@@ -47,7 +47,7 @@ export default function ProductPage({ category, good, goodsToRecommend, userProp
   return (
     <>
       <Meta
-        title="Кожаные сумки ручной работы из итальянской кожи"
+        title={good.title}
         description="Интернет-магазин кожаных сумок и ремней ручной работы с доставкой по всей России"
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />

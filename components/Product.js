@@ -50,7 +50,6 @@ function Product({ good, handleAdd, handleRemove, handleSetLike, handleRemoveLik
             slidesPerView={good.images.length}
             spaceBetween={20}
             modules={[Thumbs]}
-            // watchSlidesProgress
             onSwiper={setThumbsSwiper}
           >
 

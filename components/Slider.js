@@ -14,7 +14,7 @@ function Slider({slidesPerView, className, children, auto = false}) {
       // spaceBetween={30}
       // slidesPerView={slidesPerView}
       autoplay={{
-        "delay": 4000,
+        "delay": 5000,
         "disableOnInteraction": true
       }}
       breakpoints={{

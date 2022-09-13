@@ -72,3 +72,17 @@
     font-size: 12px;
     color: white;
 }
+
+
+@media (max-width: 425px) {
+    .popup_container {
+        padding: 30px;
+        width: 300px;
+        min-width: 280px;
+    }
+
+    .closeButton {
+        top: 10px;
+        right: 10px;
+    }
+}
