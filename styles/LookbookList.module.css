@@ -1,0 +1,81 @@
+.lookbook {
+    margin: 80px auto 0;
+    max-width: 1260px;
+    padding: 0 20px;
+}
+
+.name {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0 0 50px 0;
+}
+
+.imageList {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template: auto / repeat(3,minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.image {
+    cursor: pointer;
+}
+
+.img {
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.filters_wrapper {
+    border-radius: 5px;
+    padding: 15px 30px;
+    margin-bottom: 40px;
+    background-color: rgba(173, 144, 144, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.filter {
+    display: flex;
+    gap: 50px;
+}
+
+.sort {
+    display: flex;
+    gap: 50px;
+}
+
+@media (max-width: 1095px) {
+    .imageList {
+        grid-template: auto / repeat(3,minmax(120px, 1fr));
+    }
+}
+@media (max-width: 770px) {
+    .imageList {
+        grid-template: auto / repeat(2,minmax(120px, 1fr));
+        gap: 15px;
+    }
+}
+@media (max-width: 425px) {
+    .lookbook {
+        padding: 0 10px;
+    }
+
+    .filter {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .sort {
+        width: 100%;
+    }
+
+    .imageList {
+        grid-template: auto / repeat(2,minmax(120px, 1fr));
+        gap: 10px;
+    }
+}

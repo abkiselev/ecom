@@ -1,0 +1,40 @@
+.filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.filter_text {
+    font-weight: 500;
+    margin: 0;
+    width: 30%;
+}
+
+.infoList {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 100px;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.title {
+    margin: 0;
+    width: 350px;
+}
+
+.subtitle {
+    margin: 0;
+    min-width: 300px;
+}

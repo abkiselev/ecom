@@ -1,0 +1,187 @@
+.good {
+    margin: 80px auto 0;
+    max-width: 1260px;
+    padding: 0 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 100px;
+}
+
+.imgs {
+    width: 40%;
+}
+
+.img {
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.info {
+    width: 60%;
+}
+
+.name {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0 0 50px 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.desc {
+    opacity: 0.8;
+    font-size: 15px;
+    margin-bottom: 50px;
+}
+
+.spec {
+    margin-bottom: 30px;
+}
+
+.specItem {
+    margin: 5px 0;
+    opacity: 0.9;
+    font-size: 15px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.likeButton {
+    border: none;
+    background-image: url(/images/heart.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    opacity: .8;
+    transition: all 0.25s ease-out;
+}
+
+
+.likeButton:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: rotate(-9deg);
+}
+
+.unlikeButton {
+    border: none;
+    background-image: url(/images/liked.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    opacity: .8;
+    transition: all 0.25s ease-out;
+}
+
+
+.unlikeButton:hover {
+    cursor: pointer;
+    opacity: 1;
+    transform: rotate(-9deg);
+}
+
+.price {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0 0 50px 0;
+}
+
+
+@media (max-width: 1024px) {
+    .good {
+        gap: 50px;
+    }
+}
+
+@media (max-width: 770px) {
+    .good {
+        gap: 30px;
+    }
+
+    .imgs {
+        width: 50%;
+    }
+
+    .name {
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+
+    .desc {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .specItem {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 24px;
+        margin: 0 0 30px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .good {
+        flex-direction: column;
+    }
+
+    .imgs {
+        width: 100%;
+    }
+
+    .info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .good {
+        margin: 50px auto 0;
+        padding: 0 10px
+    }
+
+    .imgs {
+        width: 100%;
+    }
+
+    .info {
+        width: 100%;
+    }
+
+    .name {
+        font-size: 26px;
+    }
+
+    .desc {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .specItem {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 20px;
+        margin: 0 0 30px 0;
+    }
+}
+
+  

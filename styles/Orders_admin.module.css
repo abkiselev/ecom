@@ -1,0 +1,44 @@
+.filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.filter_text {
+    font-weight: 500;
+    margin: 0;
+    width: 30%;
+}
+
+.orders_list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.title {
+    font-size: 16px;
+    margin-top: 0;
+    width: 350px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

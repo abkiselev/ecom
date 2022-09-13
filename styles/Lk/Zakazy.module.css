@@ -1,0 +1,44 @@
+.ordersList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.order {
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.title {
+    margin: 0;
+}
+
+.number {
+    margin: 0;
+}
+
+.good {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.total {
+    margin: 0;
+    font-weight: 600;
+}
+
+@media (max-width: 770px) {
+    .heading {
+        flex-wrap: wrap;
+    }
+}

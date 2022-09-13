@@ -1,0 +1,46 @@
+.button_unfilled {
+    color: black;
+    text-transform: uppercase;
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    padding: 10px 25px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button_unfilled:hover {
+    background-color: rgba(114, 99, 212, .2);
+}
+
+._disabled {
+    pointer-events: none;
+    background-color: rgba(114, 99, 212, 0.3);
+}
+
+.fz10 {
+    font-size: 10px;
+}
+
+.fz12 {
+    font-size: 12px;
+}
+
+.fz14 {
+    font-size: 14px;
+}
+
+.fz16 {
+    font-size: 16px;
+}
+
+.p1015 {
+    padding: 10px 15px;
+}
+
+.p1475 {
+    padding: 14px 75px;
+}

@@ -1,0 +1,14 @@
+.button_link {
+    color: rgb(114, 99, 212);
+    font-weight: 400;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    letter-spacing: 1px;
+    cursor: pointer;
+    max-width: 200px;
+}
+
+.button_link:hover {
+    font-style: oblique;
+}

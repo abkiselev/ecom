@@ -1,0 +1,48 @@
+.goods_slider {
+    margin: 120px auto 0;
+    max-width: 1260px;
+    padding: 0 20px;
+}
+
+.head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    gap: 10px;
+}
+
+.name {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.swiper_overflow {
+    overflow: visible !important;
+}
+
+@media (max-width: 770px) {
+    .goods_slider {
+        margin: 80px auto 0;
+    }
+
+    .head {
+        margin-bottom: 30px;
+    }
+
+    .name {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 425px) {
+    .goods_slider {
+        padding: 0 10px;
+    }
+
+    .name {
+        font-size: 26px;
+    }
+}
