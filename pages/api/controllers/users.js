@@ -8,6 +8,7 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE, 
 
 
 module.exports.getUsers = async (req, res) => {
+  await dbConnect()
 
   User.find({}).select('-password -role -address -createdAt -updatedAt -__v')
     .then((users) => res.status(OK_CODE).send({ data: users }))
@@ -16,6 +17,7 @@ module.exports.getUsers = async (req, res) => {
 
 
 module.exports.getUser = async (req, res) => {
+  await dbConnect()
 
   try {
     const user = await User.findById(req.query.id).select('-password -role -address -createdAt -updatedAt -__v');
@@ -33,6 +35,7 @@ module.exports.getUser = async (req, res) => {
 };
 
 module.exports.createUser = async (req, res) => {
+  await dbConnect()
   try {
     const { firstName, secondName, surName, email, tel, address, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
@@ -53,6 +56,7 @@ module.exports.createUser = async (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
+  await dbConnect()
   try {
     const { email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
@@ -73,6 +77,7 @@ module.exports.register = async (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
+  await dbConnect()
   try {
     const { email, password } = req.body;
 
@@ -102,6 +107,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const { firstName, secondName, surName, address, tel, email } = req.body;
+  await dbConnect()
 
   try {
     const token = req.cookies['jwt']
@@ -131,6 +137,7 @@ module.exports.updateUser = async (req, res) => {
 };
 
 module.exports.logout = async (req, res) => {
+  await dbConnect()
   try {
     const cookies = new Cookies(req, res);
     
@@ -143,6 +150,7 @@ module.exports.logout = async (req, res) => {
 
 
 module.exports.setLikes = async (req, res) => {
+  await dbConnect()
   try {
     const user = await User.findByIdAndUpdate(
       req.query.id,
@@ -164,6 +172,7 @@ module.exports.setLikes = async (req, res) => {
 };
 
 module.exports.deleteLikes = async (req, res) => {
+  await dbConnect()
   try {
     const user = await User.findByIdAndUpdate(
       req.query.id,
@@ -186,6 +195,7 @@ module.exports.deleteLikes = async (req, res) => {
 
 
 module.exports.setCart = async (req, res) => {
+  await dbConnect()
   try {
     const user = await User.findByIdAndUpdate(
       req.query.id,
@@ -207,6 +217,7 @@ module.exports.setCart = async (req, res) => {
 };
 
 module.exports.deleteCart = async (req, res) => {
+  await dbConnect()
   try {
     const user = await User.findByIdAndUpdate(
       req.query.id,

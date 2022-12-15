@@ -5,6 +5,7 @@ import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE }
 
 
 export const getOrders = async (req, res) => {
+  await dbConnect()
 
   Order.find({})
     .populate('owner')
@@ -15,6 +16,7 @@ export const getOrders = async (req, res) => {
 
 export const createOrder = async (req, res) => {
   const { goods, total, owner, oplata, dostavka } = req.body;
+  await dbConnect()
   
   try {
     const order = await Order.create({ goods, total, owner, oplata, dostavka });
@@ -28,6 +30,7 @@ export const createOrder = async (req, res) => {
 };
 
 export const getUserOrders = async (req, res) => {
+  await dbConnect()
   try {
     const userId = req.query.id;
 

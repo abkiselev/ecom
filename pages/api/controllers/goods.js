@@ -4,6 +4,7 @@ import Good from '../models/good.js'
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors'
 
 export const getGoods = async (req, res) => {
+  await dbConnect()
   Good.find({})
     .populate('category')
     .then((goods) => {
@@ -14,6 +15,7 @@ export const getGoods = async (req, res) => {
 }
 
 export const createGood = async (req, res) => {
+  await dbConnect()
   try {
     const good = await Good.create(req.body)
     return res.status(CREATED_CODE).send({ data: good.populate('category') })
@@ -26,6 +28,7 @@ export const createGood = async (req, res) => {
 }
 
 export const updateGood = async (req, res) => {
+  await dbConnect()
   try {
     const good = await Good.findByIdAndUpdate(req.query.id, req.body, { new: true, runValidators: true })
 
@@ -45,6 +48,7 @@ export const updateGood = async (req, res) => {
 }
 
 module.exports.deleteGood = async (req, res) => {
+  await dbConnect()
   try {
     const good = await Good.findByIdAndRemove(req.query.id)
 

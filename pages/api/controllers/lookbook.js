@@ -3,12 +3,14 @@ import Lookbook from '../models/lookbook.js'
 import { OK_CODE, CREATED_CODE, BAD_REQUEST_CODE, NOT_FOUND_CODE, DEFAULT_CODE } from '../constants/errors'
 
 export const getImages = async (req, res) => {
+  await dbConnect()
   Lookbook.find({})
     .then((images) => res.status(OK_CODE).send({ data: images }))
     .catch(() => res.status(DEFAULT_CODE).send({ message: 'На сервере произошла ошибка' }))
 }
 
 export const createImages = async (req, res) => {
+  await dbConnect()
   try {
     const images = await Lookbook.insertMany(req.body)
     return res.status(CREATED_CODE).send({ data: images })
@@ -21,6 +23,7 @@ export const createImages = async (req, res) => {
 }
 
 module.exports.deleteImage = async (req, res) => {
+  await dbConnect()
   try {
     const image = await Lookbook.findByIdAndRemove(req.query.id)
 
