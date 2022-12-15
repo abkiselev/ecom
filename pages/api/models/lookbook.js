@@ -1,16 +1,18 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const lookbookSchema = new mongoose.Schema({
-  link: {
-    type: String,
-    required: true,
+const lookbookSchema = new mongoose.Schema(
+  {
+    link: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
   },
-  category: {
-    type: String,
-    required: true,
-  },
-},
-{ timestamps: true });
+  { timestamps: true }
+)
 
-// export default mongoose.model('lookbook', lookbookSchema);
-export default mongoose.models.lookbook || mongoose.model('lookbook', lookbookSchema);
+// export default mongoose.model('lookbook', lookbookSchema)
+export default mongoose.models.lookbook || mongoose.model('lookbook', lookbookSchema)

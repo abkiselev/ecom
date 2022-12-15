@@ -1,25 +1,24 @@
-import Meta from '../../components/Meta';
-import Hleb from '../../components/Hleb';
-import LookbookList from '../../components/LookbookList';
-import Zakaz from '../../components/Zakaz';
-import axios from 'axios';
-import { checkAuth } from '../api/middlewares/checkAuth';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUser } from '../../redux/slices/userSlice';
-
+import Meta from '../../components/Meta'
+import Hleb from '../../components/Hleb'
+import LookbookList from '../../components/LookbookList'
+import Zakaz from '../../components/Zakaz'
+import axios from 'axios'
+import { checkAuth } from '../api/middlewares/checkAuth'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser } from '../../redux/slices/userSlice'
 
 export default function Lookbook({ lookbook, userProps }) {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if(userProps && !user.loggedIn){
+    if (userProps && !user.loggedIn) {
       dispatch(setUser(userProps))
-    } else if (!userProps && user.loggedIn){
+    } else if (!userProps && user.loggedIn) {
       dispatch(removeUser())
     }
-  }, []);
+  }, [])
 
   return (
     <>
@@ -29,21 +28,20 @@ export default function Lookbook({ lookbook, userProps }) {
         keywords="кожаные сумки, ремни для сумок, сумки из кожи"
       />
 
-      <Hleb category='lookbook' />
+      <Hleb category="lookbook" />
 
-      <LookbookList lookbook={lookbook} />    
+      <LookbookList lookbook={lookbook} />
 
-      <Zakaz /> 
-
+      <Zakaz />
     </>
   )
 }
 
 export async function getServerSideProps(context) {
-  const lookbookResponse = await axios.get(`${process.env.BASE_URL}/api/routes/lookbook`);
-  const lookbook = lookbookResponse.data.data.reverse();
+  const lookbookResponse = await axios.get(`${process.env.BASE_URL}/api/routes/lookbook`)
+  const lookbook = lookbookResponse.data.data.reverse()
 
-  const user = await checkAuth(context.req);
+  const user = await checkAuth(context.req)
 
   return { props: { lookbook, userProps: JSON.parse(JSON.stringify(user)) } }
 }
