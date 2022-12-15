@@ -14,7 +14,9 @@ function MainSlider({ slidesPerView, auto }) {
             layout="fill"
             objectFit="cover"
             priority="true"
-            alt="Логотип"
+            alt="Сумки"
+            placeholder="blur"
+            blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
           />
           <div className={styles.slider__headers}>
             <div>
@@ -32,7 +34,9 @@ function MainSlider({ slidesPerView, auto }) {
             layout="fill"
             objectFit="cover"
             priority="true"
-            alt="Логотип"
+            alt="Ремни"
+            placeholder="blur"
+            blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
           />
           <div className={styles.slider__headers}>
             <div>

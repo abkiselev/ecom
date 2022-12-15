@@ -44,6 +44,8 @@ function LookbookList({ lookbook }) {
                   width="1000"
                   height="800"
                   alt={img.link}
+                  placeholder="blur"
+                  blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                 />
               </li>
             ))}
